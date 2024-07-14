@@ -9,14 +9,15 @@ export interface IResponse<T> {
 
 export interface IUser {
   id?: number;
-  name?: string;
-  lastname?: string;
+  nombre?: string;
+  apellido?: string;
   email?: string;
   password?: string;
-  active?: boolean;
   createdAt?: string;
   updatedAt?: string;
   authorities?: IAuthority[];
+  ubicacion_id?: number;
+  fotografia?: string;
 }
 
 export interface IAuthority {
@@ -39,3 +40,4 @@ export enum IRole {
   user = "ROLE_USER",
   superAdmin = 'ROLE_SUPER_ADMIN'
 }
+

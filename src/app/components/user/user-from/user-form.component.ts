@@ -18,9 +18,11 @@ export class UserFormComponent {
   @Input() title!: string;
   @Input() user: IUser = {
     email: '',
-    lastname: '',
+    nombre: '',
+    apellido: '',
     password: '',
-    name: ''
+    ubicacion_id: 0,
+    fotografia: '',
   };
   @Input() action: string = 'add'
   service = inject(UserService);

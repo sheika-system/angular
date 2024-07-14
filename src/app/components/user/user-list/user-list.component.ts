@@ -27,10 +27,16 @@ export class UserListComponent {
   private service = inject(UserService);
   private snackBar = inject(MatSnackBar);
   public currentUser: IUser = {
+    id: 0,
+    nombre: '',
+    apellido: '',
     email: '',
-    lastname: '',
     password: '',
-    name: ''
+    createdAt: '',
+    updatedAt: '',
+    authorities: [],
+    ubicacion_id: 0,
+    fotografia: ''
   };
   
   constructor() {

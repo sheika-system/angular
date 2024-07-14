@@ -27,7 +27,7 @@
                   Name
                 </label>
                 <input #name="ngModel" type="text" class="form-control" id="name" name="name"
-                  placeholder="User" [(ngModel)]="user.name" [ngClass]="{
+                  placeholder="User" [(ngModel)]="user.nombre" [ngClass]="{
                     'is-invalid': name.invalid && name.touched,
                     'is-valid': name.valid && name.touched
                   }" required />
@@ -40,7 +40,7 @@
                   Lastname
                 </label>
                 <input #lastname="ngModel" type="text" class="form-control" id="lastname" name="lastname"
-                  placeholder="demo" [(ngModel)]="user.lastname" [ngClass]="{
+                  placeholder="demo" [(ngModel)]="user.apellido" [ngClass]="{
                     'is-invalid': lastname.invalid && lastname.touched,
                     'is-valid': lastname.valid && lastname.touched
                   }" required />
