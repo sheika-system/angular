@@ -1,0 +1,53 @@
+<div class="table-container table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Provincia</th>
+          <th scope="col">Cantón</th>
+          <th scope="col">Distrito</th>
+          <th scope="col">Direccion</th>
+          <th scope="col">Latitud</th>
+          <th scope="col">Longitud</th>
+          <th class="text-center" scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of ubicacionList; track item.ubicacionId) {
+        <tr>
+          <th scope="row">{{item.ubicacionId}}</th>
+          <td>{{item.provincia?.nombre}}</td>
+          <td>{{item.canton?.nombre}}</td>
+          <td>{{item.distrito?.nombre}}</td>
+          <td>{{item.direccion}}</td>
+          <td>{{item.latitud}}</td>
+          <td>{{item.longitud}}</td>
+          <td>
+            <div class="d-flex justify-content-evenly align-items-center">
+              <button type="button" (click)="showDetail(item, formModal)" class="btn btn-secondary">
+                <i class="fa-solid fa-eye white"
+                ></i>
+              </button>
+              <button type="button" (click)="deleteUbicacion(item)" class="btn btn-danger">
+                <i class="fa-solid fa-trash white"
+                ></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  
+  <app-modal size="lg" #formModal>
+    <app-ubicacion-form 
+    [ubicacion]="currentUbicacion" 
+    [action]="'edit'"
+    [title]="'Actualizar Ubicacion'"
+    [provincias]="provincias"
+    [cantones]="cantones"
+    [distritos]="distritos"
+    >
+  </app-ubicacion-form>
+  </app-modal>
