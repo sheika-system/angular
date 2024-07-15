@@ -4,6 +4,8 @@ import { IUser } from '../interfaces';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -60,6 +62,17 @@ export class UserService extends BaseService<IUser> {
       }),
       catchError(error => {
         console.error('Error deleting user', error);
+        return throwError(error);
+      })
+    );
+  }
+  uploadPhoto(formData: FormData): Observable<any> {
+    return this.http.post(${this.baseUrl}/${this.source}/uploadPhoto, formData).pipe(
+      tap((response: any) => {
+        console.log('Photo uploaded successfully', response);
+      }),
+      catchError(error => {
+        console.error('Error uploading photo', error);
         return throwError(error);
       })
     );

@@ -53,13 +53,21 @@
         <div *ngIf="ubicacion_id.invalid && ubicacion_id.touched" class="invalid-feedback">Please add a valid ubicacion_id</div>
       </div>
       <div class="col-6 pt-3">
-        <label for="fotografia" class="form-label mb-2">Fotografía</label>
-        <input #fotografia="ngModel" type="text" class="form-control" id="fotografia" name="fotografia" 
-          placeholder="URL de la fotografía"
-          [(ngModel)]="user.fotografia" 
-          [ngClass]="{ 'is-invalid': fotografia.invalid && fotografia.touched, 'is-valid': fotografia.valid && fotografia.touched }" 
-          required />
-        <div *ngIf="fotografia.invalid && fotografia.touched" class="invalid-feedback">Please add a valid URL de la fotografía</div>
+        <label for="photo" class="form-label mb-2">Fotografía</label>
+        <input 
+    type="file" 
+    class="form-control" 
+    id="photo" 
+    name="photo" 
+    (change)="onFileChange($event)" 
+    #photo="ngModel"
+    [ngClass]="{ 
+      'is-invalid': photo.invalid && photo.touched,
+      'is-valid': photo.valid && photo.touched
+    }" 
+    required 
+  />
+        <div *ngIf="photo.invalid && photo.touched" class="invalid-feedback">Please add a valid URL de la fotografía</div>
       </div>
     </div>
   </div>

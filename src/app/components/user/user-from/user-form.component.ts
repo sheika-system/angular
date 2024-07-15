@@ -22,7 +22,8 @@ export class UserFormComponent {
     apellido: '',
     password: '',
     ubicacion_id: 0,
-    fotografia: '',
+    photo: undefined 
+
   };
   @Input() action: string = 'add'
   service = inject(UserService);
