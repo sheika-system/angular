@@ -55,20 +55,20 @@
       <div class="col-6 pt-3">
         <label for="photo" class="form-label mb-2">Fotografía</label>
         <input 
-        #photo="ngModel"
-    type="file" 
-    class="form-control" 
-    id="photo" 
-    name="photo" 
-    (change)="onFileChange($event)" 
-    type="text" [(ngModel)]="user.photo"
+          #photo="ngModel"
+          type="file" 
+          class="form-control" 
+          id="photo" 
+          name="photo" 
+          (change)="onFileChange($event)" 
+          type="text" [(ngModel)]="user.photo"
 
-    [ngClass]="{ 
-      'is-invalid': photo.invalid && photo.touched,
-      'is-valid': photo.valid && photo.touched
-    }" 
-    required
-  />
+          [ngClass]="{ 
+            'is-invalid': photo.invalid && photo.touched,
+            'is-valid': photo.valid && photo.touched
+          }" 
+          required
+        />
         <div *ngIf="photo.invalid && photo.touched" class="invalid-feedback">Please add a valid URL de la fotografía</div>
       </div>
     </div>
