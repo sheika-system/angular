@@ -17,7 +17,7 @@ export interface IUser {
   updatedAt?: string;
   authorities?: IAuthority[];
   ubicacion_id?: number;
-  fotografia?: string;
+  photo?: File;
 }
 
 export interface IAuthority {
@@ -41,3 +41,29 @@ export enum IRole {
   superAdmin = 'ROLE_SUPER_ADMIN'
 }
 
+export interface IProvincia {
+  provinciaId?: number;
+  nombre: string;
+}
+
+export interface ICanton {
+  cantonId?: number;
+  nombre: string;
+  provincia?: IProvincia;
+}
+
+export interface IDistrito {
+  distritoId?: number;
+  nombre: string;
+  canton?: ICanton
+}
+
+export interface IUbicacion {
+  ubicacionId?: number;
+  provincia?: IProvincia;
+  canton?: ICanton;
+  distrito?: IDistrito;
+  direccion?: string;
+  latitud?: number;
+  longitud?: number;
+}

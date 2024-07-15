@@ -1,0 +1,59 @@
+<form (ngSubmit)="handleAction(frm)" autocomplete="off" #frm="ngForm" class="add-user-container">
+  <h3 class="mb-5 px-5">{{title}}</h3>
+  <div class="col-md-6">
+    <label for="direccion" class="form-label">Dirección</label>
+    <input #direccion="ngModel" type="text" class="form-control" id="direccion" name="direccion"
+    placeholder="Descripción Producto" [(ngModel)]="ubicacion.direccion" [ngClass]="{ 
+            'is-invalid': direccion.invalid && direccion.touched, 
+            'is-valid': direccion.valid && direccion.touched 
+          }" required />
+  </div>
+  <div class="col-md-6">
+    <div class="px-5">
+      <label for="provincia" class="form-label">Provincia</label>
+      <select class="form-select" id="provincia" name="provincia" (change)="onProvinciaChange($event)"
+        [class.is-invalid]="provinciaInvalid" [class.is-valid]="!provinciaInvalid && provinciaTouched" required>
+        <option value="">Seleccione una categoría</option>
+        <option *ngFor="let prov of provincias" [value]="prov.provinciaId ?? ''"
+          [selected]="ubicacion.provincia?.provinciaId === prov.provinciaId">
+          {{ prov.nombre }}
+        </option>
+      </select>
+      <div *ngIf="provinciaInvalid" class="invalid-feedback">
+        Selecciona una provincia.
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="px-5">
+      <label for="canton" class="form-label">Cantón</label>
+      <select class="form-select" id="canton" name="canton" (change)="onCantonChange($event)"
+        [class.is-invalid]="cantonInvalid" [class.is-valid]="!cantonInvalid && cantonTouched" required>
+        <option value="">Seleccione un cantón</option>
+        <option *ngFor="let cant of cantones" [value]="cant.cantonId ?? ''"
+          [selected]="ubicacion.canton?.cantonId === cant.cantonId">
+          {{ cant.nombre }}
+        </option>
+      </select>
+      <div *ngIf="provinciaInvalid" class="invalid-feedback">
+        Selecciona un cantón.
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="px-5">
+      <label for="distrito" class="form-label">Distrito</label>
+      <select class="form-select" id="distrito" name="distrito" (change)="onDistritoChange($event)"
+        [class.is-invalid]="distritoInvalid" [class.is-valid]="!distritoInvalid && distritoTouched" required>
+        <option value="">Seleccione un distrito</option>
+        <option *ngFor="let dist of distritos" [value]="dist.distritoId ?? ''"
+          [selected]="ubicacion.distrito?.distritoId === dist.distritoId">
+          {{ dist.nombre }}
+        </option>
+      </select>
+      <div *ngIf="distritoInvalid" class="invalid-feedback">
+        Selecciona un distrito.
+      </div>
+    </div>
+  </div>
+</form>

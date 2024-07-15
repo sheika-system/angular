@@ -50,20 +50,10 @@ body[class="dark-only"] {
 @import "./assets/layout/layout.scss";
 //end template styles
 
-@font-face {
-  font-family: 'Codec';
-  src: url('./assets/fonts/Codec-Cold-Regular-trial.ttf') format('truetype');
+html, body { 
+  height: 100%; 
 }
-
-body {
-  margin: 0;
-  // font-family: 'Codec', sans-serif !important;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-.number {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .error-snackbar .mdc-snackbar__surface{
   background-color: rgb(197, 49, 49) !important;

@@ -3,12 +3,11 @@ import { Component, ViewChild } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { TopbarComponent } from '../../../components/app-layout/elements/topbar/topbar.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TopbarComponent],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

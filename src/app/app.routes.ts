@@ -9,6 +9,7 @@ import { AdminRoleGuard } from './guards/admin-role.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GuestGuard } from './guards/guest.guard';
 import { IRole } from './interfaces';
+import { UbicacionComponent } from './pages/ubicacion/ubicacion.component';
 
 export const routes: Routes = [
   {
@@ -50,6 +51,18 @@ export const routes: Routes = [
             IRole.superAdmin
           ],
           name: 'Users'
+        }
+      },
+      {
+        path: 'ubicaciones',
+        component: UbicacionComponent,
+        canActivate:[AdminRoleGuard],
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin
+          ],
+          name: 'Ubicaciones'
         }
       },
       {

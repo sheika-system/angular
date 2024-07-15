@@ -36,7 +36,7 @@ export class UserListComponent {
     updatedAt: '',
     authorities: [],
     ubicacion_id: 0,
-    fotografia: ''
+    photo: null as any
   };
   
   constructor() {
