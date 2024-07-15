@@ -17,7 +17,7 @@ export interface IUser {
   updatedAt?: string;
   authorities?: IAuthority[];
   ubicacion_id?: number;
-  fotografia?: string;
+  photo?: File;
 }
 
 export interface IAuthority {

@@ -6,11 +6,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService extends BaseService<IUser> {
   protected override source: string = 'users';
+  protected baseUrl: string = 'http://localhost:4200';
   private userListSignal = signal<IUser[]>([]);
   
   get users$() {
@@ -67,7 +69,7 @@ export class UserService extends BaseService<IUser> {
     );
   }
   uploadPhoto(formData: FormData): Observable<any> {
-    return this.http.post(${this.baseUrl}/${this.source}/uploadPhoto, formData).pipe(
+    return this.http.post(`${this.baseUrl}/${this.source}/uploadPhoto`, formData).pipe(
       tap((response: any) => {
         console.log('Photo uploaded successfully', response);
       }),
