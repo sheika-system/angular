@@ -16,7 +16,7 @@ export interface IUser {
   createdAt?: string;
   updatedAt?: string;
   authorities?: IAuthority[];
-  ubicacion_id?: number;
+  ubicacion?: IUbicacion;
   photo?: File;
 }
 

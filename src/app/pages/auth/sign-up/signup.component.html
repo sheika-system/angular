@@ -1,97 +1,130 @@
-<div class="login-container">
-  <div class="d-flex align-items-center justify-content-center h-100">
-    <div class="login-card">
-      <div class="w-100">
-        <div class="text-center">
-          <a class="logo text-center" routerLink="/">
-            <img
-              width="40"
-              class="img-fluid mb-4"
-              src="../../../../assets/icons/logo@2x.png"
-              alt="Logo"
-            />
-          </a>
-        </div>
-        <div class="login-main">
-          <form (ngSubmit)="handleSignup($event)" autocomplete="off" #frm="ngForm">
-            <div class="mb-3">
-              <h4>Sign up account</h4>
-              <small style="color: #4f4f4f">
-                Enter your email & password to login
-              </small>
-            </div>
+<div class="page-wrapper compact-wrapper">
+  <app-topbar></app-topbar>
+  <div class="login-container">
+    <div class="d-flex align-items-center justify-content-center h-100">
+      <div class="login-card">
+        <div class="w-100">
+          <div class="text-center">
+            <a class="logo text-center">
+              <img
+                class="img-fluid mb-4 logo-rentheaven"
+                src="../../../../assets/icons/rentheavenlogo.png"
+                alt="Logo"
+              />
+            </a>
+          </div>
+          <div class="login-main">
+            <form (ngSubmit)="handleSignup($event)" autocomplete="off" #frm="ngForm">
+              <div class="mb-3">
+                <h1>
+                  <strong>Registrarse</strong>
+                </h1>
+                <small style="color: #4f4f4f">
+                  Crea una cuenta para acceder a todas las funcionalidades
+                </small>
+              </div>
 
-            <div class="d-flex align-items-center mb-3">
-              <div class="form-group px-1">
-                <label for="name" class="form-label mb-2">
-                  Name
+              <div class="d-flex align-items-center mb-3">
+                <div class="form-group px-1">
+                  <label for="name" class="form-label mb-2">
+                    Nombre
+                  </label>
+                  <input #nombre="ngModel" type="text" class="form-control" id="nombre" name="nombre"
+                    placeholder="Nombre" [(ngModel)]="user.nombre" [ngClass]="{
+                      'is-invalid': nombre.invalid && nombre.touched,
+                      'is-valid': nombre.valid && nombre.touched
+                    }" required />
+                  <div *ngIf="nombre.invalid" class="invalid-feedback">
+                    Digite un nombre válido
+                  </div>
+                </div>
+                <div class="form-group px-1">
+                  <label for="apellido" class="form-label mb-2">
+                    Apellido
+                  </label>
+                  <input #apellido="ngModel" type="text" class="form-control" id="apellido" name="apellido"
+                    placeholder="Apellido" [(ngModel)]="user.apellido" [ngClass]="{
+                      'is-invalid': apellido.invalid && apellido.touched,
+                      'is-valid': apellido.valid && apellido.touched
+                    }" required />
+                  <div *ngIf="apellido.invalid" class="invalid-feedback">
+                    Digite un apellido válido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="email" class="form-label mb-2">
+                  Correo elctrónico
                 </label>
-                <input #name="ngModel" type="text" class="form-control" id="name" name="name"
-                  placeholder="User" [(ngModel)]="user.nombre" [ngClass]="{
-                    'is-invalid': name.invalid && name.touched,
-                    'is-valid': name.valid && name.touched
+                <input #email="ngModel" type="email" class="form-control" id="email" name="email"
+                  placeholder="usuario@gmail.com" [(ngModel)]="user.email" [ngClass]="{
+                    'is-invalid': email.invalid && email.touched,
+                    'is-valid': email.valid && email.touched
                   }" required />
-                <div *ngIf="name.invalid" class="invalid-feedback">
-                  Please add a valid name
+                <div *ngIf="email.invalid" class="invalid-feedback">
+                  Digite un correo válido
                 </div>
               </div>
-              <div class="form-group px-1">
-                <label for="lastname" class="form-label mb-2">
-                  Lastname
-                </label>
-                <input #lastname="ngModel" type="text" class="form-control" id="lastname" name="lastname"
-                  placeholder="demo" [(ngModel)]="user.apellido" [ngClass]="{
-                    'is-invalid': lastname.invalid && lastname.touched,
-                    'is-valid': lastname.valid && lastname.touched
+
+              <app-ubicacion-selector (ubicacionChange)="onUbicacionChange($event)" [provincias]="service.provincias$()"
+                [cantones]="service.cantones$()" [distritos]="service.distritos$()" [ubicacion]="ubicacionTest">
+              </app-ubicacion-selector>
+
+              <div class="form-group mb-4">
+                <label for="password" class="form-label mb-2">Contraseña</label>
+                <div class="form-input position-relative">
+                  <input #password="ngModel" type="password" class="form-control" id="password" name="password"
+                  placeholder="**********" [(ngModel)]="user.password" [ngClass]="{
+                    'is-invalid': password.invalid && password.touched,
+                    'is-valid': password.valid && password.touched
                   }" required />
-                <div *ngIf="lastname.invalid" class="invalid-feedback">
-                  Please add a valid lastname
+                  <div *ngIf="password.invalid" class="invalid-feedback">
+                    Digite una contraseña válida
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="form-group mb-3">
-              <label for="email" class="form-label mb-2">
-                Email Address
-              </label>
-              <input #email="ngModel" type="text" class="form-control" id="email" name="email"
-                placeholder="agent@gmail.com" [(ngModel)]="user.email" [ngClass]="{
-                  'is-invalid': email.invalid && email.touched,
-                  'is-valid': email.valid && email.touched
-                }" required />
-              <div *ngIf="email.invalid" class="invalid-feedback">
-                Please add a valid email
-              </div>
-            </div>
-
-            <div class="form-group mb-5">
-              <label for="password" class="form-label mb-2">Password</label>
-              <div class="form-input position-relative">
-                <input #password="ngModel" type="password" class="form-control" id="password" name="password"
-                placeholder="*****" [(ngModel)]="user.password" [ngClass]="{
-                  'is-invalid': password.invalid && password.touched,
-                  'is-valid': password.valid && password.touched
-                }" required />
-                <div *ngIf="password.invalid" class="invalid-feedback">
-                  Please add a valid password
+              <div class="form-group mb-4">
+                <label for="confirmPassword" class="form-label mb-2">Confirmar contraseña</label>
+                <div class="form-input position-relative">
+                  <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                  placeholder="**********" required />
+                  <div class="invalid-feedback">
+                    Digite una contraseña válida
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="form-group mb-0">
-              <button class="btn btn-primary btn-block w-100" type="submit">
-                Sign up
-              </button>
-              @if(signUpError) {
-                <p class="text-danger">{{signUpError}}</p>
-              } @else if (validSignup){
-                <p class="text-success">User registered, please go to login</p>
-              }
-            </div>
-            <a href="/login">Go Login</a>
-          </form>
+              <div class="d-flex align-items-center mb-3">
+                <a href="/login"  class="no-underline green-text-rh padding-right">
+                  ¿Ya tienes una cuenta?
+                </a>
+                <div class="form-group mb-0 login-button">
+                  <button class="btn btn-primary btn-block w-100 green-button" type="submit">
+                    Registrarse
+                  </button>
+                  @if(signUpError) {
+                    <p class="text-danger">{{signUpError}}</p>
+                  }@else if (validSignup){
+                    <p class="text-success">Usuario registrado, puede inciar sesión</p>
+                  }
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 footer-copyright">
+          <p class="mb-0 text-white">
+            &copy; <span class="number">2024</span> RentHeaven. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>

@@ -1,26 +1,49 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject, Input} from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { IUser } from '../../../interfaces';
+import { IUbicacion, IUser } from '../../../interfaces';
+import { TopbarComponent } from '../../../components/app-layout/elements/topbar/topbar.component';
+import { UbicacionSelectorComponent } from '../../../components/ubicacion/ubicacion-selector/ubicacion-selector.component';
+import { UbicacionService } from '../../../services/ubicacion.service';
+import { LoaderComponent } from '../../../components/loader/loader.component';
+import { ModalComponent } from '../../../components/modal/modal.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, LoaderComponent, FormsModule, RouterLink, TopbarComponent, UbicacionSelectorComponent, ModalComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
 export class SigUpComponent {
   public signUpError!: String;
   public validSignup!: boolean;
-  @ViewChild('name') nameModel!: NgModel;
-  @ViewChild('lastname') lastnameModel!: NgModel;
+  service = inject(UbicacionService);
+  @ViewChild('nombre') nameModel!: NgModel;
+  @ViewChild('apellido') lastnameModel!: NgModel;
+  @ViewChild('fotografia') fotografiaModel!: NgModel;
   @ViewChild('email') emailModel!: NgModel;
   @ViewChild('password') passwordModel!: NgModel;
 
-  public user: IUser = {};
+  ubicacionTest: IUbicacion = {
+    direccion: "",
+    latitud: 0,
+    longitud: 0,
+    provincia: { provinciaId: undefined , nombre: "" },
+    canton: { cantonId: undefined, nombre: "" },
+    distrito: { distritoId: undefined, nombre: "" }
+  };
+
+  @Input() user: IUser = {
+    nombre: '',
+    apellido: '',
+    ubicacion: this.ubicacionTest,
+    photo: undefined,
+    email: '',
+    password: ''
+  }
 
   constructor(private router: Router, 
     private authService: AuthService
@@ -46,5 +69,18 @@ export class SigUpComponent {
         error: (err: any) => (this.signUpError = err.description),
       });
     }
+  }
+
+  ngOnInit() {
+    this.service.getAllSignal();
+    this.service.getProvincias();
+    this.service.getCantones();
+    this.service.getDistritos();
+  }
+
+  onUbicacionChange(params: IUbicacion) {
+    this.ubicacionTest = params;
+    console.log('Ubicación actualizada:', this.ubicacionTest);
+    // Aquí puedes realizar acciones adicionales si es necesario
   }
 }

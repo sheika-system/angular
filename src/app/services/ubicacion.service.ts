@@ -31,7 +31,7 @@ export class UbicacionService extends BaseService<IUbicacion> {
   }
 
   getAllSignal() {
-    this.findAll().subscribe({
+    this.http.get(`auth/ubicaciones`).subscribe({
       next: (response: any) => {
         response.reverse();
         this.ubicacionListSignal.set(response);
@@ -43,7 +43,7 @@ export class UbicacionService extends BaseService<IUbicacion> {
   }
 
   getProvincias() {
-    this.http.get<IResponse<IProvincia[]>>(`${this.source}/provincias`).subscribe({
+    this.http.get<IResponse<IProvincia[]>>(`auth/provincias`).subscribe({
       next: (response: any) => {
         this.provinciaListSignal.set(response);
       },
@@ -54,7 +54,7 @@ export class UbicacionService extends BaseService<IUbicacion> {
   }
 
   getCantones() {
-    this.http.get<IResponse<ICanton[]>>(`${this.source}/cantones`).subscribe({
+    this.http.get<IResponse<ICanton[]>>(`auth/cantones`).subscribe({
       next: (response: any) => {
         this.cantonListSignal.set(response);
         console.log("cantonListSignal service", this.cantonListSignal);
@@ -66,7 +66,7 @@ export class UbicacionService extends BaseService<IUbicacion> {
   }
 
   getDistritos() {
-    this.http.get<IResponse<IDistrito[]>>(`${this.source}/distritos`).subscribe({
+    this.http.get<IResponse<IDistrito[]>>(`auth/distritos`).subscribe({
       next: (response: any) => {
         this.distritoListSignal.set(response);
         console.log("distritoListSignal service", this.distritoListSignal);
