@@ -9,14 +9,15 @@ export interface IResponse<T> {
 
 export interface IUser {
   id?: number;
-  name?: string;
-  lastname?: string;
+  nombre?: string;
+  apellido?: string;
   email?: string;
   password?: string;
-  active?: boolean;
   createdAt?: string;
   updatedAt?: string;
   authorities?: IAuthority[];
+  ubicacion_id?: number;
+  photo?: File;
 }
 
 export interface IAuthority {
