@@ -23,7 +23,9 @@ export class UserFormComponent {
     nombre: '',
     apellido: '',
     password: '',
-    ubicacion_id: 0,
+    ubicacion: {
+      ubicacionId: 0
+    },
     photo: undefined 
 
   };
