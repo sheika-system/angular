@@ -23,7 +23,6 @@ export class SigUpComponent {
   service = inject(UbicacionService);
   @ViewChild('nombre') nameModel!: NgModel;
   @ViewChild('apellido') lastnameModel!: NgModel;
-  @ViewChild('fotografia') fotografiaModel!: NgModel;
   @ViewChild('email') emailModel!: NgModel;
   @ViewChild('password') passwordModel!: NgModel;
   @ViewChild('confirmPassword') confirmPasswordModel!: NgModel;
@@ -76,6 +75,13 @@ export class SigUpComponent {
         next: () => this.validSignup = true,
         error: (err: any) => (this.signUpError = err.description),
       });
+    }
+  }
+
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.user.photo = input.files[0];
     }
   }
 
