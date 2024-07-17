@@ -26,6 +26,7 @@ export class SigUpComponent {
   @ViewChild('fotografia') fotografiaModel!: NgModel;
   @ViewChild('email') emailModel!: NgModel;
   @ViewChild('password') passwordModel!: NgModel;
+  @ViewChild('confirmPassword') confirmPasswordModel!: NgModel;
 
   ubicacionTest: IUbicacion = {
     direccion: "",
@@ -36,6 +37,8 @@ export class SigUpComponent {
     distrito: { distritoId: undefined, nombre: "" }
   };
 
+  @Input() confirmPassword: string = '';
+
   @Input() user: IUser = {
     nombre: '',
     apellido: '',
@@ -43,7 +46,7 @@ export class SigUpComponent {
     photo: undefined,
     email: '',
     password: ''
-  }
+  };
 
   constructor(private router: Router, 
     private authService: AuthService
@@ -51,6 +54,11 @@ export class SigUpComponent {
 
   public handleSignup(event: Event) {
     event.preventDefault();
+
+    if (this.user.password !== this.confirmPasswordModel.value) {
+      this.confirmPasswordModel.control.setErrors({ 'passwordMismatch': true });
+      return;
+    }
     if (!this.nameModel.valid) {
       this.nameModel.control.markAsTouched();
     }
@@ -72,7 +80,6 @@ export class SigUpComponent {
   }
 
   ngOnInit() {
-    this.service.getAllSignal();
     this.service.getProvincias();
     this.service.getCantones();
     this.service.getDistritos();

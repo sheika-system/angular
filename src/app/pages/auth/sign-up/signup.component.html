@@ -87,10 +87,14 @@
               <div class="form-group mb-4">
                 <label for="confirmPassword" class="form-label mb-2">Confirmar contraseña</label>
                 <div class="form-input position-relative">
-                  <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                  placeholder="**********" required />
-                  <div class="invalid-feedback">
-                    Digite una contraseña válida
+                  <input #confirmPassword="ngModel" type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                         placeholder="**********" [(ngModel)]="confirmPassword"
+                         [ngClass]="{
+                           'is-invalid': confirmPassword.invalid && confirmPassword.touched,
+                           'is-valid': confirmPassword.valid && confirmPassword.touched
+                         }" required />
+                  <div *ngIf="confirmPassword.errors?.['passwordMismatch'] && confirmPassword.touched" class="invalid-feedback">
+                    Las contraseñas no coinciden
                   </div>
                 </div>
               </div>
