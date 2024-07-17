@@ -67,3 +67,14 @@ export interface IUbicacion {
   latitud?: number;
   longitud?: number;
 }
+
+export interface IResetPasswordToken {
+  id?: number;
+  token?: string;
+  user?: IUser;
+  expiryDate?: Date;
+}
+
+export interface IResetPasswordRequest {
+  newPassword?: string;
+}
