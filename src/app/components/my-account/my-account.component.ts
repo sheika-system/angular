@@ -12,14 +12,16 @@ import { AuthService } from "../../services/auth.service";
 })
 export class MyAccountComponent implements OnInit {
   public authUserExists: boolean = false;
-  public userName: string = 'Test';
+  public userName: string = '';
+  public userRole: string = '';
   private service = inject(AuthService);
 
   constructor(public router: Router) {
     let user = localStorage.getItem('auth_user');
     if(user) {
       this.authUserExists = true;
-      this.userName = JSON.parse(user)?.name;
+      this.userName = JSON.parse(user)?.nombre;
+      this.userRole = JSON.parse(user)?.role?.name;
     } 
   }
 
