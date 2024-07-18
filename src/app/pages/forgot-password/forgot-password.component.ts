@@ -30,7 +30,8 @@ export class ForgotPasswordComponent {
           this.requestError = '';
         },
         error: (err: any) => {
-          this.requestError = err;
+          console.error('Error in forgot password component:', err);
+          this.requestError = err.error?.description || err.message || 'Error desconocido';
           this.validRequest = false;
         }
       });

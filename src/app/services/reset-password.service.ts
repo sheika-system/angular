@@ -15,6 +15,7 @@ export class ResetPasswordService extends BaseService<IResetPasswordToken> {
       tap((response: any) => {
         const updatedPassword = this.passwordResetSignal().map(u => u.newPassword === request.newPassword ? response : u);
         this.passwordResetSignal.set(updatedPassword);
+        console.log('Password reset successful:', response);
       }),
       catchError(error => {
         console.error('Error resetting password', error);

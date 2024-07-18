@@ -13,7 +13,7 @@ export class ForgotPasswordService extends BaseService<IResetPasswordToken> {
     const user: IUser = { email };
     return this.addByEmail(user).pipe(
       catchError(error => {
-        console.error('Error sending forgot password email', error);
+        console.error('Error sending forgot password email:', error);
         return throwError(error);
       })
     );
