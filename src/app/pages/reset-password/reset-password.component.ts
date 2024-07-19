@@ -24,20 +24,20 @@ export class ResetPasswordComponent {
     newPassword: ''
   };
 
-  request: IResetPasswordRequest = {
-    newPassword: this.sendForm.newPassword
-  }
-
   constructor(private resetPasswordService: ResetPasswordService) {}
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.resetPasswordService.resetPassword(this.sendForm.token, this.request).subscribe({
+      const request: IResetPasswordRequest = {
+        newPassword: this.sendForm.newPassword
+      };
+      this.resetPasswordService.resetPassword(this.sendForm.token, request).subscribe({
         next: () => {
           this.validRequest = true;
           this.requestError = '';
         },
         error: (err: any) => {
+          console.error('Error in reset password component:', err);
           this.requestError = err.error?.description || err.message || 'Error desconocido';
           this.validRequest = false;
         }

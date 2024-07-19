@@ -35,7 +35,10 @@ export class BaseService<T> {
   }
   
   public editByToken(token: string | undefined, data: {}): Observable<IResponse<T>> {
-    return this.http.put<IResponse<T>>(this.source + '/' + token, data)
+    const url = `${this.source}?token=${token}`;
+    return this.http.put<IResponse<T>>(url, data);
   }
+
+
   
 }
