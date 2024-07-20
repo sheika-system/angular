@@ -10,7 +10,7 @@ export class BaseService<T> {
   protected source!: string;
   protected http = inject(HttpClient);
 
-  public find(id: string | number): Observable<IResponse<T>> {
+  public find(id: number | undefined): Observable<IResponse<T>> {
     return this.http.get<IResponse<T>>(this.source + '/' + id);
   }
 
