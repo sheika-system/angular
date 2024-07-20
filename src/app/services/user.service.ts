@@ -14,9 +14,14 @@ export class UserService extends BaseService<IUser> {
   protected override source: string = 'users';
   protected baseUrl: string = 'http://localhost:4200';
   private userListSignal = signal<IUser[]>([]);
+  private userSignal = signal<IUser>({});
   
   get users$() {
     return this.userListSignal;
+  }
+
+  get user$() {
+    return this.userSignal;
   }
   
   getAllSignal() {
@@ -27,6 +32,17 @@ export class UserService extends BaseService<IUser> {
       },
       error: (error: any) => {
         console.error('Error fetching users', error);
+      }
+    });
+  }
+
+  getByIdSignal(id: number) {
+    this.find(id).subscribe({
+      next: (response: any) => {
+        this.userSignal.set(response);
+      },
+      error: (error: any) => {
+        console.error('Error fetching user', error);
       }
     });
   }

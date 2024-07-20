@@ -79,7 +79,7 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'perfil',
+        path: 'perfil/:id',
         component: PerfilComponent,
         data: { 
           authorities: [

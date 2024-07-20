@@ -1,1 +1,60 @@
-<p>perfil works!</p>
+<div class="perfil-container">
+    <div class="d-flex align-items-center justify-content-center h-100">
+      <div class="perfil-card">
+        <div class="w-100">
+            <div class="d-flex flex-row mb-4">
+                <div class="foto-perfil">
+                    <img class="img-fluid" src="../../../assets/icons/rentheavenlogo.png">
+                  </div>
+                  <div class="perfil-nombre">
+                    <h1>
+                      <strong><span class="text-detalle">{{user.nombre}} {{user.apellido}}</span></strong>
+                    </h1>
+                  </div>
+                    @if(id === currentUserId) {
+                        <div>
+                            <i class="fa-solid fa-pen-to-square fa-2xl perfil-edit" (click)="showDetail(user, formModal)"></i>
+                        </div>
+                    }
+            </div>
+          <div class="login-main">
+              <div class="form-group mb-5 perfil-text">
+                <label class="form-label mb-2">
+                  <strong>Correo elctrónico</strong>
+                </label>
+                <p>{{user.email}}</p>
+              </div>
+
+              <h2 class="perfil-text"><strong>Ubicación</strong></h2>
+              <div class="d-flex flex-row mb-4 perfil-ubicacion-text justify-content-between ubicacion-wrapper">
+                <div class="form-group mb-4">
+                    <label class="form-label mb-2">
+                      <strong>Provincia</strong>
+                    </label>
+                    <p>{{user.ubicacion?.provincia?.nombre}}</p>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="form-label mb-2">
+                      <strong>Cantón</strong>
+                    </label>
+                    <p>{{user.ubicacion?.canton?.nombre}}</p>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="form-label mb-2">
+                      <strong>Distrito</strong>
+                    </label>
+                    <p><span>{{user.ubicacion?.distrito?.nombre}}</span></p>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+  <app-modal size="lg" #formModal>
+    <app-perfil-form 
+      [user]="user"
+    >
+    </app-perfil-form>
+  </app-modal>

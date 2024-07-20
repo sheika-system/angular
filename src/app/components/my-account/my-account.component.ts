@@ -14,6 +14,7 @@ export class MyAccountComponent implements OnInit {
   public authUserExists: boolean = false;
   public userName: string = '';
   public userRole: string = '';
+  public userId: number = 0;
   private service = inject(AuthService);
 
   constructor(public router: Router) {
@@ -22,6 +23,7 @@ export class MyAccountComponent implements OnInit {
       this.authUserExists = true;
       this.userName = JSON.parse(user)?.nombre;
       this.userRole = JSON.parse(user)?.role?.name;
+      this.userId = JSON.parse(user)?.id;
     } 
   }
 
