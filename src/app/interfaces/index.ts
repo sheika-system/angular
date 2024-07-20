@@ -78,3 +78,14 @@ export interface IResetPasswordToken {
 export interface IResetPasswordRequest {
   newPassword?: string;
 }
+
+export interface IPropiedad{
+  propiedadId?: number
+}
+
+export interface IImagen{
+  imagenId?: number,
+  descripcion?: string,
+  imagen?: string;
+  propiedad?: IPropiedad
+}

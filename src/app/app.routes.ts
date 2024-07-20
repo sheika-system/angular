@@ -12,6 +12,7 @@ import { IRole } from './interfaces';
 import { UbicacionComponent } from './pages/ubicacion/ubicacion.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { ImagenComponent } from './components/imagen/imagen.component';
 
 export const routes: Routes = [
   {
@@ -59,7 +60,7 @@ export const routes: Routes = [
         canActivate:[AdminRoleGuard],
         data: { 
           authorities: [
-            IRole.admin, 
+            IRole.admin,
             IRole.superAdmin
           ],
           name: 'Users'
@@ -71,10 +72,23 @@ export const routes: Routes = [
         canActivate:[AdminRoleGuard],
         data: { 
           authorities: [
-            IRole.admin, 
+            IRole.admin,
             IRole.superAdmin
           ],
           name: 'Ubicaciones'
+        }
+      },
+      {
+        path: 'imagenes',
+        component: ImagenComponent,
+        canActivate:[AdminRoleGuard],
+        data: { 
+          authorities: [
+            IRole.admin,
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Imagenes'
         }
       },
       {
