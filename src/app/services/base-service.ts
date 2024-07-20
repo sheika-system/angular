@@ -29,4 +29,16 @@ export class BaseService<T> {
   public del(id: any): Observable<IResponse<T>> {
     return this.http.delete<IResponse<T>>(this.source + '/' + id);
   }
+
+  public addByEmail(user: IUser): Observable<IResponse<T>> {
+    return this.http.post<IResponse<T>>(this.source, user);
+  }
+  
+  public editByToken(token: string | undefined, data: {}): Observable<IResponse<T>> {
+    const url = `${this.source}?token=${token}`;
+    return this.http.put<IResponse<T>>(url, data);
+  }
+
+
+  
 }
