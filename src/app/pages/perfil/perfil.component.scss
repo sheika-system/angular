@@ -89,11 +89,29 @@
     color: #132d46;
   }
 
+  .text-green {
+    color: #01c38e;
+  }
+
   .foto-perfil {
     border: #01c38e 2px solid;
-    border-radius: 100%;
+    border-radius: 100px;
     width: 100px !important;
+    max-width: 100px !important;
+    max-height: 100px !important;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .foto {
+    max-width: 100px !important;
+    width: 100px;
+    max-height: 100px !important;
+    height: 100px !important;
+    display: block;
+    object-fit:cover;
   }
 
   .perfil-nombre {

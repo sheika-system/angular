@@ -81,10 +81,17 @@ export class PerfilFormComponent {
     this.ubicacionService.getDistritos();
   }
 
-  onFileChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.user.photo = input.files[0];
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if(file) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        const base64String = e.target.result.split(',')[1];
+        this.user.photo = base64String;
+      }
+
+      reader.readAsDataURL(file);
     }
   }
 

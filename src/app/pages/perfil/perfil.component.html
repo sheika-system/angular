@@ -4,7 +4,7 @@
         <div class="w-100">
             <div class="d-flex flex-row mb-4">
                 <div class="foto-perfil">
-                    <img class="img-fluid" src="../../../assets/icons/rentheavenlogo.png">
+                    <img class="foto" [src]="user.photo ? 'data:image/jpeg;base64,' + user.photo : '../../../assets/img/login/defaultProfile.jpg'">
                   </div>
                   <div class="perfil-nombre">
                     <h1>
@@ -46,6 +46,7 @@
                     <p><span>{{user.ubicacion?.distrito?.nombre}}</span></p>
                   </div>
               </div>
+              <a href="/app/dashboard" class="text-green">Volver a la página principal</a>
           </div>
         </div>
       </div>
