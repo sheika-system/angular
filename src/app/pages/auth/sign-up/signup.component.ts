@@ -48,7 +48,7 @@ export class SigUpComponent {
   };
 
   constructor(private router: Router, 
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   public handleSignup(event: Event) {
@@ -72,16 +72,28 @@ export class SigUpComponent {
     }
     if (this.emailModel.valid && this.passwordModel.valid) {
       this.authService.signup(this.user).subscribe({
-        next: () => this.validSignup = true,
-        error: (err: any) => (this.signUpError = err.description),
+        next: () => {
+          this.validSignup = true;
+          setTimeout(() => {
+            this.router.navigateByUrl('/login');
+          }, 1000);
+        },
+        error: (err: any) => (this.signUpError = err.description)
       });
     }
   }
 
-  onFileChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.user.photo = input.files[0];
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if(file) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        const base64String = e.target.result.split(',')[1];
+        this.user.photo = base64String;
+      }
+
+      reader.readAsDataURL(file);
     }
   }
 

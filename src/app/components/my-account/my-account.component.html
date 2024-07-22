@@ -6,7 +6,7 @@
     </div>
   </div>
   <ul class="profile-dropdown onhover-show-div">
-    <li [routerLink]="['perfil', userId]"><i class="fa-solid fa-user-tie"></i><span>Perfil</span></li>
+    <li [routerLink]="['perfil', userId]" (click)="reload()"><i class="fa-solid fa-user-tie"></i><span>Perfil</span></li>
     <li (click)="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Cerrar sesión</span></li>
   </ul>
 }
