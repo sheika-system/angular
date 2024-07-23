@@ -1,0 +1,92 @@
+<div class="page-wrapper compact-wrapper">
+  <app-topbar></app-topbar>
+  <div class="login-container">
+    <div class="d-flex align-items-center justify-content-center h-100">
+      <div class="login-card">
+        <div class="w-100">
+          <div class="text-center">
+            <a class="logo text-center">
+              <img class="img-fluid mb-4 logo-rentheaven" src="../../../../assets/icons/rentheavenlogo.png" alt="Logo" />
+            </a>
+          </div>
+          <div class="login-main">
+            <form autocomplete="off" #frm="ngForm">
+              <div class="mb-3">
+                <h1><strong>Agregar Propiedad</strong></h1>
+                <small style="color: #4f4f4f">Completa los datos para agregar una nueva propiedad</small>
+              </div>
+              <!-- Nombre -->
+              <div class="form-group mb-3">
+                <label for="nombre" class="form-label mb-2">Nombre</label>
+                <input #nombre="ngModel" type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" [(ngModel)]="propiedad.nombre" required />
+                <div *ngIf="nombre.invalid && nombre.touched" class="invalid-feedback">Digite un nombre válido</div>
+              </div>
+              <!-- Descripción -->
+              <div class="form-group mb-3">
+                <label for="descripcion" class="form-label mb-2">Descripción</label>
+                <textarea #descripcion="ngModel" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" [(ngModel)]="propiedad.descripcion" required></textarea>
+                <div *ngIf="descripcion.invalid && descripcion.touched" class="invalid-feedback">Digite una descripción válida</div>
+              </div>
+              <!-- Ubicación -->
+              <app-ubicacion-selector>
+              </app-ubicacion-selector>
+              <!-- Amenidades -->
+              <mat-form-field>
+                <mat-label>Amenidades</mat-label>
+                <mat-select [formControl]="amenitiesControl" (selectionChange)="onAmenidadesChange($event)" multiple>
+                  <mat-option *ngFor="let amenity of amenidadesList" [value]="amenity">{{amenity.nombre}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- Tipo de Propiedad -->
+              <mat-form-field>
+                <mat-label>Tipo de Propiedad</mat-label>
+                <mat-select [(value)]="selectedTipoPropiedad">
+                </mat-select>
+              </mat-form-field>
+              <!-- Precio -->
+              <div class="form-group mb-3">
+                <label for="precio" class="form-label mb-2">Precio</label>
+                <input #precio="ngModel" type="number" class="form-control" id="precio" name="precio" placeholder="Precio" [(ngModel)]="propiedad.precio" required />
+                <div *ngIf="precio.invalid && precio.touched" class="invalid-feedback">Digite un precio válido</div>
+              </div>
+              <!-- Moneda -->
+              <div class="form-group mb-3">
+                <label for="moneda" class="form-label mb-2">Moneda</label>
+                <input #moneda="ngModel" type="text" class="form-control" id="moneda" name="moneda" placeholder="Moneda" [(ngModel)]="propiedad.moneda" required />
+                <div *ngIf="moneda.invalid && moneda.touched" class="invalid-feedback">Digite una moneda válida</div>
+              </div>
+              <!-- Año de Construcción -->
+              <div class="form-group mb-3">
+                <label for="annioConstruccion" class="form-label mb-2">Año de Construcción</label>
+                <input #annioConstruccion="ngModel" type="number" class="form-control" id="annioConstruccion" name="annioConstruccion" placeholder="Año de Construcción" [(ngModel)]="propiedad.annioConstruccion" required />
+                <div *ngIf="annioConstruccion.invalid && annioConstruccion.touched" class="invalid-feedback">Digite un año válido</div>
+              </div>
+              <!-- Cantidad de Cuartos -->
+              <div class="form-group mb-3">
+                <label for="cuartosCant" class="form-label mb-2">Cantidad de Cuartos</label>
+                <input #cuartosCant="ngModel" type="number" class="form-control" id="cuartosCant" name="cuartosCant" placeholder="Cantidad de Cuartos" [(ngModel)]="propiedad.cuartosCant" required />
+                <div *ngIf="cuartosCant.invalid && cuartosCant.touched" class="invalid-feedback">Digite una cantidad válida</div>
+              </div>
+              <!-- Cantidad de Baños -->
+              <div class="form-group mb-3">
+                <label for="banniosCant" class="form-label mb-2">Cantidad de Baños</label>
+                <input #banniosCant="ngModel" type="number" class="form-control" id="banniosCant" name="banniosCant" placeholder="Cantidad de Baños" [(ngModel)]="propiedad.banniosCant" required />
+                <div *ngIf="banniosCant.invalid && banniosCant.touched" class="invalid-feedback">Digite una cantidad válida</div>
+              </div>
+              <!-- Metros Cuadrados -->
+              <div class="form-group mb-3">
+                <label for="metrosCuadrados" class="form-label mb-2">Metros Cuadrados</label>
+                <input #metrosCuadrados="ngModel" type="number" class="form-control" id="metrosCuadrados" name="metrosCuadrados" placeholder="Metros Cuadrados" [(ngModel)]="propiedad.metrosCuadrados" required />
+                <div *ngIf="metrosCuadrados.invalid && metrosCuadrados.touched" class="invalid-feedback">Digite un valor válido</div>
+              </div>
+              <!-- Botón de Guardar -->
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">Guardar Propiedad</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
