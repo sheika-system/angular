@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +10,7 @@ import { ModalComponent } from '../../components/modal/modal.component';
 import { UbicacionSelectorComponent } from '../../components/ubicacion/ubicacion-selector/ubicacion-selector.component';
 import { IAmenidad, IImagen, IPropiedad, ITipoPropiedad, IUbicacion } from '../../interfaces';
 import { UbicacionComponent } from "../ubicacion/ubicacion.component";
+import { UbicacionService } from '../../services/ubicacion.service';
 
 @Component({
   selector: 'app-propiedad',
@@ -25,21 +26,12 @@ import { UbicacionComponent } from "../ubicacion/ubicacion.component";
     LoaderComponent,
     UbicacionSelectorComponent,
     ModalComponent,
-    UbicacionComponent
+    UbicacionComponent,
 ],
   templateUrl: './propiedad.component.html',
   styleUrls: ['./propiedad.component.scss']
 })
 export class PropiedadComponent implements OnInit {
-
-  @Input() tipoPropiedad: ITipoPropiedad = {
-    tipoPropiedadId: 0,
-    nombre: ''
-  };
-
-  @Input() ubicacion: IUbicacion = {};
-
-  @Input() imagenes: IImagen[] = []; 
 
   @Input() propiedad: IPropiedad = {
     nombre: '',
@@ -47,7 +39,14 @@ export class PropiedadComponent implements OnInit {
     tipoPropiedad: { tipoPropiedadId: 0, nombre: '' },
     moneda: '',
     precio: 0,
-    ubicacion: this.ubicacion,
+    ubicacion: {
+      direccion: "",
+      latitud: 0,
+      longitud: 0,
+      provincia: { provinciaId: undefined , nombre: "" },
+      canton: { cantonId: undefined, nombre: "" },
+      distrito: { distritoId: undefined, nombre: "" }
+    },
     amenidades: [],
     annioConstruccion: 0,
     cuartosCant: 0,
@@ -56,22 +55,24 @@ export class PropiedadComponent implements OnInit {
     disponibilidad: false,
     listaImagenes: []
   };
+  service = inject(UbicacionService);
 
-  amenitiesControl = new FormControl<IAmenidad[]>([]);
-  selectedTipoPropiedad: string = 'option2';
-  amenidadesList: IAmenidad[] = []; 
+  selectedCurrency: string | undefined;
+  currencies = [
+    { value: 'USD', viewValue: 'Dólar Estadounidense (USD)' },
+    { value: 'CRC', viewValue: 'Colón Costarricense (CRC)' }
+  ];
 
-  ngOnInit(): void {
-    
+
+  ngOnInit() {
+    this.service.getAllSignal();
+    this.service.getProvincias();
+    this.service.getCantones();
+    this.service.getDistritos();
   }
 
   onUbicacionChange(params: IUbicacion) {
     this.propiedad.ubicacion = params;
-  }
-
-  onAmenidadesChange(event: any) {
-    const selectedAmenities = event.value as IAmenidad[];
-    const selectedIds = selectedAmenities.map(amenity => amenity.amenidadId);
-    this.propiedad.amenidades = this.amenidadesList.filter((amenidad: IAmenidad) => selectedIds.includes(amenidad.amenidadId));
+    console.log('Ubicación actualizada:', this.propiedad.ubicacion);
   }
 }
