@@ -10,6 +10,10 @@ import { ICanton, IDistrito, IProvincia, IUbicacion } from '../../interfaces';
 import { UbicacionService } from '../../services/ubicacion.service';
 import { UbicacionSelectorComponent } from '../../components/ubicacion/ubicacion-selector/ubicacion-selector.component';
 import { IAmenidad, ITipoPropiedad } from '../../interfaces';
+import { AmenidadComponent } from "../../components/amenidad/amenidad.component";
+import { AmenidadService } from '../../services/amenidad.service';
+import { TipoPropiedadComponent } from "../../components/tipo-propiedad/tipo-propiedad.component";
+import { TipoPropiedadService } from '../../services/tipo-propiedad.service';
 
 
 @Component({
@@ -24,13 +28,17 @@ import { IAmenidad, ITipoPropiedad } from '../../interfaces';
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    AmenidadComponent,
+    TipoPropiedadComponent
+],
   templateUrl: './ubicacion.component.html',
   styleUrls: ['./ubicacion.component.scss']
 })
 export class UbicacionComponent {
   service = inject(UbicacionService);
+  amenidadService = inject(AmenidadService)
+  tipoPropService = inject(TipoPropiedadService)
   selected = 'option2';
 
   ubicacionTest: IUbicacion = {
@@ -42,30 +50,32 @@ export class UbicacionComponent {
     distrito: { distritoId: undefined, nombre: "" }
   };
 
-  amenitiesControl = new FormControl<IAmenidad[]>([]);
-  amenitiesList: IAmenidad[] = [
-    { amenidadId: 1, nombre: 'Amenities' },
-    { amenidadId: 2, nombre: 'Air Conditioning' },
-    { amenidadId: 3, nombre: 'Barbeque' },
-    { amenidadId: 4, nombre: 'Dryer' },
-    { amenidadId: 5, nombre: 'Gym' },
-    { amenidadId: 6, nombre: 'Lawn' },
-    { amenidadId: 7, nombre: 'Microwave' },
-    { amenidadId: 8, nombre: 'Outdoor Shower' },
-    { amenidadId: 9, nombre: 'Refrigerator' },
-    { amenidadId: 10, nombre: 'Swimming Pool' },
-    { amenidadId: 11, nombre: 'TV Cable' },
-    { amenidadId: 12, nombre: 'Washer' },
-    { amenidadId: 13, nombre: 'WiFi' }
-  ];
+  // amenitiesControl = new FormControl<IAmenidad[]>([]);
+  // amenitiesList: IAmenidad[] = [
+  //   { amenidadId: 1, nombre: 'Amenities' },
+  //   { amenidadId: 2, nombre: 'Air Conditioning' },
+  //   { amenidadId: 3, nombre: 'Barbeque' },
+  //   { amenidadId: 4, nombre: 'Dryer' },
+  //   { amenidadId: 5, nombre: 'Gym' },
+  //   { amenidadId: 6, nombre: 'Lawn' },
+  //   { amenidadId: 7, nombre: 'Microwave' },
+  //   { amenidadId: 8, nombre: 'Outdoor Shower' },
+  //   { amenidadId: 9, nombre: 'Refrigerator' },
+  //   { amenidadId: 10, nombre: 'Swimming Pool' },
+  //   { amenidadId: 11, nombre: 'TV Cable' },
+  //   { amenidadId: 12, nombre: 'Washer' },
+  //   { amenidadId: 13, nombre: 'WiFi' }
+  // ];
 
-  @Output() selectionChange = new EventEmitter<number[]>();
+  // @Output() selectionChange = new EventEmitter<number[]>();
 
   ngOnInit() {
     this.service.getAllSignal();
     this.service.getProvincias();
     this.service.getCantones();
     this.service.getDistritos();
+    this.amenidadService.getAllSignal();
+    this.tipoPropService.getAllSignal();
   }
 
   onUbicacionChange(params: IUbicacion) {
@@ -73,10 +83,18 @@ export class UbicacionComponent {
     // Aquí puedes realizar acciones adicionales si es necesario
   }
 
-  onSelectionChange(event: any) {
-    const selectedAmenities = event.value as IAmenidad[];
-    const selectedIds = selectedAmenities.map(amenity => amenity.amenidadId);
-    this.selectionChange.emit(selectedIds);
+  onAmenidadChange(params: IAmenidad[]){
+    console.log("onAmenidadChange", params)
   }
+
+  onTipoPropiedadChange(params: ITipoPropiedad){
+    console.log("onTipoPropiedadChange", params)
+  }
+
+  // onSelectionChange(event: any) {
+  //   const selectedAmenities = event.value as IAmenidad[];
+  //   const selectedIds = selectedAmenities.map(amenity => amenity.amenidadId);
+  //   this.selectionChange.emit(selectedIds);
+  // }
   
 }

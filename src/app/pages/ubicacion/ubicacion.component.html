@@ -21,41 +21,19 @@
   </div>
 </div>
 
+<app-amenidad
+[amenidades]="amenidadService.amenidades$()"
+(amenidadesChange)="onAmenidadChange($event)"
+></app-amenidad>
+
+<app-tipo-propiedad
+[tipoPropiedades]="tipoPropService.tipoPropiedades$()"
+(tipoPropiedadChange)="onTipoPropiedadChange($event)"
+></app-tipo-propiedad>
+
 <app-modal size="lg" #formModal>
   <app-ubicacion-form [action]="'add'" [provincias]="service.provincias$()" [cantones]="service.cantones$()"
     [distritos]="service.distritos$()">
     <div [title]="'Agregar Ubicacion'"></div>
   </app-ubicacion-form>
 </app-modal>
-
-
-<div class="container-fluid">
-  <div>
-    <h2>Ubicaciones</h2>
-  </div>
-  <div>
-    <!-- Combobox para Amenidades -->
-    <mat-form-field>
-      <mat-label>Amenidades</mat-label>
-      <mat-select [formControl]="amenitiesControl" (selectionChange)="onSelectionChange($event)" multiple>
-        <mat-option *ngFor="let amenity of amenitiesList" [value]="amenity">
-          {{amenity.nombre}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <!-- Combobox para Tipo de Propiedad -->
-    <mat-form-field>
-      <mat-label>Select an option</mat-label>
-      <mat-select [(value)]="selected">
-        <mat-option>None</mat-option>
-        <mat-option value="option1">Apartamentos</mat-option>
-        <mat-option value="option2">Bungalow</mat-option>
-        <mat-option value="option3">Casas</mat-option>
-        <mat-option value="option4">Loft</mat-option>
-        <mat-option value="option5">Oficinas</mat-option>
-        <mat-option value="option6">Villa</mat-option>
-      </mat-select>
-    </mat-form-field>
-    
-    <p>You selected: {{selected}}</p>
