@@ -86,8 +86,9 @@ export interface IAmenidad {
 }
 
 export interface ITipoPropiedad {
-  tipoPropiedadId: number;
-  nombre: string;
+
+  tipoPropiedadId?: number;
+  nombre?: string;
 
 }
 
