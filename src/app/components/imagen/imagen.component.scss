@@ -1,0 +1,216 @@
+.picsum-img-wrapper {
+    height: 500px; // Ajusta esto según tus necesidades
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: white;
+  }
+  
+  .picsum-img-wrapper img {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+  }
+
+  /* Estilo para hacer clic en toda el área de la imagen y cambiar el cursor a mano */
+.clickable {
+  cursor: pointer;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.form-label {
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 20px;
+}
+
+.is-invalid {
+  border-color: red;
+}
+
+.is-valid {
+  border-color: green;
+}
+
+.untouched {
+  border-color: initial; /* o cualquier otro estilo que desees para los campos recién agregados */
+}
+
+
+::ng-deep {
+  .carousel {
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 5%;
+      opacity: 0.7;
+      background-color: rgba(0, 0, 0, 0.5);
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    .carousel-indicators {
+      button {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        
+        &.active {
+          background-color: white;
+        }
+      }
+    }
+  }
+
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+
+    h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+//CSS para el input
+
+.image-upload-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+.image-upload-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: 2px dashed var(--primary-color);
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.image-upload-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.image-upload-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+.image-upload-input {
+  display: none;
+}
+
+.image-upload-input .is-invalid {
+  color: #dc3545;
+}
+
+.image-upload-remove {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.image-upload-container.is-invalid .image-upload-placeholder {
+  color: #dc3545;
+}
+
+.is-invalid {
+  border: 1px solid red;
+}
+
+.is-invalid {
+  border: 1px solid red;
+}
+// Estilos para el control de subir imagen
+.image-upload-container {
+  display: flex;
+  align-items: center;
+  
+  &.is-invalid {
+    border: 1px solid red;
+  }
+
+  .image-upload-preview {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 10px;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .image-upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    color: var(--primary-color);
+    cursor: pointer;
+
+    &.is-invalid {
+      border-color: red;
+      color: red;
+    }
+  }
+
+    .image-upload-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+
+  .image-upload-input.is-invalid {
+    border: none; /* Asegúrate de que no interfiera con el estilo del contenedor */
+  }
+
+  .image-upload-remove {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1.5em; /* Ajusta el tamaño del ícono según sea necesario */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

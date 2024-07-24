@@ -13,6 +13,8 @@ import { UbicacionComponent } from './pages/ubicacion/ubicacion.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { PropiedadComponent } from './pages/propiedad/propiedad.component';
+import { ImagenComponent } from './components/imagen/imagen.component';
+
 
 export const routes: Routes = [
   {
@@ -60,7 +62,7 @@ export const routes: Routes = [
         canActivate:[AdminRoleGuard],
         data: { 
           authorities: [
-            IRole.admin, 
+            IRole.admin,
             IRole.superAdmin
           ],
           name: 'Users'
@@ -79,6 +81,7 @@ export const routes: Routes = [
         }
       },
       {
+
         path: 'propiedad',
         component: PropiedadComponent,
         data: { 
@@ -88,6 +91,20 @@ export const routes: Routes = [
             IRole.user
           ],
           name: 'Propiedad'
+        }
+      },
+     {
+        path: 'imagenes',
+        component: ImagenComponent,
+        canActivate:[AdminRoleGuard],
+        data: { 
+          authorities: [
+            IRole.admin,
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Imagenes'
+
         }
       },
       {

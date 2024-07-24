@@ -20,6 +20,13 @@
     </app-ubicacion-selector>
   </div>
 </div>
+<div class="container-fluid">
+  <app-imagen
+  [listaImagenes]="imagenService.imagenesPropiedad$()"
+  [propiedadImagen]="propiedadTest"
+  (regImagenes)="onRegistroImagenes($event)"
+  />
+</div>
 
 <app-modal size="lg" #formModal>
   <app-ubicacion-form [action]="'add'" [provincias]="service.provincias$()" [cantones]="service.cantones$()"
