@@ -21,6 +21,7 @@ import { PerfilFormComponent } from '../../components/perfil/perfil-form/perfil-
 export class PerfilComponent implements OnInit {
   protected id: string | null = '';
   protected currentUserId: string = '';
+  protected currentUserRole: string = '';
   private service = inject(UserService);
   protected user: IUser = {};
   protected userUbicacion: IUbicacion | undefined = {};
@@ -31,6 +32,7 @@ export class PerfilComponent implements OnInit {
 
     if(user) {
       this.currentUserId = String(JSON.parse(user)?.id);
+      this.currentUserRole = String(JSON.parse(user)?.role.name);
     }
     this.id = this.route.snapshot.paramMap.get('id');
 

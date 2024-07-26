@@ -11,7 +11,7 @@
                       <strong><span class="text-detalle">{{user.nombre}} {{user.apellido}}</span></strong>
                     </h1>
                   </div>
-                    @if(id === currentUserId) {
+                    @if(id === currentUserId || currentUserRole === 'SUPER_ADMIN') {
                         <div>
                             <i class="fa-solid fa-pen-to-square fa-2xl perfil-edit" (click)="showDetail(user, formModal)"></i>
                         </div>
