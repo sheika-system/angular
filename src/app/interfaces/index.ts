@@ -102,12 +102,12 @@ export interface IImagen{
 
 export interface IPropiedad {
   propiedadId?: number;
-  nombre: string;
-  descripcion: string;
-  tipoPropiedad: ITipoPropiedad;
-  moneda: string;
-  precio: number;
-  ubicacion: IUbicacion;
+  nombre?: string;
+  descripcion?: string;
+  tipoPropiedad?: ITipoPropiedad;
+  moneda?: string;
+  precio?: number;
+  ubicacion?: IUbicacion;
   amenidades?: IAmenidad[];
   annioConstruccion?: number;
   cuartosCant?: number;
@@ -115,6 +115,7 @@ export interface IPropiedad {
   metrosCuadrados?: number;
   disponibilidad?: boolean;
   listaImagenes?: IImagen[];
+  user?: IUser;
 }
 
 

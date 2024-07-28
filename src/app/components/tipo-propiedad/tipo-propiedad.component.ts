@@ -22,6 +22,8 @@ export class TipoPropiedadComponent {
 
   @Output() tipoPropiedadChange: EventEmitter<ITipoPropiedad> = new EventEmitter<ITipoPropiedad>();
 
+  @Input() tipoPropiedadObtenida: ITipoPropiedad = this.tipoPropiedad;
+
   tipoPropiedadInvalid = false;
   tipoPropiedadTouched = false;
 
