@@ -13,6 +13,7 @@ import { UbicacionComponent } from './pages/ubicacion/ubicacion.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { DelitoComponent } from './components/delito/delito.component';
 
 export const routes: Routes = [
   {
@@ -76,6 +77,18 @@ export const routes: Routes = [
             IRole.superAdmin
           ],
           name: 'Ubicaciones'
+        }
+      },
+      {
+        path: 'delitos',
+        component: DelitoComponent,
+        canActivate:[AdminRoleGuard],
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin
+          ],
+          name: 'Delitos'
         }
       },
       {
