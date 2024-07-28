@@ -1,12 +1,31 @@
-<google-map
+
+<div style="margin-left: 15%;">
+  <button class="btn btn-primary d-flex align-items-center" (click)="resetMap()">Restablecer Vista</button>
+</div>
+<div style="width: 100%; display: flex; justify-content: center;">
+  <google-map style="height: 400px; width: 70%;"
   height="400px"
   width="100%"
+  [options]="mapOptions"
   [center]="center"
   [zoom]="zoom"
   (mapClick)="onMapClick($event)">
-  <map-marker *ngIf="markerPosition" [position]="markerPosition!"></map-marker>
+  <map-marker *ngIf="markerPosition" 
+    [position]="markerPosition"
+    [options]="markerOptions"
+    (mapClick)="onMarkerClick()">
+  </map-marker>
 </google-map>
+</div>
+
+
+
 <div *ngIf="markerPosition">
   Latitud: {{ markerPosition.lat }} <br>
   Longitud: {{ markerPosition.lng }}
+</div>
+<div *ngIf="selectedLocation">
+  Provincia: {{selectedLocation.provincia || 'No disponible'}}<br>
+  Cantón: {{selectedLocation.canton || 'No disponible'}}<br>
+  Distrito: {{selectedLocation.distrito || 'No disponible'}}
 </div>

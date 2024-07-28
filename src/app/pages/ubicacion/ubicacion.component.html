@@ -1,4 +1,16 @@
-<div class="container-fluid">
+
+
+<app-modal size="lg" #formModal>
+  <app-ubicacion-form [action]="'add'" [provincias]="service.provincias$()" [cantones]="service.cantones$()"
+    [distritos]="service.distritos$()">
+    <div [title]="'Agregar Ubicacion'"></div>
+  </app-ubicacion-form>
+</app-modal>
+
+<!-- <app-map
+(onUbicacionChange)="onMapSelectedLocation($event)"
+></app-map> -->
+<!-- <div class="container-fluid">
   <div>
     <h2>Ubicaciones</h2>
   </div>
@@ -19,11 +31,5 @@
       [cantones]="service.cantones$()" [distritos]="service.distritos$()" [ubicacion]="ubicacionTest">
     </app-ubicacion-selector>
   </div>
-</div>
-
-<app-modal size="lg" #formModal>
-  <app-ubicacion-form [action]="'add'" [provincias]="service.provincias$()" [cantones]="service.cantones$()"
-    [distritos]="service.distritos$()">
-    <div [title]="'Agregar Ubicacion'"></div>
-  </app-ubicacion-form>
-</app-modal>
+</div> -->
+<app-delito></app-delito>
