@@ -29,4 +29,8 @@ export class MyAccountComponent implements OnInit {
     this.service.logout();
     this.router.navigateByUrl('/login');
   }
+
+  propiedad() {
+    this.router.navigateByUrl('/app/propiedad')
+  }
 }

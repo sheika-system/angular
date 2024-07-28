@@ -23,7 +23,13 @@ export class ImagenComponent {
   @Input() listaImagenes: IImagen[] = [];
 
   @Input() propiedadImagen: IPropiedad = {
-    propiedadId: undefined
+    propiedadId: undefined,
+    nombre: '',
+    descripcion: '',
+    tipoPropiedad: undefined,
+    moneda: '',
+    precio: 0,
+    ubicacion: undefined
   }
 
   @Output() regImagenes: EventEmitter<IImagen[]> = new EventEmitter<IImagen[]>();

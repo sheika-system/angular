@@ -25,6 +25,8 @@ export class AmenidadComponent implements OnInit{
 
   @Output() amenidadesChange: EventEmitter<IAmenidad[]> = new EventEmitter<IAmenidad[]>();
 
+  @Input() amenidadesObtenidas: IAmenidad[] = this.amenidades;
+
   ngOnInit() {
     this.amenidadesFormControl.valueChanges.subscribe((selectedValues: (number | string)[] | null) => {
       if (selectedValues === null) {

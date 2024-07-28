@@ -1,11 +1,13 @@
 .login-container {
-    height: 120vh;
+    height: 170vh;
+    width: 140%;
     // background-image: url("../../../../assets/img/login/login-bg.jpg");
     background-position: left;
     background-size: cover;
     background-repeat: no-repeat;
     padding: 20px 20%;
     position: relative;
+    left: -20%;
     &::before {
       content: '';
       position: absolute;
