@@ -14,6 +14,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { PropiedadComponent } from './pages/propiedad/propiedad.component';
 import { ImagenComponent } from './components/imagen/imagen.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 
 export const routes: Routes = [
@@ -117,6 +118,18 @@ export const routes: Routes = [
             IRole.user
           ],
           name: 'Dashboard'
+        }
+      },
+      {
+        path: 'perfil/:id',
+        component: PerfilComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Perfil'
         }
       }
     ],

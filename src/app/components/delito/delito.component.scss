@@ -1,0 +1,122 @@
+.title-container {
+    background-color: #1a5f7a; // Un color de fondo que contraste
+    padding: 20px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .main-title {
+    color: #ffffff; // Texto blanco para contrastar con el fondo
+    text-align: center;
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  // Media query para pantallas más pequeñas
+  @media (max-width: 768px) {
+    .main-title {
+      font-size: 1.8em;
+    }
+  }
+
+// Estilos para el footer donde se muestra la licencia de datos
+.footer-section {
+    margin-top: 40px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+  }
+  
+  .data-source {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  .license-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .lccImg {
+    width: 88px;
+    height: 31px;
+  }
+  
+  .license-info p {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0;
+  }
+  
+  .license-info a {
+    color: #1a5f7a;
+    text-decoration: none;
+  }
+  
+  .license-info a:hover {
+    text-decoration: underline;
+  }
+
+// Estilo para la barra de busqueda de delitos
+.table-section {
+  margin-top: 20px;
+}
+
+.search-container {
+  margin-bottom: 20px;
+  max-width: 600px;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.search-hint {
+  display: flex;
+  align-items: flex-start;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 4px;
+}
+
+.search-hint mat-icon {
+  font-size: 16px;
+  margin-right: 8px;
+  color: #1976d2;
+}
+
+.search-hint span {
+  line-height: 1.4;
+}
+
+.table-container {
+  position: relative;
+  min-height: 200px;
+  overflow: auto;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-table {
+  width: 100%;
+}
+
+.mat-column-actions {
+  width: 120px;
+  text-align: center;
+}

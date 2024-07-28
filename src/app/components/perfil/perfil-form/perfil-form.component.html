@@ -1,0 +1,80 @@
+<form class="add-user-container" (ngSubmit)="handleUpdate(frm)" autocomplete="off" #frm="ngForm">
+    <h1 class="mb-5 px-5 editar-perfil"><strong>Editar perfil</strong></h1>
+    <div class="border-bottom pb-3 mb-3">
+      <div class="px-5">
+        <div class="hidden">
+            <input #id="ngModel" type="text" class="form-control hidden" id="id" name="id" 
+            [value]="[user.id]" [(ngModel)]="user.id"/>
+        </div>
+        <label for="email" class="form-label mb-2">
+          <strong>Correo electrónico</strong>
+        </label>
+        <input #email="ngModel" type="text" class="form-control" id="email" name="email" 
+            [value]="[user.email]" [(ngModel)]="user.email" [ngClass]="{
+                'is-invalid': email.invalid && email.touched,
+                'is-valid': email.valid && email.touched
+              }" 
+            required />
+            <div *ngIf="email.invalid" class="invalid-feedback">
+                Digite un correo electrónico válido
+            </div>
+      </div>
+    </div>
+    <div class="border-bottom pb-3 mb-3 px-5">
+      <div class="row mb-4">
+        <div class="col-6">
+          <label for="name" class="form-label mb-2">
+            <strong>Nombre</strong>
+          </label>
+          <input #nombre="ngModel" type="text" class="form-control" id="nombre" name="nombre" 
+            [value]="[user.nombre]" [(ngModel)]="user.nombre" [ngClass]="{
+                'is-invalid': nombre.invalid && nombre.touched,
+                'is-valid': nombre.valid && nombre.touched
+              }" 
+            required />
+            <div *ngIf="nombre.invalid" class="invalid-feedback">
+                Digite un nombre válido
+            </div>
+        </div>
+        <div class="col-6">
+          <label for="lastname" class="form-label mb-2">
+            <strong>Apellido</strong>
+          </label>
+          <input #apellido="ngModel" type="text" class="form-control" id="apellido" name="apellido" 
+            [value]="[user.apellido]" [(ngModel)]="user.apellido" [ngClass]="{
+                'is-invalid': apellido.invalid && apellido.touched,
+                'is-valid': apellido.valid && apellido.touched
+              }" 
+            required />
+            <div *ngIf="apellido.invalid" class="invalid-feedback">
+                Digite un apellido válido
+            </div>
+        </div>
+      </div>
+      
+        <app-ubicacion-selector (ubicacionChange)="onUbicacionChange($event)" 
+            [provincias]="ubicacionService.provincias$()"
+            [cantones]="ubicacionService.cantones$()" 
+            [distritos]="ubicacionService.distritos$()" 
+            [ubicacion]="ubicacion">
+        </app-ubicacion-selector>
+
+        <div class="form-group mb-4">
+            <label for="photo" class="form-label mb-2">Foto</label>
+            <div class="form-input position-relative">
+              <input type="file" class="form-control" id="photo" name="photo" accept="image/*"
+                (change)="onFileChange($event)"/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group mb-0 login-button d-inline-flex button-wrapper">
+        <button class="btn btn-primary btn-block w-100 green-button" type="submit">
+          Guardar
+        </button>
+    </div>
+    @if(editSuccess) {
+        <div class="mt-3 success-feedback">
+            <p class="text-success">Datos guardados</p>
+        </div>
+    }
+</form>
