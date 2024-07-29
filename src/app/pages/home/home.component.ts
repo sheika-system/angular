@@ -18,6 +18,8 @@ export class PropiedadesListComponent {
   constructor() {
     this.service.getAllSignal();
     effect(() => {
+      this.rows = [];
+      this.propiedadList = [];
       this.propiedadList = this.service.propiedades$();
       this.splitPropiedadesIntoRows();
     });
