@@ -1,0 +1,30 @@
+<div class="calificacion-usuario-gird-container">
+  <app-calificacion-usuario-card [nombre]="nombreUsuario"
+                                [imagen]="ImagenUsuario"
+                                [calificacionPromedio]="calificacionPromedio">
+  </app-calificacion-usuario-card>
+</div>
+
+
+<div class="comment-container">
+    <h2>Deja un comentario</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="comment">Deja un comentario</label>
+        <input #comment="ngModel" type="textarea"  id="comment" [(ngModel)]="comment" name="comment" placeholder="Write your comment here..." required>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+            <ul class="list-inline rating-list" 
+                *ngFor="let star of stars" style="display: inline-block" >
+                  <li (click)="countStar(star)"
+                      [ngClass]="{'selected': (star <= selectedValue)}">
+                    <i class="fa fa-star"></i>
+                  </li> 
+            </ul>
+        </div>
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+  hola

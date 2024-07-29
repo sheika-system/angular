@@ -13,6 +13,8 @@ import { UbicacionComponent } from './pages/ubicacion/ubicacion.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { CalificacionUsuarioComponent } from './components/calificacion/calificacion-usuario/calificacion-usuario.component';
+
 
 export const routes: Routes = [
   {
@@ -49,6 +51,16 @@ export const routes: Routes = [
     component: AppLayoutComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: 'calificacion',
+        component: CalificacionUsuarioComponent, data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin
+          ],
+          name: 'Users'
+        }
+      },
       {
         path: 'app',
         redirectTo: 'users',

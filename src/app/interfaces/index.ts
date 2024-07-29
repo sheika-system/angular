@@ -78,3 +78,12 @@ export interface IResetPasswordToken {
 export interface IResetPasswordRequest {
   newPassword?: string;
 }
+
+export interface ICalificacionUsuario{
+  id?: number;
+  usuarioCalificadoid?: IUser;
+  usuarioCalificadorid?: IUser;
+  valor?: number;
+  fecha?: Date;
+  comentario?: string;
+}

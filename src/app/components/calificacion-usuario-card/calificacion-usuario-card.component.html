@@ -1,0 +1,10 @@
+<div class="card">
+    <img [src]="'data:image/jpeg;base64,'" + imagen class="user-image">
+    <h3>{{ nombre }}</h3>
+    <div class="rating">
+      <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+        <i class="fa" [ngClass]="{'fa-star': i < calificacionPromedio, 'fa-star-o': i >= calificacionPromedio}"></i>
+      </ng-container>
+    </div>
+</div>
+
