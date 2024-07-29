@@ -1,0 +1,7 @@
+<div class="propiedades-grid-container">
+    <div class="propiedades-grid-row" *ngFor="let row of rows">
+        <div class="propiedad-card-container" *ngFor="let propiedad of row">
+            <app-propiedad-card [propiedad]="propiedad"></app-propiedad-card>
+        </div>
+    </div>
+</div>

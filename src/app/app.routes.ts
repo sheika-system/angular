@@ -13,6 +13,8 @@ import { UbicacionComponent } from './pages/ubicacion/ubicacion.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { PropiedadesListComponent } from './pages/home/home.component';
+import { PropiedadComponent } from './pages/propiedad/propiedad.component';
 
 export const routes: Routes = [
   {
@@ -100,6 +102,42 @@ export const routes: Routes = [
             IRole.user
           ],
           name: 'Perfil'
+        }
+      },
+      {
+        path: 'perfil',
+        redirectTo: 'home',
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Perfil'
+        }
+      },
+      {
+        path: 'propiedad/:id',
+        component: PropiedadComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Propiedad'
+        }
+      },
+      {
+        path: 'home',
+        component: PropiedadesListComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Home'
         }
       }
     ],

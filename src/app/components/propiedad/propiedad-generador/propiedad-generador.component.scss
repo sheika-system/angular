@@ -1,0 +1,20 @@
+.propiedades-grid-container {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit);
+}
+  
+.propiedades-grid-row {
+    justify-content: space-around;
+    display: flex;
+    gap: 20px;
+}
+
+.propiedad-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30%;
+}
