@@ -10,11 +10,13 @@
     <h2>Deja un comentario</h2>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="comment">Deja un comentario</label>
-        <input #comment="ngModel" type="textarea"  id="comment" [(ngModel)]="comment" name="comment" placeholder="Write your comment here..." required>
+        <input type="textarea"  id="comment"  name="comment" placeholder="Write your comment here..." required>
       </div>
       <div class="row">
+        
+        <label for="comment">Agrega tu calificacion</label>
         <div class="col-sm-12">
+          
             <ul class="list-inline rating-list" 
                 *ngFor="let star of stars" style="display: inline-block" >
                   <li (click)="countStar(star)"
@@ -27,4 +29,3 @@
       <button type="submit">Enviar</button>
     </form>
   </div>
-  hola

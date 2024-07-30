@@ -21,7 +21,7 @@ export class CalificacionUsuarioComponent  {
   comment: string = '';
 
   onSubmit() {
-    console.log('Comment:', this.comment);
+    
   }
 
     stars: number[] = [1, 2, 3, 4, 5];

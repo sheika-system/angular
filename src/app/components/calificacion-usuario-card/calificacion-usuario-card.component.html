@@ -1,5 +1,5 @@
 <div class="card">
-    <img [src]="'data:image/jpeg;base64,'" + imagen class="user-image">
+    <img [src]="'data:image/jpeg;base64, ' + imagen "  class="user-image">
     <h3>{{ nombre }}</h3>
     <div class="rating">
       <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
