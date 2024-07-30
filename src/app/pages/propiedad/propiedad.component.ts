@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, effect, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { TopbarComponent } from '../../components/app-layout/elements/topbar/topbar.component';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { UbicacionSelectorComponent } from '../../components/ubicacion/ubicacion-selector/ubicacion-selector.component';
-import { IAmenidad, IImagen, IPropiedad, ITipoPropiedad, IUbicacion } from '../../interfaces';
+import { IAmenidad, IImagen, IPropiedad, ITipoPropiedad, IUbicacion, IUser } from '../../interfaces';
 import { UbicacionComponent } from "../ubicacion/ubicacion.component";
 import { UbicacionService } from '../../services/ubicacion.service';
 import { AmenidadComponent } from "../../components/amenidad/amenidad.component";
@@ -18,6 +18,12 @@ import { AmenidadService } from '../../services/amenidad.service';
 import { TipoPropiedadService } from '../../services/tipo-propiedad.service';
 import { PropiedadService } from '../../services/propiedad.service';
 import { ImagenService } from '../../services/imagen.service';
+import { UbicacionFormComponent } from "../../components/ubicacion/ubicacion-form/ubicacion-form.component";
+import { MapComponent } from "../../components/map/map.component";
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-propiedad',
@@ -36,7 +42,9 @@ import { ImagenService } from '../../services/imagen.service';
     UbicacionComponent,
     AmenidadComponent,
     TipoPropiedadComponent,
-    ImagenComponent
+    ImagenComponent,
+    UbicacionFormComponent,
+    MapComponent
 ],
   templateUrl: './propiedad.component.html',
   styleUrls: ['./propiedad.component.scss']
@@ -46,12 +54,23 @@ export class PropiedadComponent implements OnInit {
   amenidadService = inject(AmenidadService);
   tipoPropService = inject(TipoPropiedadService);
   imagenService = inject(ImagenService);
+  userService = inject(UserService)
 
-  ubicacion: IUbicacion = {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  currentUserId: number | undefined;
+  user: IUser = {};
+  id: number | undefined;
+
+
+  private snackBar = inject(MatSnackBar);
+
+  ubicacionMaps: IUbicacion = {
     direccion: "",
     latitud: 0,
     longitud: 0,
-    provincia: { provinciaId: undefined, nombre: "" },
+    provincia: { provinciaId: undefined , nombre: "" },
     canton: { cantonId: undefined, nombre: "" },
     distrito: { distritoId: undefined, nombre: "" }
   };
@@ -72,15 +91,17 @@ export class PropiedadComponent implements OnInit {
     tipoPropiedad: this.tipoPropiedad,
     moneda: '',
     precio: 0,
-    ubicacion: this.ubicacion,
+    ubicacion: { ...this.ubicacionMaps }, // Crea una copia de ubicacionMaps
     amenidades: this.listaAmenidades,
     annioConstruccion: 0,
     cuartosCant: 0,
     banniosCant: 0,
     metrosCuadrados: 0,
-    disponibilidad: false,
-    listaImagenes: []
+    disponibilidad: true,
+    listaImagenes: [],
+    user: this.userService.user$()
   };
+  
 
 
   selectedCurrency: string | undefined;
@@ -89,43 +110,231 @@ export class PropiedadComponent implements OnInit {
     { value: 'CRC', viewValue: 'Colón Costarricense (CRC)' }
   ];
 
+  // Parte de google maps
 
-  constructor(private propiedadService: PropiedadService) {}
+  resetUbicacion($event: boolean) {
+    if ($event) {
+      // Reiniciar ubicacionMaps
+      this.ubicacionMaps = {
+        direccion: "",
+        latitud: 0,
+        longitud: 0,
+        provincia: { provinciaId: undefined, nombre: "" },
+        canton: { cantonId: undefined, nombre: "" },
+        distrito: { distritoId: undefined, nombre: "" }
+      };
 
+  
+      // Reiniciar el paginador
+      if (this.paginator) {
+        this.paginator.pageIndex = 0;
+      }
+  
+      // Limpiar cualquier entrada en el campo de búsqueda
+      const inputElement = document.querySelector('input[matInput]') as HTMLInputElement;
+      if (inputElement) {
+        inputElement.value = '';
+      }
+  
+  
+      // Opcional: Notificar al usuario
+      this.snackBar.open('Filtros de ubicación reiniciados', 'Cerrar', {
+        duration: 3000
+      });
+    }
+  }
+
+  normalizeLocation(str: string): string {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ""); // Elimina caracteres especiales excepto espacios
+  }
+
+  private buildLocationFilter(): string {
+    const locationFilters = [];
+    if (this.ubicacionMaps.provincia?.nombre) {
+      locationFilters.push(`provincia:${this.normalizeLocation(this.ubicacionMaps.provincia.nombre)}`);
+    }
+    if (this.ubicacionMaps.canton?.nombre) {
+      locationFilters.push(`canton:${this.normalizeLocation(this.ubicacionMaps.canton.nombre)}`);
+    }
+    if (this.ubicacionMaps.distrito?.nombre) {
+      locationFilters.push(`distrito:${this.normalizeLocation(this.ubicacionMaps.distrito.nombre)}`);
+    }
+    return locationFilters.join(' AND ');
+  }
+
+  
+  
+  constructor(private propiedadService: PropiedadService, private route: ActivatedRoute, public router: Router) {
+    const user = localStorage.getItem('auth_user');
+    if (user) {
+      this.currentUserId = JSON.parse(user)?.id;
+    }
+    // Validar y obtener el usuario
+    if (this.currentUserId) {
+      this.userService.getByIdSignal(this.currentUserId);
+    } else {
+      console.error('El usuario no está autenticado');
+    }
+    console.log("User: ",this.userService.user$())
+  }
+  
+  
   onSubmit() {
-      this.propiedadService.add(this.propiedad).subscribe({
+    // Crear una copia de propiedad para no modificar el original directamente
+    let propiedadToSubmit = { ...this.propiedad };
+
+  // Comprobar si existe user y authorities
+    if (propiedadToSubmit.user && 'authorities' in propiedadToSubmit.user) {
+    // Crear una nueva copia del usuario sin authorities
+    const { authorities, ...userWithoutAuthorities } = propiedadToSubmit.user;
+    
+    // Actualizar el user en la copia de propiedad
+    propiedadToSubmit.user = userWithoutAuthorities;
+  }
+    this.propiedadService.add(propiedadToSubmit).subscribe({
         next: (response) => {
           console.log('Propiedad registrada con éxito', response);
+          this.router.navigateByUrl('/app/perfil')
         },
         error: (err) => {
           console.error('Error al registrar la propiedad', err);
         }
       });
-  }
+      console.log(propiedadToSubmit)
+    }
+    
+    
+    
+    ngOnInit() {
+      this.service.getAllSignal();
+      this.service.getProvincias();
+      this.service.getCantones();
+      this.service.getDistritos();
+      this.amenidadService.getAllSignal();
+      this.tipoPropService.getAllSignal();
+      if (!this.propiedad.ubicacion) {
+        this.propiedad.ubicacion = { ...this.ubicacionMaps };
+      }
+    }
+    updateUbicacionAndFilter(newUbicacion: Partial<IUbicacion>) {
+      this.ubicacionMaps = { ...this.ubicacionMaps, ...newUbicacion };
+      this.buildLocationFilter();
+    }
+  
+    onMapSelectedLocation(mapInfo: any) {
+      let provinciaEncontrada: any;
+      let cantonEncontrado: any;
+      let distritoEncontrado: any;
+  
+      if (mapInfo.markerPosition && mapInfo.selectedLocation) {
+        this.ubicacionMaps = {
+          ...this.ubicacionMaps,
+          latitud: mapInfo.markerPosition.lat,
+          longitud: mapInfo.markerPosition.lng
+        };
+  
+        // Setear provincia
+        if (mapInfo.selectedLocation.provincia !== '') {
+          provinciaEncontrada = this.service.provincias$().find(
+            p => p.nombre.toLowerCase() === mapInfo.selectedLocation.provincia.toLowerCase()
+          );
+          if (provinciaEncontrada) {
+            this.ubicacionMaps.provincia = provinciaEncontrada;
+          }
+        } else {
+          this.ubicacionMaps.provincia = undefined;
+        }
+  
+        // Setear cantón
+        if (mapInfo.selectedLocation.canton !== '') {
+          cantonEncontrado = this.service.cantones$().find(
+            c => c.nombre.toLowerCase() === mapInfo.selectedLocation.canton.toLowerCase() &&
+                c.provincia?.provinciaId === this.ubicacionMaps.provincia?.provinciaId
+          );
+          if (cantonEncontrado) {
+            this.ubicacionMaps.canton = cantonEncontrado;
+          } else {
+            this.ubicacionMaps.canton = undefined;
+          }
+        } else if(mapInfo.selectedLocation.canton == '' && mapInfo.selectedLocation.distrito !== ''){
+          // Buscamos el distrito
+          distritoEncontrado = this.service.distritos$().find(
+            d => d.nombre.toLowerCase() === mapInfo.selectedLocation.distrito.toLowerCase() &&
+                d.canton?.provincia?.provinciaId === provinciaEncontrada.provinciaId
+          );
+          // Buscamos el canton por medio del distrito
+          cantonEncontrado = this.service.cantones$().find(
+            c => c.cantonId === distritoEncontrado?.canton?.cantonId
+          );
+          if (cantonEncontrado) {
+            this.ubicacionMaps.canton = cantonEncontrado;
+          } else {
+            this.ubicacionMaps.canton = undefined;
+          }
+  
+        }else{
+          this.ubicacionMaps.canton = undefined;
+        }
+        
+        if(!distritoEncontrado){
+          // Setear distrito
+          if (mapInfo.selectedLocation.distrito !== '') {
+            distritoEncontrado = this.service.distritos$().find(
+              d => d.nombre.toLowerCase() === mapInfo.selectedLocation.distrito.toLowerCase() &&
+                  d.canton?.cantonId === this.ubicacionMaps.canton?.cantonId
+            );
+            if (distritoEncontrado) {
+              this.ubicacionMaps.distrito = distritoEncontrado;
+            } else {
+              this.ubicacionMaps.distrito = undefined;
+            }
+          } else {
+            this.ubicacionMaps.distrito = undefined;
+          }
+        }else{
+          this.ubicacionMaps.distrito = distritoEncontrado;
+        }
+      }
+      this.updateUbicacionAndFilter(this.ubicacionMaps);
 
-
-
-  ngOnInit() {
-    this.service.getAllSignal();
-    this.service.getProvincias();
-    this.service.getCantones();
-    this.service.getDistritos();
-    this.amenidadService.getAllSignal();
-    this.tipoPropService.getAllSignal();
-  }
-
-  onUbicacionChange(params: IUbicacion) {
-    this.propiedad.ubicacion = params;
-    console.log('Ubicación actualizada:', this.propiedad.ubicacion);
-  }
+      this.onUbicacionChange(this.ubicacionMaps)
+    }
+    
+    onUbicacionChange(params: IUbicacion) {
+      this.ubicacionMaps = { ...params };
+      
+      this.propiedad = {
+        ...this.propiedad,
+        ubicacion: { ...params }
+      };
+      console.log('Ubicación actualizada:', this.ubicacionMaps);
+      console.log("Ubicacion en propiedad:", this.propiedad.ubicacion);
+    }
   onAmenidadChange(params: IAmenidad[]){
     console.log("onAmenidadChange", params)
+
+    this.propiedad.amenidades = params;
   }
 
   onTipoPropiedadChange(params: ITipoPropiedad){
     console.log("onTipoPropiedadChange", params)
+
+    this.propiedad.tipoPropiedad = params;
   }
   onImagenesRegistrar(params: IImagen[]) {
     console.log("onImagenesRegistrar", params)
+
+    this.propiedad.listaImagenes = params;
+  }
+
+  volverHome() {
+    this.router.navigateByUrl('/app/dashboard')
   }
 }
+
+
+

@@ -10,10 +10,13 @@
             </a>
           </div>
           <div class="login-main">
-            <form (ngSubmit)="onSubmit()" #frm="ngForm" autocomplete="off">
+            <form #frm="ngForm" autocomplete="off">
               <div class="mb-3">
                 <h1><strong>Agregar Propiedad</strong></h1>
                 <small style="color: #4f4f4f">Completa los datos para agregar una nueva propiedad</small>
+              </div>
+              <div class="returnHome">
+                <a class="ancle" (click)="volverHome()">Home</a>
               </div>
 
               <!-- Nombre -->
@@ -31,13 +34,24 @@
               </div>
 
               <!-- Ubicación -->
-              <app-ubicacion-selector 
-                (ubicacionChange)="onUbicacionChange($event)"
-                [provincias]="service.provincias$()"
-                [cantones]="service.cantones$()"
-                [distritos]="service.distritos$()"
-                [ubicacion]="ubicacion">
-              </app-ubicacion-selector>
+              <div class="map-section">
+                <app-map
+                  (onUbicacionChange)="onMapSelectedLocation($event)"
+                  (onResetMap)="resetUbicacion($event)"
+                ></app-map>
+              </div>
+            
+              <div class="ubicacion-section">
+                <h2>Seleccione la ubicación</h2>
+                <app-ubicacion-selector 
+                  (ubicacionChange)="onUbicacionChange($event)" 
+                  [provincias]="service.provincias$()"
+                  [cantones]="service.cantones$()" 
+                  [distritos]="service.distritos$()" 
+                  [ubicacion]="ubicacionMaps" 
+                  [mostrarDireccion]="true">
+                </app-ubicacion-selector>
+              </div>
 
               <!-- Amenidades -->
               <app-amenidad
@@ -107,7 +121,7 @@
 
               <!-- Botón de Guardar -->
               <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-lg">Guardar Propiedad</button>
+                <button type="submit" class="btn btn-primary btn-lg" (click)="onSubmit()">Guardar Propiedad</button>
               </div>
             </form>
           </div>

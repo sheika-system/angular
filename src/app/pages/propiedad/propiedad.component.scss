@@ -1,11 +1,11 @@
 .login-container {
-    height: 170vh;
+    height: 210vh;
     width: 140%;
     // background-image: url("../../../../assets/img/login/login-bg.jpg");
     background-position: left;
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 20px 20%;
+    padding: 20px 10%;
     position: relative;
     left: -20%;
     &::before {
@@ -107,4 +107,12 @@
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .returnHome {
+    text-align: right;
+  }
+
+  .ancle {
+    color: black;
   }

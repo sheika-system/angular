@@ -15,6 +15,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { PropiedadComponent } from './pages/propiedad/propiedad.component';
 import { ImagenComponent } from './components/imagen/imagen.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { DelitoComponent } from './components/delito/delito.component';
 
 
 export const routes: Routes = [
@@ -79,6 +80,18 @@ export const routes: Routes = [
             IRole.superAdmin
           ],
           name: 'Ubicaciones'
+        }
+      },
+      {
+        path: 'delitos',
+        component: DelitoComponent,
+        canActivate:[AdminRoleGuard],
+        data: { 
+          authorities: [
+            IRole.admin,
+            IRole.superAdmin
+          ],
+          name: 'delitos'
         }
       },
       {
