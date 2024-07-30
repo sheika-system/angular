@@ -33,4 +33,8 @@ export class PropiedadComponent{
       console.error("El id no está en un formato correcto o no existe: " + error);
     }
   }
+
+  volverInicio() {
+    window.location.assign('/app/home');
+  }
 }

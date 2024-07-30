@@ -21,7 +21,7 @@ import { DelitoComponent } from "../../components/delito/delito.component";
     ModalComponent,
     LoaderComponent,
     UbicacionSelectorComponent,
-    ImagenComponent
+    ImagenComponent,
     MapComponent,
     DelitoComponent,
     DelitoComponent

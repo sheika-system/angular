@@ -1,8 +1,8 @@
 <div class="propiedad-container d-flex">
     <div class="propiedad-imagenes-container">
         <app-imagen [verCarousel]="true"
-                    [verCarousel]="false"
-                    [verCarousel]="false"
+                    [verTabla]="false"
+                    [verRegistro]="false"
                     [listaImagenes]="propiedad.listaImagenes ?? []"
         ></app-imagen>
     </div>
@@ -35,8 +35,11 @@
                 <h1 class="texto-azul texto-moneda"><strong>₡ {{propiedad.precio}}/mes</strong></h1>
             }
             <button class="btn btn-propietario">Contactar Propietario</button>
-            <button class=" btn btn-tour-3d">Ver Tour 3D</button>
+            <button class="btn btn-tour-3d">Ver Tour 3D</button>
         </div>
     </div>
 </div>
-<a href="app/home" class="propiedad-container texto-verde">Volver a búsqueda</a>
+<button href="app/home" class="btn btn-volver-home propiedad-container" (click)="volverInicio()">
+    <i class="fa-solid fa-arrow-left fa-xl"></i> <span class="texto-white">Volver a Inicio</span>
+</button>
+<div class="bottom-margin"></div>
