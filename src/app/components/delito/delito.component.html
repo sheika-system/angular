@@ -23,12 +23,6 @@
     </div>
   
     <div class="table-section">
-        <!-- <mat-form-field>
-            <input matInput #filterInput (keyup)="applyFilter($event)" placeholder="Buscar...">
-            <mat-hint>
-              Usa 'campo:valor' para búsquedas específicas. Ejemplo: subdelito:"arma blanca" AND distrito:pavas
-            </mat-hint>
-          </mat-form-field> -->
           <div class="search-container">
             <mat-form-field appearance="outline" class="search-field">
               <mat-label>Buscar</mat-label>
@@ -44,7 +38,6 @@
             </div>
           </div>
       <div class="mat-elevation-z8 table-container">
-        <!-- ... (contenido de la tabla sin cambios) ... -->
         <table mat-table [dataSource]="dataSource" matSort>
   
             <!-- Delito Column -->
@@ -122,7 +115,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         
-            <!-- Row shown when there is no matching data. -->
+            <!-- Fila por si no hay elementos que mostrar -->
             <tr class="mat-row" *matNoDataRow>
                 <td class="mat-cell" colspan="12">No se encontraron datos que coincidan con el filtro "{{filterInput.value}}"</td>
             </tr>

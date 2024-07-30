@@ -70,37 +70,6 @@ export class DelitoComponent implements OnInit, AfterViewInit{
   filterValue: string = '';
   filterTimeout: any;
 
-  // dummyData: IDelito[] = [
-  //   {
-  //     delito: "Asalto",
-  //     subDelito: "Arma Blanca",
-  //     fecha: new Date("2024-01-01"),
-  //     hora: "03:00:00 - 05:59:59",
-  //     victima: "Persona",
-  //     subVictima: "Peaton [Persona]",
-  //     edad: 43,
-  //     sexo: "Hombre",
-  //     nacionalidad: "Costa Rica",
-  //     provincia: "San Jose",
-  //     canton: "Alajuelita",
-  //     distrito: "Concepcion"
-  //   },
-  //   {
-  //     delito: "Asalto",
-  //     subDelito: "Arma Blanca",
-  //     fecha: new Date("2024-01-05"),
-  //     hora: "15:00:00 - 17:59:59",
-  //     victima: "Vivienda",
-  //     subVictima: "No Aplica [Vivienda]",
-  //     edad: 65,
-  //     sexo: "Mujer",
-  //     nacionalidad: "Costa Rica",
-  //     provincia: "Guanacaste",
-  //     canton: "Liberia",
-  //     distrito: "Liberia"
-  //   }
-  // ];
-
   constructor(
     private delitoService: DelitoService,
     private cdr: ChangeDetectorRef
@@ -296,7 +265,7 @@ export class DelitoComponent implements OnInit, AfterViewInit{
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, ""); // Elimina caracteres especiales excepto espacios
+      .replace(/[^a-z0-9:\s]/g, ""); // Elimina caracteres especiales excepto espacios
   }
 
   // applyUbicacionFilter() {
@@ -384,7 +353,7 @@ export class DelitoComponent implements OnInit, AfterViewInit{
     const combinedFilter = locationFilter ? `${locationFilter} AND ${inputValue}` : inputValue;
     this.filterValue = this.processFilterValue(combinedFilter);
     this.paginator.pageIndex = 0;
-    
+    console.log("this.filterValue", this.filterValue);
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
     }
@@ -395,7 +364,8 @@ export class DelitoComponent implements OnInit, AfterViewInit{
   
   private processFilterValue(value: string): string {
     const terms = value.match(/(?:[^\s"]+|"[^"]*")+/g) || [];
-    
+    // const terms = value.match(/(?:[^\s":]+|"[^"]*")+|:/g) || [];
+    console.log("terms", terms);
     const processedTerms = terms.map(term => {
       if (term.includes(':')) {
         const [field, searchValue] = term.split(':');
