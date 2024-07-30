@@ -18,6 +18,12 @@
             </div>
         </div>
         <div>
+            <h3>
+                <strong>Propietario: </strong>
+                <a [href]="'/app/perfil/' + propiedad.user?.id" class="texto-verde">{{propiedad.user?.nombre}} {{propiedad.user?.apellido}}</a>
+            </h3>
+            <h4 *ngIf="propiedad.disponibilidad"><strong>Disponibilidad:</strong> Disponible</h4>
+            <h4 *ngIf="!propiedad.disponibilidad"><strong>Disponibilidad:</strong> No disponible</h4>
             <h4><strong>Tipo:</strong> {{propiedad.tipoPropiedad?.nombre}}</h4>
             <div class="d-flex">
                 <h4><strong>Cuartos:</strong> {{propiedad.cuartosCant}}</h4>
@@ -46,7 +52,9 @@
             @if(propiedad.moneda === "CRC") {
                 <h1 class="texto-azul texto-moneda"><strong>₡ {{propiedad.precio}}/mes</strong></h1>
             }
-            <button class="btn btn-propietario">Contactar Propietario</button>
+            @if(propiedad.disponibilidad) {
+                <button class="btn btn-propietario">Contactar Propietario</button>
+            }
             <button class="btn btn-tour-3d">Ver Tour 3D</button>
         </div>
     </div>

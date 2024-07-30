@@ -9,6 +9,7 @@ export class PropiedadService extends BaseService<IPropiedad> {
     protected override source: string = 'propiedades';
     private propiedadSignal = signal<IPropiedad>({});
     private propiedadListSignal = signal<IPropiedad[]>([]);
+    private userPropiedadListSignal = signal<IPropiedad[]>([]);
 
     get propiedades$() {
         return this.propiedadListSignal;
@@ -16,6 +17,10 @@ export class PropiedadService extends BaseService<IPropiedad> {
 
     get propiedad$() {
         return this.propiedadSignal;
+    }
+
+    get userPropiedades$() {
+        return this.userPropiedadListSignal;
     }
 
     getAllSignal() {
@@ -39,5 +44,16 @@ export class PropiedadService extends BaseService<IPropiedad> {
             console.error('Error fetching propiedad', error);
           }
         });
-      }
+    }
+
+    getByUserIdSignal(id: number) {
+        this.http.get('propiedades/user/' + id).subscribe({
+            next: (response: any) => {
+                this.userPropiedadListSignal.set(response);
+            },
+            error: (error: any) => {
+                console.error('Error fetching propiedad', error);
+            }
+        });
+    }
 }

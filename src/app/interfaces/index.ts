@@ -119,6 +119,7 @@ export interface IPropiedad {
   metrosCuadrados?: number;
   disponibilidad?: boolean;
   listaImagenes?: IImagen[];
+  user?: IUser;
 }
 
 export interface IDelito {

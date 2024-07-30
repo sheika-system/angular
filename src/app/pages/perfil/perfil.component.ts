@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal} from '@angular/core';
+import { Component, effect, inject} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { IUbicacion, IUser } from '../../interfaces';
@@ -53,5 +53,9 @@ export class PerfilComponent {
   showDetail(user: IUser, modal: any) {
     user = this.user;
     modal.show();
+  }
+
+  verPropiedadesUsuario() {
+    window.location.assign('/app/propiedadesUsuario/' + this.id);
   }
 }

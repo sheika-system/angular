@@ -17,6 +17,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { PropiedadesListComponent } from './pages/home/home.component';
 import { PropiedadComponent } from './pages/detalle-propiedad/detalle-propiedad.component';
 import { ImagenComponent } from './components/imagen/imagen.component';
+import { PropiedadesUsuarioComponent } from './pages/propiedades-usuario/propiedades-usuario.component';
 
 
 export const routes: Routes = [
@@ -142,6 +143,18 @@ export const routes: Routes = [
             IRole.user
           ],
           name: 'Propiedad'
+        }
+      },
+      {
+        path: 'propiedadesUsuario/:id',
+        component: PropiedadesUsuarioComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'PropiedadUsuario'
         }
       },
       {
