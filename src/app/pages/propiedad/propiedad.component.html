@@ -1,6 +1,11 @@
 <div class="propiedad-container d-flex">
     <div class="propiedad-imagenes-container">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <app-imagen [verCarousel]="true"
+                    [verCarousel]="false"
+                    [verCarousel]="false"
+                    [listaImagenes]="propiedad.listaImagenes ?? []"
+        ></app-imagen>
+        <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
@@ -8,7 +13,7 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <!-- <img [src]="propiedad.listaImagenes![0].imagen ? 'data:image/jpeg;base64,' + propiedad.listaImagenes![0].imagen : '../../../assets/img/login/noImageFound.jpg'" class="d-block w-100" alt="..."> -->
+                    <img [src]="propiedad.listaImagenes![0].imagen ? 'data:image/jpeg;base64,' + propiedad.listaImagenes![0].imagen : '../../../assets/img/login/noImageFound.jpg'" class="d-block w-100" alt="...">
                     <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
@@ -26,7 +31,7 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </a>
-        </div>
+        </div> -->
     </div>
     <div class="propiedad-info-container">
         <div class="d-flex">

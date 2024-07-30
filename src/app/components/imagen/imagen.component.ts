@@ -22,6 +22,12 @@ export class ImagenComponent {
 
   @Input() listaImagenes: IImagen[] = [];
 
+  @Input() verTabla: boolean = false;
+
+  @Input() verCarousel: boolean = true;
+
+  @Input() verRegistro: boolean = false;
+
   @Input() propiedadImagen: IPropiedad = {
     propiedadId: undefined
   }

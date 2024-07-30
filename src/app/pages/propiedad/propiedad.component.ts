@@ -1,18 +1,23 @@
 import { Component, effect, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PropiedadService } from '../../services/propiedad.service';
-import { IPropiedad } from '../../interfaces';
+import { IPropiedad, IImagen } from '../../interfaces';
+import { ImagenComponent } from '../../components/imagen/imagen.component';
+import { ImagenModalComponent } from '../../components/imagen/imagen-modal/imagen-modal.component';
 
 @Component({
   selector: 'app-propiedad',
   standalone: true,
-  imports: [],
+  imports: [ImagenComponent, ImagenModalComponent],
   templateUrl: './propiedad.component.html',
   styleUrl: './propiedad.component.scss'
 })
 export class PropiedadComponent{
   protected propiedadId: number;
-  protected propiedad: IPropiedad = {};
+  listaImagenes: IImagen[] = [];
+  protected propiedad: IPropiedad = {
+    listaImagenes: this.listaImagenes
+  };
   private service = inject(PropiedadService);
 
   constructor(private route: ActivatedRoute) {
