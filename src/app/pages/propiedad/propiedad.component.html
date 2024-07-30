@@ -1,1 +1,64 @@
-<p>propiedad works!</p>
+<div class="propiedad-container d-flex">
+    <div class="propiedad-imagenes-container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <!-- <img [src]="propiedad.listaImagenes![0].imagen ? 'data:image/jpeg;base64,' + propiedad.listaImagenes![0].imagen : '../../../assets/img/login/noImageFound.jpg'" class="d-block w-100" alt="..."> -->
+                    <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="propiedad-info-container">
+        <div class="d-flex">
+            <h1 class="texto-azul"><strong>{{propiedad.nombre}}</strong></h1>
+            <div class="estrellas-container">
+                <span class="fa fa-xl fa-star checked"></span>
+                <span class="fa fa-xl fa-star checked"></span>
+                <span class="fa fa-xl fa-star checked"></span>
+                <span class="fa fa-xl fa-star"></span>
+                <span class="fa fa-xl fa-star"></span>
+            </div>
+        </div>
+        <div>
+            <h4>Tipo: {{propiedad.tipoPropiedad?.nombre}}</h4>
+            <div class="d-flex">
+                <h4>Cuartos: {{propiedad.cuartosCant}}</h4>
+                <h4><span class="texto-margin-left">Baños: {{propiedad.banniosCant}}</span></h4>
+                <h4><span class="texto-margin-left">Area: {{propiedad.metrosCuadrados}}m<sup>2</sup></span></h4>
+            </div>
+            <h4>Año de construcción: {{propiedad.annioConstruccion}}</h4>
+            <h3>{{propiedad.descripcion}}</h3>
+        </div>
+        <div class="d-flex align-items-center">
+            @if(propiedad.moneda === "Dolar estadounidense") {
+                <h1 class="texto-azul texto-moneda"><strong>$ {{propiedad.precio}}/mes</strong></h1>
+            }
+            @if(propiedad.moneda === "Colon") {
+                <h1 class="texto-azul texto-moneda"><strong>₡ {{propiedad.precio}}/mes</strong></h1>
+            }
+            <button class="btn btn-propietario">Contactar Propietario</button>
+            <button class=" btn btn-tour-3d">Ver Tour 3D</button>
+        </div>
+    </div>
+</div>
+<a href="app/home" class="propiedad-container texto-verde">Volver a búsqueda</a>

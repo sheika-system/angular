@@ -10,7 +10,7 @@ import { IPropiedad } from '../../interfaces';
   templateUrl: './propiedad.component.html',
   styleUrl: './propiedad.component.scss'
 })
-export class PropiedadComponent {
+export class PropiedadComponent{
   protected propiedadId: number;
   protected propiedad: IPropiedad = {};
   private service = inject(PropiedadService);
