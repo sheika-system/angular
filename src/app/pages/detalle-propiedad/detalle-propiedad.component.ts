@@ -4,11 +4,12 @@ import { PropiedadService } from '../../services/propiedad.service';
 import { IPropiedad, IImagen } from '../../interfaces';
 import { ImagenComponent } from '../../components/imagen/imagen.component';
 import { ImagenModalComponent } from '../../components/imagen/imagen-modal/imagen-modal.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-propiedad',
   standalone: true,
-  imports: [ImagenComponent, ImagenModalComponent],
+  imports: [ImagenComponent, ImagenModalComponent, CommonModule],
   templateUrl: './detalle-propiedad.component.html',
   styleUrl: './detalle-propiedad.component.scss'
 })

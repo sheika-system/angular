@@ -18,13 +18,25 @@
             </div>
         </div>
         <div>
-            <h4>Tipo: {{propiedad.tipoPropiedad?.nombre}}</h4>
+            <h4><strong>Tipo:</strong> {{propiedad.tipoPropiedad?.nombre}}</h4>
             <div class="d-flex">
-                <h4>Cuartos: {{propiedad.cuartosCant}}</h4>
-                <h4><span class="texto-margin-left">Baños: {{propiedad.banniosCant}}</span></h4>
-                <h4><span class="texto-margin-left">Area: {{propiedad.metrosCuadrados}}m<sup>2</sup></span></h4>
+                <h4><strong>Cuartos:</strong> {{propiedad.cuartosCant}}</h4>
+                <h4><span class="texto-margin-left"><strong>Baños:</strong> {{propiedad.banniosCant}}</span></h4>
+                <h4><span class="texto-margin-left"><strong>Area:</strong> {{propiedad.metrosCuadrados}}m<sup>2</sup></span></h4>
             </div>
-            <h4>Año de construcción: {{propiedad.annioConstruccion}}</h4>
+            <h4><strong>Año de construcción:</strong> {{propiedad.annioConstruccion}}</h4>
+            <div class="d-flex">
+                <h4><strong>Provincia:</strong> {{propiedad.ubicacion?.provincia?.nombre}}</h4>
+                <h4><span class="texto-margin-left"><strong>Cantón:</strong> {{propiedad.ubicacion?.canton?.nombre}}</span></h4>
+                <h4><span class="texto-margin-left"><strong>Distrito:</strong> {{propiedad.ubicacion?.distrito?.nombre}}</span></h4>
+            </div>
+            <div class="d-flex">
+                <h4><strong>Amenidades:&nbsp;</strong></h4>
+                <div *ngFor="let amenidad of propiedad.amenidades; let i = index">
+                    <h4 *ngIf="i === propiedad.amenidades!.length - 1">{{amenidad.nombre}}</h4>
+                    <h4 *ngIf="i !== propiedad.amenidades!.length - 1">{{amenidad.nombre}},&nbsp;</h4>
+                </div>
+            </div>
             <h3>{{propiedad.descripcion}}</h3>
         </div>
         <div class="d-flex align-items-center">
