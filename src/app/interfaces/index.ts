@@ -79,6 +79,7 @@ export interface IResetPasswordRequest {
   newPassword?: string;
 }
 
+
 export interface IAmenidad {
   amenidadId: number;
   nombre: string;
@@ -90,12 +91,17 @@ export interface ITipoPropiedad {
   nombre?: string;
 
 }
+export interface IPropiedad{
+  propiedadId?: number
+
+}
 
 export interface IImagen{
   imagenId?: number,
   descripcion?: string,
   imagen?: string;
   propiedad?: IPropiedad
+
 }
 
 export interface IPropiedad {
@@ -113,4 +119,5 @@ export interface IPropiedad {
   metrosCuadrados?: number;
   disponibilidad?: boolean;
   listaImagenes?: IImagen[];
+
 }
