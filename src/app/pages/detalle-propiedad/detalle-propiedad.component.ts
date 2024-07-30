@@ -5,11 +5,12 @@ import { IPropiedad, IImagen } from '../../interfaces';
 import { ImagenComponent } from '../../components/imagen/imagen.component';
 import { ImagenModalComponent } from '../../components/imagen/imagen-modal/imagen-modal.component';
 import { CommonModule } from '@angular/common';
+import { BtnInicioComponent } from '../../components/btn-inicio/btn-inicio.component';
 
 @Component({
   selector: 'app-propiedad',
   standalone: true,
-  imports: [ImagenComponent, ImagenModalComponent, CommonModule],
+  imports: [ImagenComponent, ImagenModalComponent, CommonModule, BtnInicioComponent],
   templateUrl: './detalle-propiedad.component.html',
   styleUrl: './detalle-propiedad.component.scss'
 })
@@ -33,9 +34,5 @@ export class PropiedadComponent{
     } catch(error) {
       console.error("El id no está en un formato correcto o no existe: " + error);
     }
-  }
-
-  volverInicio() {
-    window.location.assign('/app/home');
   }
 }

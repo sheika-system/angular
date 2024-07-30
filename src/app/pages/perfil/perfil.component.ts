@@ -1,4 +1,4 @@
-import { Component, OnInit, effect, inject, signal} from '@angular/core';
+import { Component, effect, inject, signal} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { IUbicacion, IUser } from '../../interfaces';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from '../../components/svg-icon/svg-icon.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { PerfilFormComponent } from '../../components/perfil/perfil-form/perfil-form.component';
+import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.component";
 
 @Component({
   selector: 'app-perfil',
@@ -14,11 +15,13 @@ import { PerfilFormComponent } from '../../components/perfil/perfil-form/perfil-
     CommonModule,
     SvgIconComponent,
     ModalComponent,
-    PerfilFormComponent],
+    PerfilFormComponent,
+    BtnInicioComponent
+],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss'
 })
-export class PerfilComponent implements OnInit {
+export class PerfilComponent {
   protected id: string | null = '';
   protected currentUserId: string = '';
   protected currentUserRole: string = '';
@@ -50,9 +53,5 @@ export class PerfilComponent implements OnInit {
   showDetail(user: IUser, modal: any) {
     user = this.user;
     modal.show();
-  }
-  
-  ngOnInit(): void {
-    
   }
 }
