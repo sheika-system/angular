@@ -57,7 +57,6 @@ export class UbicacionService extends BaseService<IUbicacion> {
     this.http.get<IResponse<ICanton[]>>(`auth/cantones`).subscribe({
       next: (response: any) => {
         this.cantonListSignal.set(response);
-        console.log("cantonListSignal service", this.cantonListSignal);
       },
       error: (error: any) => {
         console.error('Error fetching cantones', error);
@@ -69,7 +68,6 @@ export class UbicacionService extends BaseService<IUbicacion> {
     this.http.get<IResponse<IDistrito[]>>(`auth/distritos`).subscribe({
       next: (response: any) => {
         this.distritoListSignal.set(response);
-        console.log("distritoListSignal service", this.distritoListSignal);
       },
       error: (error: any) => {
         console.error('Error fetching distritos', error);
