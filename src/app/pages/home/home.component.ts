@@ -1,5 +1,5 @@
 import { Component, effect, inject } from '@angular/core';
-import { PropiedadGeneradorComponent } from '../../components/propiedad/propiedad-generador/propiedad-generador.component';
+import { PropiedadGeneradorComponent } from '../../components/lista-propiedad/propiedad-generador/propiedad-generador.component';
 import { IPropiedad } from '../../interfaces';
 import { PropiedadService } from '../../services/propiedad.service';
 

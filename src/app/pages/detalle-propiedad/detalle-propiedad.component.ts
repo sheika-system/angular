@@ -9,8 +9,8 @@ import { ImagenModalComponent } from '../../components/imagen/imagen-modal/image
   selector: 'app-propiedad',
   standalone: true,
   imports: [ImagenComponent, ImagenModalComponent],
-  templateUrl: './propiedad.component.html',
-  styleUrl: './propiedad.component.scss'
+  templateUrl: './detalle-propiedad.component.html',
+  styleUrl: './detalle-propiedad.component.scss'
 })
 export class PropiedadComponent{
   protected propiedadId: number;

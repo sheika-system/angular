@@ -15,7 +15,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { PropiedadesListComponent } from './pages/home/home.component';
-import { PropiedadComponent } from './pages/propiedad/propiedad.component';
+import { PropiedadComponent } from './pages/detalle-propiedad/detalle-propiedad.component';
 import { ImagenComponent } from './components/imagen/imagen.component';
 
 
