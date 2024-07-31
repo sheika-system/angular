@@ -36,7 +36,7 @@
                 <h4><span class="texto-margin-left"><strong>Cantón:</strong> {{propiedad.ubicacion?.canton?.nombre}}</span></h4>
                 <h4><span class="texto-margin-left"><strong>Distrito:</strong> {{propiedad.ubicacion?.distrito?.nombre}}</span></h4>
             </div>
-            <div class="d-flex">
+            <div class="d-flex" *ngIf="propiedad.amenidades && propiedad.amenidades.length > 0">
                 <h4><strong>Amenidades:&nbsp;</strong></h4>
                 <div *ngFor="let amenidad of propiedad.amenidades; let i = index">
                     <h4 *ngIf="i === propiedad.amenidades!.length - 1">{{amenidad.nombre}}</h4>
