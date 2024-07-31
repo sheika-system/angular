@@ -37,6 +37,6 @@ export class MyAccountComponent implements OnInit {
   reload() {
     setTimeout(() =>  {
       location.reload();
-    }, 10)
-  }
+    }, 10)
+  }
 }

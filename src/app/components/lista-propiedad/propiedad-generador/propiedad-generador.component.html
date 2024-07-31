@@ -1,0 +1,14 @@
+<div class="propiedades-grid-container">
+    <div *ngIf="rows && rows.length > 0; else noPropiedadesTemplate">
+        <div class="propiedades-grid-row" *ngFor="let row of rows">
+            <div class="propiedad-card-container" *ngFor="let propiedad of row">
+                <app-propiedad-card [propiedad]="propiedad"></app-propiedad-card>
+            </div>
+        </div>
+    </div>
+    <ng-template #noPropiedadesTemplate>
+        <div class="texto-error justify-content-center d-flex">
+            No se encuentran propiedades
+        </div>
+    </ng-template>
+</div>

@@ -11,7 +11,7 @@
                       <strong><span class="text-detalle">{{user.nombre}} {{user.apellido}}</span></strong>
                     </h1>
                   </div>
-                    @if(id === currentUserId) {
+                    @if(id === currentUserId || currentUserRole === 'SUPER_ADMIN') {
                         <div>
                             <i class="fa-solid fa-pen-to-square fa-2xl perfil-edit" (click)="showDetail(user, formModal)"></i>
                         </div>
@@ -46,7 +46,10 @@
                     <p><span>{{user.ubicacion?.distrito?.nombre}}</span></p>
                   </div>
               </div>
-              <a href="/app/dashboard" class="text-green">Volver a la página principal</a>
+              <btn-inicio></btn-inicio>
+              <button class="btn btn-volver-home" (click)="verPropiedadesUsuario()">
+                <span class="texto-white">Ver propiedades</span>
+              </button>
           </div>
         </div>
       </div>

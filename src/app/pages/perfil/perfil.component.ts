@@ -1,4 +1,4 @@
-import { Component, OnInit, effect, inject, signal} from '@angular/core';
+import { Component, effect, inject} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { IUbicacion, IUser } from '../../interfaces';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { SvgIconComponent } from '../../components/svg-icon/svg-icon.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { PerfilFormComponent } from '../../components/perfil/perfil-form/perfil-form.component';
+import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.component";
 
 @Component({
   selector: 'app-perfil',
@@ -14,13 +15,16 @@ import { PerfilFormComponent } from '../../components/perfil/perfil-form/perfil-
     CommonModule,
     SvgIconComponent,
     ModalComponent,
-    PerfilFormComponent],
+    PerfilFormComponent,
+    BtnInicioComponent
+],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss'
 })
-export class PerfilComponent implements OnInit {
+export class PerfilComponent {
   protected id: string | null = '';
   protected currentUserId: string = '';
+  protected currentUserRole: string = '';
   private service = inject(UserService);
   protected user: IUser = {};
   protected userUbicacion: IUbicacion | undefined = {};
@@ -31,6 +35,7 @@ export class PerfilComponent implements OnInit {
 
     if(user) {
       this.currentUserId = String(JSON.parse(user)?.id);
+      this.currentUserRole = String(JSON.parse(user)?.role.name);
     }
     this.id = this.route.snapshot.paramMap.get('id');
 
@@ -49,8 +54,8 @@ export class PerfilComponent implements OnInit {
     user = this.user;
     modal.show();
   }
-  
-  ngOnInit(): void {
-    
+
+  verPropiedadesUsuario() {
+    window.location.assign('/app/propiedadesUsuario/' + this.id);
   }
 }
