@@ -16,6 +16,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { DelitoService } from '../../services/delito.service';
 import { finalize } from 'rxjs';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { BtnInicioComponent } from "../btn-inicio/btn-inicio.component";
 
 
 @Component({
@@ -35,8 +36,9 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatIconModule
-  ],
+    MatIconModule,
+    BtnInicioComponent
+],
   templateUrl: './delito.component.html',
   styleUrl: './delito.component.scss'
 })
