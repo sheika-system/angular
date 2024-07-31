@@ -60,7 +60,9 @@ export class ImagenComponent {
     pauseOnHover: true
   };
 
-  constructor(private modalService: NgbModal, private sanitizer: DomSanitizer) {}
+  constructor(private modalService: NgbModal, private sanitizer: DomSanitizer) {
+    
+  }
 
   getImageUrl(imagen: IImagen): SafeUrl {
     if (imagen.imagen) {

@@ -345,12 +345,12 @@ export class PropiedadComponent implements OnInit {
   }
   onImagenesRegistrar(params: IImagen[]) {
     console.log("onImagenesRegistrar", params)
-
+    
     this.propiedad.listaImagenes = params;
   }
 
   volverHome() {
-    this.router.navigateByUrl('/app/dashboard')
+    this.router.navigateByUrl('/app/home');
   }
 }
 
