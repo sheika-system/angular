@@ -14,7 +14,7 @@ import { BtnInicioComponent } from '../../components/btn-inicio/btn-inicio.compo
   templateUrl: './detalle-propiedad.component.html',
   styleUrl: './detalle-propiedad.component.scss'
 })
-export class PropiedadComponent{
+export class PropiedadDetalleComponent{
   protected propiedadId: number;
   listaImagenes: IImagen[] = [];
   protected propiedad: IPropiedad = {

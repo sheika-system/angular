@@ -15,7 +15,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { PropiedadesListComponent } from './pages/home/home.component';
-import { PropiedadComponent } from './pages/detalle-propiedad/detalle-propiedad.component';
+import { PropiedadDetalleComponent } from './pages/detalle-propiedad/detalle-propiedad.component';
 import { ImagenComponent } from './components/imagen/imagen.component';
 import { PropiedadesUsuarioComponent } from './pages/propiedades-usuario/propiedades-usuario.component';
 
@@ -135,7 +135,7 @@ export const routes: Routes = [
       },
       {
         path: 'propiedad/:id',
-        component: PropiedadComponent,
+        component: PropiedadDetalleComponent,
         data: { 
           authorities: [
             IRole.admin, 
