@@ -2,12 +2,16 @@
   <div class="media profile-media d-flex align-items-center">
     <i class="fa-regular fa-user"></i>
     <div class="media-body"><span>{{userName}}</span>
-      <p class="mb-0 font-roboto">{{userRole}} <i class="fa-solid fa-chevron-down"></i></p>
+      <p class="mb-0 font-roboto">Admin <i class="fa-solid fa-chevron-down"></i></p>
     </div>
   </div>
   <ul class="profile-dropdown onhover-show-div">
+
     <li [routerLink]="['perfil', userId]" (click)="reload()"><i class="fa-solid fa-user-tie"></i><span>Perfil</span></li>
+    <li (click)="propiedad()"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Registrar propiedad</span></li>
     <li class="opcionesNavegacion" [routerLink]="['delitos']" (click)="reload()"><i class="fa-solid fa-chart-bar"></i><span>Ver Reporte Delitos</span></li>
     <li (click)="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Cerrar sesión</span></li>
+
+    
   </ul>
 }

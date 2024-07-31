@@ -12,6 +12,8 @@ import { IRole } from './interfaces';
 import { UbicacionComponent } from './pages/ubicacion/ubicacion.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { PropiedadComponent } from './pages/propiedad/propiedad.component';
+import { ImagenComponent } from './components/imagen/imagen.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { DelitoComponent } from './components/delito/delito.component';
 
@@ -61,7 +63,7 @@ export const routes: Routes = [
         canActivate:[AdminRoleGuard],
         data: { 
           authorities: [
-            IRole.admin, 
+            IRole.admin,
             IRole.superAdmin
           ],
           name: 'Users'
@@ -73,7 +75,7 @@ export const routes: Routes = [
         canActivate:[AdminRoleGuard],
         data: { 
           authorities: [
-            IRole.admin, 
+            IRole.admin,
             IRole.superAdmin
           ],
           name: 'Ubicaciones'
@@ -85,10 +87,37 @@ export const routes: Routes = [
         canActivate:[AdminRoleGuard],
         data: { 
           authorities: [
-            IRole.admin, 
+            IRole.admin,
             IRole.superAdmin
           ],
-          name: 'Delitos'
+          name: 'delitos'
+        }
+      },
+      {
+
+        path: 'propiedad',
+        component: PropiedadComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Propiedad'
+        }
+      },
+     {
+        path: 'imagenes',
+        component: ImagenComponent,
+        canActivate:[AdminRoleGuard],
+        data: { 
+          authorities: [
+            IRole.admin,
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Imagenes'
+
         }
       },
       {

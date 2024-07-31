@@ -31,5 +31,33 @@
       [cantones]="service.cantones$()" [distritos]="service.distritos$()" [ubicacion]="ubicacionTest">
     </app-ubicacion-selector>
   </div>
+
+</div>
+<!-- <div class="container-fluid">
+  <app-imagen
+  [listaImagenes]="imagenService.imagenesPropiedad$()"
+  [propiedadImagen]="propiedadTest"
+  (regImagenes)="onRegistroImagenes($event)"
+  />
+</div> -->
+
+<app-amenidad
+[amenidades]="amenidadService.amenidades$()"
+(amenidadesChange)="onAmenidadChange($event)"
+></app-amenidad>
+
+<app-tipo-propiedad
+[tipoPropiedades]="tipoPropService.tipoPropiedades$()"
+(tipoPropiedadChange)="onTipoPropiedadChange($event)"
+></app-tipo-propiedad>
+
+<app-modal size="lg" #formModal>
+  <app-ubicacion-form [action]="'add'" [provincias]="service.provincias$()" [cantones]="service.cantones$()"
+    [distritos]="service.distritos$()">
+    <div [title]="'Agregar Ubicacion'"></div>
+  </app-ubicacion-form>
+</app-modal>
+
 </div> -->
 <app-delito></app-delito>
+

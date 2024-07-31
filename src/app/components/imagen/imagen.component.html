@@ -1,0 +1,160 @@
+<div class="container">
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Registro de Imágenes</h5>
+    </div>
+    <div class="card-body">
+      <div class="row" *ngFor="let img of imagenesRegistrar; let i = index">
+        <div class="col-md-6 mb-3">
+          <label [for]="'descripcion' + i" class="form-label">Descripción</label>
+          <input 
+            type="text"
+            class="form-control"
+            [id]="'descripcion' + i" 
+            [name]="'descripcion' + i" 
+            [(ngModel)]="img.descripcion"
+            [disabled]="imagesRegistered"
+          />
+        </div>
+        <!-- <div class="col-md-6 mb-3">
+          <div class="image-upload-container">
+            <label [for]="'imagen' + i" class="image-upload-label">
+              <div class="image-upload-preview" *ngIf="img.imagen">
+                <img [src]="getImagePreview(img.imagen)" alt="Vista previa">
+              </div>
+              <div class="image-upload-placeholder" *ngIf="!img.imagen">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Seleccionar imagen</span>
+              </div>
+            </label>
+            <input 
+              #fileInput
+              type="file"
+              class="image-upload-input"
+              [id]="'imagen' + i" 
+              [name]="'imagen' + i" 
+              (change)="onFileChange($event, i)" 
+              [class.is-invalid]="isFieldInvalid(i)"
+
+              [disabled]="imagesRegistered && allFieldsValid(i, img)"
+              accept="image/*"
+              hidden
+            />
+            <button 
+              *ngIf="img.imagen"
+              class="image-upload-remove" 
+              (click)="removeImage(i, fileInput)"
+              [disabled]="imagesRegistered"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div> -->
+        <div class="col-md-6 mb-3">
+          <div class="image-upload-container" [class.is-invalid]="isFieldInvalid(i)">
+            <label [for]="'imagen' + i" class="image-upload-label">
+              <div class="image-upload-preview" *ngIf="img.imagen">
+                <img [src]="getImagePreview(img.imagen)" alt="Vista previa">
+              </div>
+              <div class="image-upload-placeholder" *ngIf="!img.imagen">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Seleccionar imagen</span>
+              </div>
+            </label>
+            <input 
+              #fileInput
+              type="file"
+              class="image-upload-input"
+              [id]="'imagen' + i" 
+              [name]="'imagen' + i" 
+              (change)="onFileChange($event, i)" 
+              [class.is-invalid]="isFieldInvalid(i)"
+              [disabled]="imagesRegistered && allFieldsValid(i, img)"
+              accept="image/*"
+              hidden
+            />
+            <button 
+              *ngIf="img.imagen"
+              class="image-upload-remove" 
+              (click)="removeImage(i, fileInput)"
+              [disabled]="imagesRegistered"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        
+      </div>
+      <div class="mt-3">
+        <button class="btn btn-outline-primary me-2" (click)="addImage()" [disabled]="imagesRegistered">
+          <i class="fa-solid fa-plus"></i> Agregar imagen
+        </button>
+        <button class="btn btn-success" (click)="registrarImagenes()">
+          {{ imagesRegistered ? 'Activar edición' : 'Registrar Imágenes' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla de imágenes -->
+  <div class="card mb-4">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">Lista de Imágenes</h5>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Descripción</th>
+              <th class="text-center" scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let imagen of listaImagenes; let i = index">
+              <th scope="row">{{imagen.imagenId}}</th>
+              <td>{{imagen.descripcion}}</td>
+              <td>
+                <div class="d-flex justify-content-center">
+                  <button type="button" (click)="openModal(imagen)" class="btn btn-sm btn-outline-secondary me-2">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                  <button type="button" (click)="deleteImagen(imagen)" class="btn btn-sm btn-outline-danger">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-info text-white">
+      <h5 class="mb-0">Galería de Imágenes</h5>
+    </div>
+    <div class="card-body p-0"> 
+      <ngb-carousel *ngIf="listaImagenes.length > 0" 
+                    [interval]="carouselConfig.interval" 
+                    [wrap]="carouselConfig.wrap" 
+                    [keyboard]="carouselConfig.keyboard" 
+                    [pauseOnHover]="carouselConfig.pauseOnHover"
+                    class="custom-carousel">
+        <ng-template ngbSlide *ngFor="let imagen of listaImagenes">
+          <div class="picsum-img-wrapper clickable" (click)="openModal(imagen)">
+            <img [src]="getImageUrl(imagen)" 
+                 [alt]="imagen.descripcion || 'Imagen de propiedad'" 
+                 class="d-block w-100">
+          </div>
+          <div class="carousel-caption d-none d-md-block">
+            <h3>{{ imagen.descripcion }}</h3>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+      <p *ngIf="listaImagenes.length === 0" class="text-center mt-3">No hay imágenes disponibles.</p>
+    </div>
+  </div>
+</div>

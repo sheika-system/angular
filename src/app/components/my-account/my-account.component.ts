@@ -12,18 +12,14 @@ import { AuthService } from "../../services/auth.service";
 })
 export class MyAccountComponent implements OnInit {
   public authUserExists: boolean = false;
-  public userName: string = '';
-  public userRole: string = '';
-  public userId: number = 0;
+  public userName: string = 'Test';
   private service = inject(AuthService);
 
   constructor(public router: Router) {
     let user = localStorage.getItem('auth_user');
     if(user) {
       this.authUserExists = true;
-      this.userName = JSON.parse(user)?.nombre;
-      this.userRole = JSON.parse(user)?.role?.name;
-      this.userId = JSON.parse(user)?.id;
+      this.userName = JSON.parse(user)?.name;
     } 
   }
 
@@ -34,9 +30,7 @@ export class MyAccountComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  reload() {
-    setTimeout(() =>  {
-      location.reload();
-    }, 10)
+  propiedad() {
+    this.router.navigateByUrl('/app/propiedad')
   }
 }
