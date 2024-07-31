@@ -32,7 +32,7 @@ import { DelitoComponent } from "../../components/delito/delito.component";
     FormsModule,
     ReactiveFormsModule,
     AmenidadComponent,
-    TipoPropiedadComponent
+    TipoPropiedadComponent,
     MapComponent,
     DelitoComponent,
     DelitoComponent

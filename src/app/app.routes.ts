@@ -103,7 +103,7 @@ export const routes: Routes = [
             IRole.superAdmin,
             IRole.user
           ],
-          name: 'Propiedad'
+          name: 'propiedad'
         }
       },
      {
