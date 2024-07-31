@@ -19,14 +19,14 @@ import { DelitoComponent } from './components/delito/delito.component';
 import { PropiedadesListComponent } from './pages/home/home.component';
 import { PropiedadDetalleComponent } from './pages/detalle-propiedad/detalle-propiedad.component';
 import { PropiedadesUsuarioComponent } from './pages/propiedades-usuario/propiedades-usuario.component';
+import { TokenExpiredComponent } from './pages/token-expired/token-expired.component';
 
 
 
 export const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent,
-    canActivate: [GuestGuard],
+    component: LoginComponent
   },
   {
     path: 'signup',
@@ -46,6 +46,10 @@ export const routes: Routes = [
   {
     path: 'access-denied',
     component: AccessDeniedComponent,
+  },
+  {
+    path: 'token-expired',
+    component: TokenExpiredComponent,
   },
   {
     path: '',
