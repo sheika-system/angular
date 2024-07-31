@@ -24,7 +24,7 @@ export class ImagenComponent {
 
   @Input() verTabla: boolean = false;
 
-  @Input() verCarousel: boolean = true;
+  @Input() verCarousel: boolean = false;
 
   @Input() verRegistro: boolean = false;
 

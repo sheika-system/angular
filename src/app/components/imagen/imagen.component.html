@@ -93,7 +93,7 @@
   </div>
 
   <!-- Galería de Imágenes -->
-  <div class="mb-4">
+  <div class="mb-4" *nfIf="verCarousel">
     <h2 class="text-center mb-4 gallery-title">Galería de Imágenes</h2>
     <div class="gallery-container"> 
       <ngb-carousel *ngIf="listaImagenes.length > 0" 

@@ -112,6 +112,8 @@
               <app-imagen
               [listaImagenes]="imagenService.imagenesPropiedad$()"
               [propiedadImagen]="propiedad"
+              [verRegistro]="true"
+              [verCarousel]="false"
               (regImagenes)="onImagenesRegistrar($event)"
               ></app-imagen>
 
