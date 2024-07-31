@@ -6,14 +6,17 @@ import { UbicacionListComponent } from '../../components/ubicacion/ubicacion-lis
 import { UbicacionFormComponent } from '../../components/ubicacion/ubicacion-form/ubicacion-form.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { LoaderComponent } from '../../components/loader/loader.component';
-import { ICanton, IDistrito, IProvincia, IUbicacion } from '../../interfaces';
+import { ICanton, IDistrito, IProvincia, IUbicacion, IPropiedad } from '../../interfaces';
 import { UbicacionService } from '../../services/ubicacion.service';
 import { UbicacionSelectorComponent } from '../../components/ubicacion/ubicacion-selector/ubicacion-selector.component';
+
 import { IAmenidad, ITipoPropiedad } from '../../interfaces';
 import { AmenidadComponent } from "../../components/amenidad/amenidad.component";
 import { AmenidadService } from '../../services/amenidad.service';
 import { TipoPropiedadComponent } from "../../components/tipo-propiedad/tipo-propiedad.component";
 import { TipoPropiedadService } from '../../services/tipo-propiedad.service';
+import { ImagenService } from '../../services/imagen.service';
+import { ImagenComponent } from "../../components/imagen/imagen.component";
 import { MapComponent } from "../../components/map/map.component";
 import { DelitoComponent } from "../../components/delito/delito.component";
 
@@ -33,6 +36,7 @@ import { DelitoComponent } from "../../components/delito/delito.component";
     ReactiveFormsModule,
     AmenidadComponent,
     TipoPropiedadComponent,
+    ImagenComponent,
     MapComponent,
     DelitoComponent,
     DelitoComponent
@@ -75,6 +79,9 @@ export class UbicacionComponent {
   // ];
 
   // @Output() selectionChange = new EventEmitter<number[]>();
+  propiedadTest: IPropiedad = {
+    propiedadId: 1
+  }
 
   ubicacionUpdated: IUbicacion = {
     direccion: "",

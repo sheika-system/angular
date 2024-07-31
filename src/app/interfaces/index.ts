@@ -118,7 +118,6 @@ export interface IPropiedad {
   user?: IUser;
 }
 
-
 export interface IDelito {
   delito: string;
   subdelito: string;

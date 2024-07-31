@@ -16,6 +16,11 @@ import { PropiedadComponent } from './pages/propiedad/propiedad.component';
 import { ImagenComponent } from './components/imagen/imagen.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { DelitoComponent } from './components/delito/delito.component';
+import { PropiedadesListComponent } from './pages/home/home.component';
+import { PropiedadDetalleComponent } from './pages/detalle-propiedad/detalle-propiedad.component';
+import { PropiedadesUsuarioComponent } from './pages/propiedades-usuario/propiedades-usuario.component';
+
+
 
 export const routes: Routes = [
   {
@@ -142,6 +147,54 @@ export const routes: Routes = [
             IRole.user
           ],
           name: 'Perfil'
+        }
+      },
+      {
+        path: 'perfil',
+        redirectTo: 'home',
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Perfil'
+        }
+      },
+      {
+        path: 'propiedad/:id',
+        component: PropiedadDetalleComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Propiedad'
+        }
+      },
+      {
+        path: 'propiedadesUsuario/:id',
+        component: PropiedadesUsuarioComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'PropiedadUsuario'
+        }
+      },
+      {
+        path: 'home',
+        component: PropiedadesListComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Home'
         }
       }
     ],
