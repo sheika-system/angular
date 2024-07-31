@@ -125,7 +125,7 @@ export interface IDelito {
   hora: string;
   victima: string;
   subvictima: string;
-  edad: number;
+  edad: string;
   sexo: string;
   nacionalidad: string;
   provincia: string;

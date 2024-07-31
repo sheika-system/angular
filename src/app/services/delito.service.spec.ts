@@ -10,15 +10,15 @@ describe('DelitoService', () => {
 
   // Crear un objeto de delito completo que cumpla con la interfaz IDelito
   const mockDelito: IDelito = {
-    delito: 'Robo',
-    subdelito: 'Robo a mano armada',
-    fecha: new Date('2023-01-01'),
-    hora: '12:00',
+    delito: 'Asalto',
+    subdelito: 'Arma Blanca',
+    fecha: new Date('2024-03-01'),
+    hora: '',
     victima: 'Persona',
-    subvictima: 'Adulto',
-    edad: 30,
+    subvictima: 'Peaton [Persona]',
+    edad: 'Mayor De Edad',
     sexo: 'Masculino',
-    nacionalidad: 'Costarricense',
+    nacionalidad: 'Costa Rica',
     provincia: 'San José',
     canton: 'Central',
     distrito: 'Catedral'
