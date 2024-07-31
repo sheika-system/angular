@@ -34,10 +34,6 @@ export class MyAccountComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  propiedad(){
-    this.router.navigateByUrl('/propiedad')
-  }
-
   reload() {
     setTimeout(() =>  {
       location.reload();

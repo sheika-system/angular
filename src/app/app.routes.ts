@@ -84,11 +84,11 @@ export const routes: Routes = [
       {
         path: 'delitos',
         component: DelitoComponent,
-        canActivate:[AdminRoleGuard],
         data: { 
           authorities: [
             IRole.admin,
-            IRole.superAdmin
+            IRole.superAdmin,
+            IRole.user
           ],
           name: 'delitos'
         }

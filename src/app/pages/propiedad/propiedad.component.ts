@@ -198,7 +198,7 @@ export class PropiedadComponent implements OnInit {
     this.propiedadService.add(propiedadToSubmit).subscribe({
         next: (response) => {
           console.log('Propiedad registrada con éxito', response);
-          this.router.navigateByUrl('/app/perfil')
+          this.router.navigateByUrl('/app/perfil/'+ propiedadToSubmit.user?.id)
         },
         error: (err) => {
           console.error('Error al registrar la propiedad', err);
