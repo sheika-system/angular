@@ -24,6 +24,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { UserService } from '../../services/user.service';
+import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.component";
 
 @Component({
   selector: 'app-propiedad',
@@ -44,7 +45,8 @@ import { UserService } from '../../services/user.service';
     TipoPropiedadComponent,
     ImagenComponent,
     UbicacionFormComponent,
-    MapComponent
+    MapComponent,
+    BtnInicioComponent
 ],
   templateUrl: './propiedad.component.html',
   styleUrls: ['./propiedad.component.scss']

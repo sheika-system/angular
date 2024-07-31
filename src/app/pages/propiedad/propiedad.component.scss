@@ -62,6 +62,7 @@
   
   .login-card {
     border: 1px solid #dbdbdb;
+    margin-top: 300px !important;
   }
   
   .footer {
@@ -115,4 +116,18 @@
 
   .ancle {
     color: black;
+  }
+
+  .page-wrapper {
+    height: 2250px;
+  }
+
+  .login-container {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .btn-container {
+    margin-left: 370px;
+    margin-bottom: 30px;
   }
