@@ -76,35 +76,35 @@
               <!-- Precio -->
               <div class="form-group mb-3">
                 <label for="precio" class="form-label mb-2">Precio</label>
-                <input #precio="ngModel" type="number" class="form-control" id="precio" name="precio" placeholder="Precio" [(ngModel)]="propiedad.precio" required />
+                <input #precio="ngModel" type="number" class="form-control" id="precio" name="precio" placeholder="Precio" min="0" [(ngModel)]="propiedad.precio" required />
                 <div *ngIf="precio.invalid && precio.touched" class="invalid-feedback">Digite un precio válido</div>
               </div>
 
               <!-- Año de Construcción -->
               <div class="form-group mb-3">
                 <label for="annioConstruccion" class="form-label mb-2">Año de Construcción</label>
-                <input #annioConstruccion="ngModel" type="number" class="form-control" id="annioConstruccion" name="annioConstruccion" placeholder="Año de Construcción" [(ngModel)]="propiedad.annioConstruccion" required />
+                <input #annioConstruccion="ngModel" type="number" class="form-control" id="annioConstruccion" name="annioConstruccion" placeholder="Año de Construcción" min="0" [(ngModel)]="propiedad.annioConstruccion" required />
                 <div *ngIf="annioConstruccion.invalid && annioConstruccion.touched" class="invalid-feedback">Digite un año válido</div>
               </div>
 
               <!-- Cantidad de Cuartos -->
               <div class="form-group mb-3">
                 <label for="cuartosCant" class="form-label mb-2">Cantidad de Cuartos</label>
-                <input #cuartosCant="ngModel" type="number" class="form-control" id="cuartosCant" name="cuartosCant" placeholder="Cantidad de Cuartos" [(ngModel)]="propiedad.cuartosCant" required />
+                <input #cuartosCant="ngModel" type="number" class="form-control" id="cuartosCant" name="cuartosCant" placeholder="Cantidad de Cuartos" min="0" [(ngModel)]="propiedad.cuartosCant" required />
                 <div *ngIf="cuartosCant.invalid && cuartosCant.touched" class="invalid-feedback">Digite una cantidad válida</div>
               </div>
 
               <!-- Cantidad de Baños -->
               <div class="form-group mb-3">
                 <label for="banniosCant" class="form-label mb-2">Cantidad de Baños</label>
-                <input #banniosCant="ngModel" type="number" class="form-control" id="banniosCant" name="banniosCant" placeholder="Cantidad de Baños" [(ngModel)]="propiedad.banniosCant" required />
+                <input #banniosCant="ngModel" type="number" class="form-control" id="banniosCant" name="banniosCant" placeholder="Cantidad de Baños" min="0" [(ngModel)]="propiedad.banniosCant" required />
                 <div *ngIf="banniosCant.invalid && banniosCant.touched" class="invalid-feedback">Digite una cantidad válida</div>
               </div>
 
               <!-- Metros Cuadrados -->
               <div class="form-group mb-3">
                 <label for="metrosCuadrados" class="form-label mb-2">Metros Cuadrados</label>
-                <input #metrosCuadrados="ngModel" type="number" class="form-control" id="metrosCuadrados" name="metrosCuadrados" placeholder="Metros Cuadrados" [(ngModel)]="propiedad.metrosCuadrados" required />
+                <input #metrosCuadrados="ngModel" type="number" class="form-control" id="metrosCuadrados" name="metrosCuadrados" placeholder="Metros Cuadrados" min="0" [(ngModel)]="propiedad.metrosCuadrados" required />
                 <div *ngIf="metrosCuadrados.invalid && metrosCuadrados.touched" class="invalid-feedback">Digite un valor válido</div>
               </div>
 
@@ -121,6 +121,11 @@
               <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-lg" (click)="onSubmit()">Guardar Propiedad</button>
               </div>
+              @if(registerError) {
+                <p class="text-danger">{{registerError}}</p>
+              }@else if (validregister){
+                <p class="text-success">Propiedad registrada, redireccionando a perfil</p>
+              }
             </form>
             <div class="btn-container">
               <btn-inicio></btn-inicio>

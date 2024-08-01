@@ -61,6 +61,9 @@ export class PropiedadComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  public registerError!: String;
+  public validregister!: boolean;
+
   currentUserId: number | undefined;
   user: IUser = {};
   id: number | undefined;
@@ -186,6 +189,18 @@ export class PropiedadComponent implements OnInit {
   
   
   onSubmit() {
+
+    if (
+      (this.propiedad.precio ?? 0) < 0 || 
+      (this.propiedad.annioConstruccion ?? 0) < 0 ||
+      (this.propiedad.cuartosCant ?? 0) < 0 || 
+      (this.propiedad.banniosCant ?? 0) < 0 ||
+      (this.propiedad.metrosCuadrados ?? 0) < 0
+    ) {
+      this.registerError = 'Por favor, asegúrate de que todos los campos numéricos no tengan valores negativos.';
+      return;
+    }
+
     // Crear una copia de propiedad para no modificar el original directamente
     let propiedadToSubmit = { ...this.propiedad };
 
@@ -200,11 +215,12 @@ export class PropiedadComponent implements OnInit {
     this.propiedadService.add(propiedadToSubmit).subscribe({
         next: (response) => {
           console.log('Propiedad registrada con éxito', response);
-          this.router.navigateByUrl('/app/perfil/'+ propiedadToSubmit.user?.id)
+          this.validregister = true;
+          setTimeout(() => {
+            this.router.navigateByUrl('/app/perfil/'+ propiedadToSubmit.user?.id)
+          }, 1000);
         },
-        error: (err) => {
-          console.error('Error al registrar la propiedad', err);
-        }
+        error: (err) => (this.registerError = err)
       });
       console.log(propiedadToSubmit)
     }
