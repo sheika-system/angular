@@ -1,0 +1,58 @@
+<div class="filters-container">
+  <form (ngSubmit)="applyFilters()" style="display: flex; flex-direction: row; gap: 20px;">
+    <app-tipo-propiedad
+      [tipoPropiedades]="tipoPropService.tipoPropiedades$()"
+      (tipoPropiedadChange)="onTipoPropiedadChange($event)"
+      [tipoPropiedadObtenida]="tipoPropiedad">
+    </app-tipo-propiedad>
+
+    <app-amenidad
+                [amenidades]="amenidadService.amenidades$()"
+                (amenidadesChange)="onAmenidadesChange($event)"
+                [amenidadesObtenidas]="listaAmenidades">
+              </app-amenidad>
+              
+              <app-ubicacion-selector 
+              (ubicacionChange)="onUbicacionChange($event)" 
+              [provincias]="service.provincias$()"
+              [cantones]="service.cantones$()" 
+              [distritos]="service.distritos$()" 
+              [mostrarDireccion]="false">
+            </app-ubicacion-selector>
+
+    <div class="filter-group">
+      <label for="priceRange">Rango de Precio:</label>
+      <mat-slider
+        id="priceRange"
+        name="priceRange"
+        [(ngModel)]="filters.priceRange"
+        [min]="0"
+        [max]="10000"
+        [step]="100"
+        tickInterval="1000">
+        
+      </mat-slider>
+      <div class="price-range-values">
+        <span>{{ filters.priceRange[0] }}</span> - <span>{{ filters.priceRange[1] }}</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label for="areaRange">Rango de Área (m²):</label>
+      <mat-slider
+        id="areaRange"
+        name="areaRange"
+        [(ngModel)]="filters.areaRange"
+        [min]="0"
+        [max]="1000"
+        [step]="10"
+        tickInterval="100">
+      </mat-slider>
+      <div class="area-range-values">
+        <span>{{ filters.areaRange[0] }}</span> - <span>{{ filters.areaRange[1] }}</span>
+      </div>
+    </div>
+
+  </form>
+</div>
+

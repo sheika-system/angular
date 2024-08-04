@@ -1,0 +1,37 @@
+.filters-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+    align-items: center;  /* Centra verticalmente */
+    justify-content: center;  /* Centra horizontalmente */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    overflow-x: auto; /* Para permitir desplazamiento horizontal en pantallas pequeñas */
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centra los elementos dentro de cada grupo */
+    min-width: 200px;
+  }
+  
+  .filter-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .filter-group input,
+  .filter-group select,
+  .filter-group mat-slider {
+    width: 100%;
+  }
+  
+  .price-range-values,
+  .area-range-values {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
