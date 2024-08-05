@@ -1,0 +1,38 @@
+<div class="recorrido3d-setup">
+    <h2>Configuración del Recorrido 3D</h2>
+    <div class="form-group">
+        <label for="nombre">Nombre del Recorrido *</label>
+        <input id="nombre" type="text" [(ngModel)]="nombre" required>
+      </div>
+    
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" [(ngModel)]="descripcion"></textarea>
+      </div>
+
+    <div class="file-upload">
+      <label for="file-input" class="file-input-label">Seleccionar Imágenes</label>
+      <input id="file-input" type="file" (change)="onFileSelected($event)" multiple accept="image/*" class="file-input">
+    </div>
+  
+    <div class="image-list">
+      <div *ngFor="let image of images; let i = index" 
+           class="image-item" 
+           [ngClass]="getDragItemClass(i)"
+           draggable="true"
+           (dragstart)="onDragStart($event, i)"
+           (dragover)="onDragOver($event, i)"
+           (dragleave)="onDragLeave($event)"
+           (drop)="onDrop($event, i)">
+        <img [src]="image.url" alt="Imagen {{i+1}}">
+        <div class="image-controls">
+          <button (click)="removeImage(i)" class="control-btn remove-btn">X</button>
+        </div>
+        <div class="drag-handle">☰</div>
+      </div>
+    </div>
+  
+    <button (click)="createTour()" class="create-tour-btn" [disabled]="!isFormValid()">
+    Crear Recorrido 3D
+  </button>
+  </div>

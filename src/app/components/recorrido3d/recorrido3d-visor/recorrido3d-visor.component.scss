@@ -1,0 +1,34 @@
+
+#panorama {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  
+    .image-item {
+      width: calc(25% - 10px);
+      cursor: pointer;
+      transition: transform 0.2s;
+  
+      &:hover {
+        transform: scale(1.05);
+      }
+  
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+  
+      p {
+        margin-top: 5px;
+        font-size: 0.9em;
+        text-align: center;
+      }
+    }
+  }
