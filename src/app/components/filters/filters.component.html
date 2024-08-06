@@ -22,9 +22,9 @@
 
     <div class="filter-group">
       <label for="priceRange">Rango de Precio:</label>
-      <mat-slider min="0" max="10000" (input)="onPriceChange()">
-        <input value="0" matSliderStartThumb [(ngModel)]="priceStart" >
-        <input value="10000" matSliderEndThumb [(ngModel)]="priceEnd" >
+      <mat-slider min="0" max="10000">
+        <input value="0" matSliderStartThumb [(ngModel)]="priceStart" (change)="onPriceChange($event, 'start')" >
+        <input value="10000" matSliderEndThumb [(ngModel)]="priceEnd" (change)="onPriceChange($event, 'start')" >
       </mat-slider>
     </div>
 

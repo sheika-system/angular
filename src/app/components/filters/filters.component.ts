@@ -84,21 +84,34 @@ export class FiltersComponent implements OnInit {
     this.applyFilters();
   }
 
-  onPriceChange(){
-    this.filters.priceRange[0] = this.priceStart;
-    this.filters.priceRange[1] = this.priceEnd;
-    console.log(this.priceStart, this.priceEnd);
-    this.applyFilters();
+  onPriceChange(event: Event, thumb: 'start' | 'end'){
+    const target = event.target as HTMLElement;
+    const value = target.getAttribute('aria-valuetext');
+    if (value !== null) {
+      const numericValue = Number(value);
+      if (thumb === 'start') {
+        this.filters.priceRange[0] = numericValue;
+      } else if (thumb === 'end') {
+        this.filters.priceRange[1] = numericValue;
+      }
+      
+      this.applyFilters();
+    }
   }
 
   onAreaChange(event: Event, thumb: 'start' | 'end') {
     const target = event.target as HTMLElement;
     const value = target.getAttribute('aria-valuetext');
-    console.log(value)
-    this.filters.areaRange[0] = this.areaStart;
-    this.filters.areaRange[1] = this.areaEnd;
-    
-    this.applyFilters();
+    if (value !== null) {
+      const numericValue = Number(value);
+      if (thumb === 'start') {
+        this.filters.areaRange[0] = numericValue;
+      } else if (thumb === 'end') {
+        this.filters.areaRange[1] = numericValue;
+      }
+      
+      this.applyFilters();
+    }
   }
 
   applyFilters() {
