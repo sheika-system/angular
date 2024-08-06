@@ -1,6 +1,6 @@
     <div class="login-container">    
         <div class="d-flex align-items-center justify-content-center h-100">
-            <div class="login-card" (click)="verDetalle(propiedad.propiedadId)">
+            <div class="login-card" (click)="verDetalle(propiedad.propiedadId, accountRequired)">
             <div class="w-100">
                 <div class="text-center container-img">
                     <img
@@ -15,7 +15,10 @@
                         <strong>{{propiedad.nombre}}</strong>
                     </h1>
                     <p style="color: #4f4f4f">
-                        {{propiedad.cuartosCant}} dormitorios, {{propiedad.banniosCant}} baño
+                        <span *ngIf="propiedad.cuartosCant! !== 1">{{propiedad.cuartosCant}} dormitorios, </span>
+                        <span *ngIf="propiedad.banniosCant! !== 1">{{propiedad.banniosCant}} baños</span>
+                        <span *ngIf="propiedad.cuartosCant! === 1">{{propiedad.cuartosCant}} dormitorio, </span>
+                        <span *ngIf="propiedad.banniosCant! === 1">{{propiedad.banniosCant}} baño</span>
                     </p>
                     </div>
 
@@ -37,7 +40,7 @@
                         <span class="fa fa-xl fa-star"></span>
                         <span class="fa fa-xl fa-star"></span>
                         <div class="form-group mb-0 login-button">
-                            <button class="btn btn-primary btn-block w-100 green-button" (click)="verDetalle(propiedad.propiedadId)">
+                            <button class="btn btn-primary btn-block w-100 green-button">
                                Contactar Propietario
                             </button>
                         </div>
@@ -46,3 +49,12 @@
             </div>
             </div>
     </div>
+
+    <app-modal #accountRequired>
+        <div class="d-flex justify-content-center align-items-center text-wrapper">
+            <h1>Para ver el detalle de las propiedades, inicie sesión</h1>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <button class="btn btn-green" (click)="goLogin(accountRequired)">Iniciar Sesión</button>
+        </div>
+    </app-modal>
