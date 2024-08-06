@@ -49,11 +49,7 @@ export class PropiedadesListComponent {
         const matchesProvincia = !filters.provincia || (propiedad.ubicacion?.provincia?.nombre === filters.provincia);
         const matchesCanton = !filters.canton || (propiedad.ubicacion?.canton?.nombre === filters.canton);
         const matchesDistrito = !filters.distrito || (propiedad.ubicacion?.distrito?.nombre === filters.distrito);
-        const matchesLocation = !filters.location || (
-          (propiedad.ubicacion?.provincia?.nombre && propiedad.ubicacion.provincia.nombre.includes(filters.location)) ||
-          (propiedad.ubicacion?.canton?.nombre && propiedad.ubicacion.canton.nombre.includes(filters.location)) ||
-          (propiedad.ubicacion?.distrito?.nombre && propiedad.ubicacion.distrito.nombre.includes(filters.location))
-        );
+        
         const matchesAmenities = !filters.amenities.length || (
           propiedad.amenidades && filters.amenities.every((amenity: string) => propiedad.amenidades!.some(propAmenidad => propAmenidad.nombre === amenity))
         );

@@ -29,6 +29,10 @@ export class FiltersComponent implements OnInit {
   tipoPropService = inject(TipoPropiedadService);
   amenidadService = inject(AmenidadService);
   service = inject(UbicacionService);
+  priceStart = 0;
+  priceEnd = 10000;
+  areaStart = 0;
+  areaEnd = 1000;
   @Output() filtersChanged = new EventEmitter<any>();
 
   filters = {
@@ -80,7 +84,26 @@ export class FiltersComponent implements OnInit {
     this.applyFilters();
   }
 
+  onPriceChange(){
+    this.filters.priceRange[0] = this.priceStart;
+    this.filters.priceRange[1] = this.priceEnd;
+    console.log(this.priceStart, this.priceEnd);
+    this.applyFilters();
+  }
+
+  onAreaChange(event: Event, thumb: 'start' | 'end') {
+    const target = event.target as HTMLElement;
+    const value = target.getAttribute('aria-valuetext');
+    console.log(value)
+    this.filters.areaRange[0] = this.areaStart;
+    this.filters.areaRange[1] = this.areaEnd;
+    
+    this.applyFilters();
+  }
+
   applyFilters() {
     this.filtersChanged.emit(this.filters);
   }
+
+  
 }

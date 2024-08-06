@@ -22,35 +22,18 @@
 
     <div class="filter-group">
       <label for="priceRange">Rango de Precio:</label>
-      <mat-slider
-        id="priceRange"
-        name="priceRange"
-        [(ngModel)]="filters.priceRange"
-        [min]="0"
-        [max]="10000"
-        [step]="100"
-        tickInterval="1000">
-        
+      <mat-slider min="0" max="10000" (input)="onPriceChange()">
+        <input value="0" matSliderStartThumb [(ngModel)]="priceStart" >
+        <input value="10000" matSliderEndThumb [(ngModel)]="priceEnd" >
       </mat-slider>
-      <div class="price-range-values">
-        <span>{{ filters.priceRange[0] }}</span> - <span>{{ filters.priceRange[1] }}</span>
-      </div>
     </div>
 
     <div class="filter-group">
       <label for="areaRange">Rango de Área (m²):</label>
-      <mat-slider
-        id="areaRange"
-        name="areaRange"
-        [(ngModel)]="filters.areaRange"
-        [min]="0"
-        [max]="1000"
-        [step]="10"
-        tickInterval="100">
+      <mat-slider [min]="0" [max]="1000" step="100">
+        <input matSliderStartThumb [(ngModel)]="areaStart" (change)="onAreaChange($event, 'start')">
+        <input matSliderEndThumb [(ngModel)]="areaEnd" (change)="onAreaChange($event, 'end')">
       </mat-slider>
-      <div class="area-range-values">
-        <span>{{ filters.areaRange[0] }}</span> - <span>{{ filters.areaRange[1] }}</span>
-      </div>
     </div>
 
   </form>
