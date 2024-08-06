@@ -49,13 +49,14 @@
           </div>
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-7 mb-3" *ngIf="mostrarDireccion">
           <label for="direccion" class="form-label">Dirección (opcional)</label>
           <input type="text" class="form-control" id="direccion" name="direccion"
             [ngModel]="ubicacion.direccion" (ngModelChange)="onDireccionChange($event)">
         </div>
 
-        <div class="row mb-3">
+
+        <!-- <div class="row mb-3">
           <div class="col-md-6 mb-3">
             <label for="latitud" class="form-label">Latitud (opcional)</label>
             <input type="number" class="form-control" id="latitud" name="latitud"
@@ -66,7 +67,8 @@
             <input type="number" class="form-control" id="longitud" name="longitud"
               [ngModel]="ubicacion.longitud" (ngModelChange)="onLongitudChange($event)">
           </div>
-        </div>
+        </div> -->
+
       </form>
     </div>
   </div>

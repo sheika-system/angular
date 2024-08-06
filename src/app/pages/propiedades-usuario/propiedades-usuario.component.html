@@ -1,0 +1,13 @@
+<div class="titulo-container">
+    <h1 *ngIf="propiedadList.length > 0" class="titulo">
+        <strong>
+            Propiedades de {{propiedadList[0].user?.nombre}} {{propiedadList[0].user?.apellido}}
+        </strong>
+    </h1>
+    <button class="btn btn-volver-home" (click)="volverPerfil()">
+        <i class="fa-solid fa-arrow-left fa-xl"></i> <span class="texto-white">Volver al perfil</span>
+    </button>
+</div>
+<app-propiedad-generador
+    [rows]="rows"
+></app-propiedad-generador>

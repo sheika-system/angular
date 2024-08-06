@@ -12,15 +12,22 @@ import { IRole } from './interfaces';
 import { UbicacionComponent } from './pages/ubicacion/ubicacion.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { PropiedadComponent } from './pages/propiedad/propiedad.component';
+import { ImagenComponent } from './components/imagen/imagen.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { CalificacionUsuarioComponent } from './components/calificacion/calificacion-usuario/calificacion-usuario.component';
+import { DelitoComponent } from './components/delito/delito.component';
+import { PropiedadesListComponent } from './pages/home/home.component';
+import { PropiedadDetalleComponent } from './pages/detalle-propiedad/detalle-propiedad.component';
+import { PropiedadesUsuarioComponent } from './pages/propiedades-usuario/propiedades-usuario.component';
+import { TokenExpiredComponent } from './pages/token-expired/token-expired.component';
+
 
 
 export const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent,
-    canActivate: [GuestGuard],
+    component: LoginComponent
   },
   {
     path: 'signup',
@@ -40,6 +47,10 @@ export const routes: Routes = [
   {
     path: 'access-denied',
     component: AccessDeniedComponent,
+  },
+  {
+    path: 'token-expired',
+    component: TokenExpiredComponent,
   },
   {
     path: '',
@@ -72,7 +83,7 @@ export const routes: Routes = [
         canActivate:[AdminRoleGuard],
         data: { 
           authorities: [
-            IRole.admin, 
+            IRole.admin,
             IRole.superAdmin
           ],
           name: 'Users'
@@ -84,10 +95,49 @@ export const routes: Routes = [
         canActivate:[AdminRoleGuard],
         data: { 
           authorities: [
-            IRole.admin, 
+            IRole.admin,
             IRole.superAdmin
           ],
           name: 'Ubicaciones'
+        }
+      },
+      {
+        path: 'delitos',
+        component: DelitoComponent,
+        data: { 
+          authorities: [
+            IRole.admin,
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'delitos'
+        }
+      },
+      {
+
+        path: 'propiedad',
+        component: PropiedadComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'propiedad'
+        }
+      },
+     {
+        path: 'imagenes',
+        component: ImagenComponent,
+        canActivate:[AdminRoleGuard],
+        data: { 
+          authorities: [
+            IRole.admin,
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Imagenes'
+
         }
       },
       {
@@ -112,6 +162,54 @@ export const routes: Routes = [
             IRole.user
           ],
           name: 'Perfil'
+        }
+      },
+      {
+        path: 'perfil',
+        redirectTo: 'home',
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Perfil'
+        }
+      },
+      {
+        path: 'propiedad/:id',
+        component: PropiedadDetalleComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Propiedad'
+        }
+      },
+      {
+        path: 'propiedadesUsuario/:id',
+        component: PropiedadesUsuarioComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'PropiedadUsuario'
+        }
+      },
+      {
+        path: 'home',
+        component: PropiedadesListComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Home'
         }
       }
     ],

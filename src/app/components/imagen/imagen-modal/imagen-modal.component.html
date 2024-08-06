@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ descripcion }}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body">
+  <img [src]="imagenUrl" class="img-fluid">
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">Cerrar</button>
+</div>

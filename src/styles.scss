@@ -1,6 +1,6 @@
 :root {
-  --theme-default: #7366ff;
-  --theme-secondary: #f73164;
+  --theme-default: #01c38e;
+  --theme-secondary: #0c65e9;
   --light-background: rgba(242, 243, 247, 0.7);
   --body-font-color: #2f2f3b;
   --chart-border: #ecf3fa;
@@ -67,4 +67,42 @@ body {
 
 .error-snackbar .mdc-snackbar__surface{
   background-color: rgb(197, 49, 49) !important;
+}
+
+// Estilos opciones barra navegacion
+.opcionesNavegacion {
+  display: flex;
+  align-items: center;
+  justify-content: center; // Centra el contenido horizontalmente
+  text-align: left;      // Centra el texto dentro del <li>
+  list-style: none;        // Elimina los puntos de la lista
+  padding: 10px;          // Espaciado interno opcional
+  margin: 5px 0;          // Espaciado externo opcional
+
+  // Estilo del icono
+  i {
+    margin-right: 8px;    // Espacio entre el icono y el texto
+    font-size: 1.2rem;    // Tamaño del icono
+    color: #000;
+  }
+
+  // Estilo del texto
+  span {
+    font-size: 14px;            // Tamaño de fuente del texto
+    // font-weight: bold;    // Negrita opcional
+  }
+
+  // Estilo cuando el <li> es hovered
+  &:hover {
+    background-color: #f0f0f0; // Color de fondo cuando se pasa el cursor
+    cursor: pointer;            // Cambia el cursor al pasar el mouse
+    border-radius: 4px;         // Bordes redondeados opcional
+  }
+
+  // Estilo cuando el <li> es activo (si lo necesitas)
+  &.active {
+    background-color: #e0e0e0; // Color de fondo para el elemento activo
+    font-weight: bold;         // Negrita para el texto activo
+  }
+
 }

@@ -1,0 +1,48 @@
+    <div class="login-container">    
+        <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="login-card" (click)="verDetalle(propiedad.propiedadId)">
+            <div class="w-100">
+                <div class="text-center container-img">
+                    <img
+                    class="logo-rentheaven"
+                    [src]="propiedad.listaImagenes![0].imagen ? 'data:image/jpeg;base64,' + propiedad.listaImagenes![0].imagen : 'assets/img/login/noImageFound.jpg'"
+                    alt="Primera imágen de propiedad"
+                    />
+                </div>
+                <div class="login-main">
+                    <div class="mb-3">
+                    <h1 class="propiedad-nombre">
+                        <strong>{{propiedad.nombre}}</strong>
+                    </h1>
+                    <p style="color: #4f4f4f">
+                        {{propiedad.cuartosCant}} dormitorios, {{propiedad.banniosCant}} baño
+                    </p>
+                    </div>
+
+                    <div class="mb-3">
+                        <p class="mb-2" style="color: #4f4f4f">
+                            Distrito {{propiedad.ubicacion?.distrito?.nombre}}, Cantón {{propiedad.ubicacion?.canton?.nombre}}, Provincia {{propiedad.ubicacion?.provincia?.nombre}}
+                        </p>
+                    </div>
+
+                    <div class="mb-3">
+                        <p class="mb-2" style="color: #4f4f4f">Ver seguridad</p>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="estrellas-container"></div>
+                        <span class="fa fa-xl fa-star checked"></span>
+                        <span class="fa fa-xl fa-star checked"></span>
+                        <span class="fa fa-xl fa-star checked"></span>
+                        <span class="fa fa-xl fa-star"></span>
+                        <span class="fa fa-xl fa-star"></span>
+                        <div class="form-group mb-0 login-button">
+                            <button class="btn btn-primary btn-block w-100 green-button" (click)="verDetalle(propiedad.propiedadId)">
+                               Contactar Propietario
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
