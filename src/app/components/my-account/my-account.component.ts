@@ -1,14 +1,17 @@
 import { Component, OnInit, inject } from "@angular/core";
 import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-my-account",
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    CommonModule
   ],
   templateUrl: "./my-account.component.html",
+  styleUrl: "./my-account.component.scss"
 })
 export class MyAccountComponent implements OnInit {
   public authUserExists: boolean = false;
@@ -31,12 +34,11 @@ export class MyAccountComponent implements OnInit {
 
   logout() {
     this.service.logout();
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/home');
+    location.reload();
   }
 
-  reload() {
-    setTimeout(() =>  {
-      location.reload();
-    }, 10)
+  redirect(path: string) {
+    window.location.assign(path);
   }
 }

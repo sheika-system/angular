@@ -80,6 +80,10 @@
   border: #01c38e;
 }
 
+.green-button:hover {
+  background-color: #01916a;
+}
+
 .login-button {
   padding-left: 99px;
 }
@@ -91,4 +95,37 @@
 .login-container {
   padding-top: 650px;
   padding-bottom: 600px;
+}
+
+.uploaded-photo {
+  max-width: 100px !important;
+  width: 100px;
+  max-height: 100px !important;
+  height: 100px !important;
+  display: block;
+  object-fit:cover;
+}
+
+.uploaded-photo-container {
+  border-radius: 100px;
+  border: #01c38e solid 2px;
+  max-height: 100px;
+  max-width: 100px;
+  height: 100px;
+  width: 100px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.photo-btn {
+  display: none;
+}
+
+.btn-green {
+  background-color: #01c38e;
+  color: white;
+}
+
+.btn-green:hover {
+  background-color: #01916a;
 }

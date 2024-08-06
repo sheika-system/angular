@@ -47,6 +47,8 @@ export class SigUpComponent {
     password: ''
   };
 
+  imageSrc: string | ArrayBuffer | null = null;
+
   constructor(private router: Router, 
     private authService: AuthService,
   ) {}
@@ -91,6 +93,7 @@ export class SigUpComponent {
       reader.onload = (e: any) => {
         const base64String = e.target.result.split(',')[1];
         this.user.photo = base64String;
+        this.imageSrc = reader.result;
       }
 
       reader.readAsDataURL(file);

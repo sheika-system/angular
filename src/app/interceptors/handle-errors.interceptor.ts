@@ -10,13 +10,19 @@ export const handleErrorsInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: any): Observable<any> => {
+      if (error.status === 403 && error.error?.description === 'The JWT signature is invalid') {
+        authService.logout();
+        window.location.assign('/token-expired');
+        return of({ status: false });
+      }
       if (error.status === 403 && error.error?.description === 'The JWT token has expired') {
+        authService.logout();
         window.location.assign('/token-expired');
         return of({ status: false });
       }
       if ((error.status === 401 || error.status === 403) && !req.url.includes('auth')) {
         authService.logout();
-        router.navigateByUrl('/login');
+        router.navigateByUrl('/home');
         return of({ status: false });
       }
       if (error.status === 422) {
