@@ -89,11 +89,14 @@ export class AuthService {
     return this.http.post<ILoginResponse>('auth/signup', user);
   }
 
-  public logout() {
-    this.accessToken = '';
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('expiresIn');
-    localStorage.removeItem('auth_user');
+  public logout(): Promise<void> {
+    return new Promise((resolve) => {
+      this.accessToken = '';
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('expiresIn');
+      localStorage.removeItem('auth_user');
+      resolve();
+    });
   }
 
   public getUserAuthorities (): IAuthority[] | undefined {

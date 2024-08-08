@@ -1,3 +1,17 @@
-<app-propiedad-generador
-    [rows]="rows">
-</app-propiedad-generador>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="parent">
+    @defer {
+        <app-propiedad-generador
+        [rows]="rows">
+        </app-propiedad-generador>
+        <app-layout></app-layout>
+    } @loading {
+        <app-loader></app-loader>
+    }
+</div>

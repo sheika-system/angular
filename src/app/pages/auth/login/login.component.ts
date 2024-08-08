@@ -10,7 +10,7 @@ import { TopbarComponent } from '../../../components/app-layout/elements/topbar/
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink, TopbarComponent],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   public loginError!: string;
@@ -37,8 +37,11 @@ export class LoginComponent {
     }
     if (this.emailModel.valid && this.passwordModel.valid) {
       this.authService.login(this.loginForm).subscribe({
-        next: () => this.router.navigateByUrl('/app/home'),
-        error: (err: any) => (this.loginError = err.error.description),
+        next: () => this.router.navigateByUrl('/home'),
+        error: (err: any) => {
+          console.log("error")
+          this.loginError = err.error.description;
+        }
       });
     }
   }

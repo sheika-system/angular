@@ -73,9 +73,15 @@
 
               <div class="form-group mb-4">
                 <label for="photo" class="form-label mb-2">Foto</label>
-                <div class="form-input position-relative">
+                <div class="d-flex justify-content-center align-items-center ">
+                  <div class="uploaded-photo-container" *ngIf="imageSrc">
+                    <img [src]="imageSrc" alt="Imagen subida" class="uploaded-photo">
+                  </div>
+                </div>
+                <div class="form-input position-relative d-flex justify-content-center align-items-center">
                   <input type="file" class="form-control" id="photo" name="photo" accept="image/*"
-                  (change)="onFileChange($event)"/>
+                  (change)="onFileChange($event)" hidden/>
+                  <button onclick="document.getElementById('photo').click()" class="btn btn-green">Seleccionar Imágen</button>
                 </div>
               </div>
 

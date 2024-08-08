@@ -14,7 +14,9 @@ import { MyAccountComponent } from '../../../my-account/my-account.component';
   styleUrl: './topbar.component.scss'
 })
 export class TopbarComponent implements OnInit {
-  public user?: IUser;
+  user = localStorage.getItem('auth_user');
+  userRole: string = ""; 
+  userId: string = "";
 
   constructor(
     public router: Router,
@@ -23,7 +25,10 @@ export class TopbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.user = this.authService.getUser();
+    if(this.user) {
+      this.userRole = String(JSON.parse(this.user).role.name);
+      this.userId = String(JSON.parse(this.user).id);
+    }
   }
 
   public logout(): void {

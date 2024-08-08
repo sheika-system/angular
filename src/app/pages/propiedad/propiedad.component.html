@@ -4,9 +4,6 @@
       <div class="login-card">
         <div class="w-100">
           <div class="text-center">
-            <a class="logo text-center">
-              <img class="img-fluid mb-4 logo-rentheaven" src="../../../../assets/icons/rentheavenlogo.png" alt="Logo" />
-            </a>
           </div>
           <div class="login-main">
             <form #frm="ngForm" autocomplete="off">
@@ -118,8 +115,8 @@
               ></app-imagen>
 
               <!-- Botón de Guardar -->
-              <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-lg" (click)="onSubmit()">Guardar Propiedad</button>
+              <div class="d-flex justify-content-center inline-flex">
+                <button type="submit" class="btn btn-green" (click)="onSubmit()">Guardar Propiedad</button>
               </div>
               @if(registerError) {
                 <p class="text-danger">{{registerError}}</p>
@@ -127,9 +124,6 @@
                 <p class="text-success">Propiedad registrada, redireccionando a perfil</p>
               }
             </form>
-            <div class="btn-container">
-              <btn-inicio></btn-inicio>
-            </div>
           </div>
         </div>
       </div>
