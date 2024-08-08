@@ -139,8 +139,8 @@
   
 
               <!-- Botón de Guardar -->
-              <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-lg" (click)="onSubmit()">Guardar Propiedad</button>
+              <div class="d-flex justify-content-center inline-flex">
+                <button type="submit" class="btn btn-green" (click)="onSubmit()">Guardar Propiedad</button>
               </div>
               @if(registerError) {
                 <p class="text-danger">{{registerError}}</p>
@@ -148,9 +148,6 @@
                 <p class="text-success">Propiedad registrada, redireccionando a perfil</p>
               }
             </form>
-            <div class="btn-container">
-              <btn-inicio></btn-inicio>
-            </div>
           </div>
         </div>
       </div>

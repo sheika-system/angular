@@ -1,13 +1,10 @@
 .login-container {
-    height: 210vh;
-    width: 140%;
+    width: 100%;
     // background-image: url("../../../../assets/img/login/login-bg.jpg");
     background-position: left;
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 20px 10%;
-    position: relative;
-    left: -20%;
+    padding-top: 40px;
     &::before {
       content: '';
       position: absolute;
@@ -62,7 +59,6 @@
   
   .login-card {
     border: 1px solid #dbdbdb;
-    margin-top: 300px !important;
   }
   
   .footer {
@@ -90,11 +86,6 @@
   .padding-right {
     padding-right: 125px;
   }
-  
-  .login-container {
-    padding-top: 650px;
-    padding-bottom: 600px;
-  }
 
   select {
     padding: 5px;
@@ -119,12 +110,7 @@
   }
 
   .page-wrapper {
-    height: 3200px;
-  }
-
-  .login-container {
-    padding-top: 300px;
-    padding-bottom: 0;
+    padding-bottom: 40px;
   }
 
   .btn-container {
@@ -159,5 +145,12 @@
   }
 
   .img-selection {
-    margin-top: 25px;
+    margin-top: 25px;}
+  .btn-green {
+    color: white;
+    background-color: #01c38e;
+  }
+
+  .btn-green:hover {
+    background-color: #01916a;
   }

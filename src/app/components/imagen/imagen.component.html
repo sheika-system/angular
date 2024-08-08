@@ -1,8 +1,8 @@
 <div class="container">
   <!-- Registro de Imágenes -->
   <div class="mb-4" *ngIf="verRegistro">
-    <h5 class="mb-3">Registro de Imágenes</h5>
-    <div>
+    <label class="mb-3">Registro de Imágenes</label>
+    <div class="registro-container">
       <div class="row" *ngFor="let img of imagenesRegistrar; let i = index">
         <div class="col-md-6 mb-3">
           <label [for]="'descripcion' + i" class="form-label">Descripción</label>
@@ -49,11 +49,11 @@
           </div>
         </div>
       </div>
-      <div class="mt-3">
-        <button class="btn btn-outline-primary me-2" (click)="addImage()" [disabled]="imagesRegistered">
+      <div class="mt-3 d-flex justify-content-center">
+        <button class="btn btn-outline-primary btn-green-reverse" (click)="addImage()" [disabled]="imagesRegistered">
           <i class="fa-solid fa-plus"></i> Agregar imagen
         </button>
-        <button class="btn btn-success" (click)="registrarImagenes()">
+        <button class="btn btn-green" (click)="registrarImagenes()">
           {{ imagesRegistered ? 'Activar edición' : 'Registrar Imágenes' }}
         </button>
       </div>

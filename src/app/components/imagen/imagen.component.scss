@@ -229,3 +229,32 @@ button {
   background-color: #f8f9fa;
   padding: 20px;
 }
+
+.registro-container {
+  border: rgb(207, 207, 207) solid 1px;
+  border-radius: 5px;
+  padding-left: 15px;
+  padding-bottom: 15px;
+}
+
+.btn-green {
+  color: white;
+  background-color: #01c38e;
+}
+
+.btn-green:hover {
+  background-color: #01916a;
+}
+
+.btn-green-reverse {
+  color: #01c38e;
+  background-color: white;
+  border: #01c38e solid 1px;
+  margin-right: 25px;
+}
+
+.btn-green-reverse:hover {
+  color: white;
+  background-color: #01c38e;
+  border: #01c38e solid 1px;
+}
