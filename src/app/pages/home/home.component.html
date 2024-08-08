@@ -1,4 +1,14 @@
+
 <app-filters (filtersChanged)="onFiltersChanged($event)"></app-filters>
-<app-propiedad-generador
-    [rows]="rows">
-</app-propiedad-generador>
+
+<div class="parent">
+    @defer {
+        <app-propiedad-generador
+        [rows]="rows">
+        </app-propiedad-generador>
+        <app-layout></app-layout>
+    } @loading {
+        <app-loader></app-loader>
+    }
+</div>
+

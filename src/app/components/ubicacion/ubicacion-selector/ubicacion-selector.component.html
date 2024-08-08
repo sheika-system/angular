@@ -5,7 +5,7 @@
         <div class="row mb-3">
           <div class="col-md-4 mb-3">
             <label for="provincia" class="form-label">Provincia</label>
-            <select class="form-select" id="provincia" name="provincia" (change)="onProvinciaChange($event)"
+            <select #provinciaSelect class="form-select" id="provincia" name="provincia" (change)="onProvinciaChange($event)"
               [class.is-invalid]="provinciaInvalid" [class.is-valid]="!provinciaInvalid && provinciaTouched" required>
               <option value="">Seleccione una provincia</option>
               <option *ngFor="let prov of provincias" [value]="prov.provinciaId ?? ''"

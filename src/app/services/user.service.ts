@@ -72,10 +72,10 @@ export class UserService extends BaseService<IUser> {
     );
   }
   
-  deleteUserSignal(user: IUser): Observable<any> {
-    return this.del(user.id).pipe(
+  deleteUserSignal(id: number): Observable<any> {
+    return this.del(id).pipe(
       tap((response: any) => {
-        const updatedUsers = this.userListSignal().filter(u => u.id !== user.id);
+        const updatedUsers = this.userListSignal().filter(u => u.id !== id);
         this.userListSignal.set(updatedUsers);
       }),
       catchError(error => {
@@ -84,6 +84,7 @@ export class UserService extends BaseService<IUser> {
       })
     );
   }
+  
   uploadPhoto(formData: FormData): Observable<any> {
     return this.http.post(`${this.baseUrl}/${this.source}/uploadPhoto`, formData).pipe(
       tap((response: any) => {

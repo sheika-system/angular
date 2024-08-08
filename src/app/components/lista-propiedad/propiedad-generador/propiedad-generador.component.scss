@@ -10,6 +10,8 @@
     justify-content: space-around;
     display: flex;
     gap: 20px;
+    padding-top: 30px;
+    padding-bottom: 90px;
 }
 
 .propiedad-card-container {
@@ -22,5 +24,6 @@
 .texto-error {
     color: rgb(187, 187, 187);
     font-size: 40px;
-    padding-top: 250px;
+    padding-top: 350px;
+    padding-bottom: 350px;
 }

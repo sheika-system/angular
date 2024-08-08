@@ -9,6 +9,6 @@ import { Component } from '@angular/core';
 })
 export class BtnInicioComponent {
   volverInicio() {
-    window.location.assign('/app/home');
+    window.location.assign('/home');
   }
 }
