@@ -115,7 +115,7 @@ export class PropiedadComponent implements OnInit {
     metrosCuadrados: 0,
     disponibilidad: true,
     listaImagenes: [],
-    user: this.userService.user$()
+    user: undefined
   };
 
 
@@ -188,7 +188,6 @@ export class PropiedadComponent implements OnInit {
     } else {
       console.error('El usuario no está autenticado');
     }
-    console.log("User: ",this.userService.user$())
   }
   
   
@@ -211,7 +210,6 @@ export class PropiedadComponent implements OnInit {
       (this.propiedad.moneda) == '' ||
       (this.propiedad.precio ?? 0) <= 0 ||
       (this.propiedad.ubicacion) == undefined ||
-      (this.propiedad.amenidades) == undefined ||
       (this.propiedad.annioConstruccion?? 0) <= 0 ||
       (this.propiedad.banniosCant?? 0) <= 0 ||
       (this.propiedad.cuartosCant?? 0) <= 0 ||
@@ -250,19 +248,46 @@ export class PropiedadComponent implements OnInit {
       console.log(propiedadToSubmit)
     }
     
+    async cargarDatosUsuario(): Promise<void> {
+      try {
+        await this.userService.getByIdSignal(this.currentUserId!);
+    
+        // Accede al usuario a través de la señal después de que la promesa se resuelva
+        const user = this.userService.user$();
+    
+        if (user) {  
+          this.user = user;
+          this.propiedad.user = user;
+          console.log("User: ",this.user)
+        } else {
+          throw new Error('Usuario no encontrado');
+        }
+      } catch (error) {
+        console.error('Error al obtener datos del usuario:', error);
+        throw error;
+      }
+    }
+    
     
     
     ngOnInit() {
-      this.service.getAllSignal();
-      this.service.getProvincias();
-      this.service.getCantones();
-      this.service.getDistritos();
-      this.amenidadService.getAllSignal();
-      this.tipoPropService.getAllSignal();
-      if (!this.propiedad.ubicacion) {
-        this.propiedad.ubicacion = { ...this.ubicacionMaps };
-      }
+      this.cargarDatosUsuario().then(() => {
+        this.service.getAllSignal();
+        this.service.getProvincias();
+        this.service.getCantones();
+        this.service.getDistritos();
+        this.amenidadService.getAllSignal();
+        this.tipoPropService.getAllSignal();
+        
+        if (!this.propiedad.ubicacion) {
+          this.propiedad.ubicacion = { ...this.ubicacionMaps };
+        }
+      }).catch((error) => {
+        console.error('Error al cargar el usuario:', error);
+        this.registerError = 'Error al cargar el usuario';
+      });
     }
+    
     updateUbicacionAndFilter(newUbicacion: Partial<IUbicacion>) {
       this.ubicacionMaps = { ...this.ubicacionMaps, ...newUbicacion };
       this.buildLocationFilter();
