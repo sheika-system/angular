@@ -1,8 +1,8 @@
     <div class="login-container">    
         <div class="d-flex align-items-center justify-content-center h-100">
-            <div class="login-card" (click)="verDetalle(propiedad.propiedadId)">
+            <div class="login-card">
             <div class="w-100">
-                <div class="text-center container-img">
+                <div class="text-center container-img" (click)="verDetalle(propiedad.propiedadId)">
                     <img
                     class="logo-rentheaven"
                     [src]="propiedad.listaImagenes![0].imagen ? 'data:image/jpeg;base64,' + propiedad.listaImagenes![0].imagen : 'assets/img/login/noImageFound.jpg'"
@@ -40,6 +40,12 @@
                             <button class="btn btn-primary btn-block w-100 green-button" (click)="verDetalle(propiedad.propiedadId)">
                                Contactar Propietario
                             </button>
+                        </div>
+                        <div class="btn-style">
+                            <button type="button" (click)="deletePropiedad(propiedad)" class="btn btn-danger">
+                            <i class="fa-solid fa-trash white"
+                            ></i>
+                        </button>
                         </div>
                     </div>
                 </div>
