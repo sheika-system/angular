@@ -1,5 +1,4 @@
 .login-container {
-    height: 75vh;
     // background-image: url("../../../../assets/img/login/login-bg.jpg");
     background-position: left;
     background-size: cover;
@@ -125,4 +124,19 @@
   .fa-star {
     padding: 0 10px;
     width: 50px !important;
+  }
+
+  .text-wrapper {
+    padding: 0px 35px;
+    text-align: center;
+  }
+
+  .btn-green {
+    background-color: #01c38e;
+    color: white;
+    width: 200px;
+  }
+
+  .btn-green:hover {
+    background-color: #01916a;
   }

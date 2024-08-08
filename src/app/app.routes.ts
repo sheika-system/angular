@@ -21,13 +21,19 @@ import { PropiedadesListComponent } from './pages/home/home.component';
 import { PropiedadDetalleComponent } from './pages/detalle-propiedad/detalle-propiedad.component';
 import { PropiedadesUsuarioComponent } from './pages/propiedades-usuario/propiedades-usuario.component';
 import { TokenExpiredComponent } from './pages/token-expired/token-expired.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 
 
 export const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [GuestGuard]
+  },
+  {
+    path: 'home',
+    component: PropiedadesListComponent
   },
   {
     path: 'signup',
@@ -54,7 +60,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
@@ -145,9 +151,7 @@ export const routes: Routes = [
         component: DashboardComponent,
         data: { 
           authorities: [
-            IRole.admin, 
-            IRole.superAdmin,
-            IRole.user
+            IRole.superAdmin
           ],
           name: 'Dashboard'
         }
@@ -155,18 +159,6 @@ export const routes: Routes = [
       {
         path: 'perfil/:id',
         component: PerfilComponent,
-        data: { 
-          authorities: [
-            IRole.admin, 
-            IRole.superAdmin,
-            IRole.user
-          ],
-          name: 'Perfil'
-        }
-      },
-      {
-        path: 'perfil',
-        redirectTo: 'home',
         data: { 
           authorities: [
             IRole.admin, 
@@ -199,19 +191,11 @@ export const routes: Routes = [
           ],
           name: 'PropiedadUsuario'
         }
-      },
-      {
-        path: 'home',
-        component: PropiedadesListComponent,
-        data: { 
-          authorities: [
-            IRole.admin, 
-            IRole.superAdmin,
-            IRole.user
-          ],
-          name: 'Home'
-        }
       }
     ],
   },
+  {
+    path: '**',
+    component: NotFoundComponent
+  }
 ];

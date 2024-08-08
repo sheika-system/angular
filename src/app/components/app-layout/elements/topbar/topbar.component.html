@@ -2,17 +2,47 @@
   <div class="header-wrapper row m-0 nav-rentheaven">
     <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 right-header p-0">
       <ul class="nav-menus mb-0 no-padding-left justify-content-start">
-        <li class="navbar-brand mb-0 h1 col-10">
-          <span>
-            <strong>RentHeaven</strong>
-          </span>
+        <a href="home" class="a-logo">
+          <li class="navbar-brand mb-0 col-10 d-flex">
+            <img src="../../../../../assets/icons/rentheavenlogowhite.png" alt="Rent heaven logo white" class="logo-white">
+            <h2 class="mb-0">
+              <span>
+                <strong>RentHeaven</strong>
+              </span>
+            </h2>
+          </li>
+        </a>
+      </ul>
+    </div>
+    <div *ngIf="user" class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 right-header p-0">
+      <ul class="nav-menus mb-0 no-padding-left perfil">
+        <li class="profile-nav pe-0 py-0">
+          <a href="/home" class="nav-link">Inicio</a>
+        </li>
+        <li class="profile-nav pe-0 py-0">
+          <a href="/app/propiedad" class="nav-link">Registrar propiedad</a>
+        </li>
+        <li class="profile-nav pe-0 py-0">
+          <a href="/app/delitos" class="nav-link">Reporte Delitos</a>
+        </li>
+        <li class="profile-nav pe-0 py-0">
+          <a [href]="'/app/propiedadesUsuario/' + userId" class="nav-link">Mis propiedades</a>
+        </li>
+        <li class="profile-nav onhover-dropdown pe-0 py-0">
+          <app-my-account></app-my-account>
         </li>
       </ul>
     </div>
-    <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 right-header p-0">
+    <div *ngIf="!user" class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 right-header p-0">
       <ul class="nav-menus mb-0 no-padding-left perfil">
         <li class="profile-nav onhover-dropdown pe-0 py-0">
-          <app-my-account></app-my-account>
+          <a href="/home" class="nav-link">Inicio</a>
+        </li>
+        <li class="profile-nav onhover-dropdown pe-0 py-0">
+          <a href="/signup" class="nav-link">Registrarse</a>
+        </li>
+        <li class="profile-nav onhover-dropdown pe-0 py-0">
+          <a href="/login" class="nav-link">Iniciar Sesión</a>
         </li>
       </ul>
     </div>

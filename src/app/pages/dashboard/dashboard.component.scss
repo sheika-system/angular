@@ -1,0 +1,24 @@
+.text-blue {
+    color: #132d46;
+}
+
+.dashboard-wrapper {
+    margin: 0px 300px;
+    padding-top: 100px;
+}
+
+.dashboard-title {
+    font-size: 30px;
+}
+
+.rounded {
+    border-top: 10px;
+    border-radius: 5px;
+}
+
+.items-grid {
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+}
