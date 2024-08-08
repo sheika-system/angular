@@ -37,9 +37,7 @@ export class Recorrido3dComponent implements OnInit{
     this.recorrido3d = recorrido3d
     console.log("this.recorrido3d output", this.recorrido3d);
   }
-  constructor(){
-    this.propiedadId = 3;
-  }
+
   ngOnInit(): void {
     this.propiedadId = 3;
   }

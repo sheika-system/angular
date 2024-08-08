@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, effect, inject, Input, OnInit, untracked } from '@angular/core';
+import { AfterViewInit, Component, effect, inject, Input, OnChanges, OnInit, SimpleChanges, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IImagen, IRecorrido3D, TourConfig } from '@app/interfaces';
 import { ImagenService } from '@app/services/imagen.service';
@@ -12,8 +12,8 @@ declare const pannellum: any;
   templateUrl: './recorrido3d-visor.component.html',
   styleUrl: './recorrido3d-visor.component.scss'
 })
-export class Recorrido3dVisorComponent implements OnInit, AfterViewInit {
-  @Input() propiedadId: number = 3
+export class Recorrido3dVisorComponent implements OnInit, OnChanges {
+  @Input() propiedadId: number | null = null;
   @Input() recorrido3d: IRecorrido3D | null = null;
 
   recorrido3dService = inject(Recorrido3dService)
@@ -22,60 +22,114 @@ export class Recorrido3dVisorComponent implements OnInit, AfterViewInit {
   private imagenesRecorrido3d: IImagen[] = [];
   viewer: any;
   tourConfig: TourConfig | null = null;
-  verDetalleRecorrido : boolean = false;
+  verDetalleRecorrido : boolean = true;
+
+  // constructor() {
+  //   if(this.propiedadId !== 0 && this.recorrido3d == null){
+  //     effect(() => {
+  //       const recorrido = this.recorrido3dService.recorrido3dRegistrado$();
+  //       if (recorrido !== null && recorrido.recorrido3dId !== undefined) {
+  //         this.recorrido3d = recorrido;
+  //         console.log("this.recorrido3d", this.recorrido3d);
+  //         if (!this.imagenesLoaded) {
+  //           this.loadImagenesRecorrido3d(recorrido.recorrido3dId);
+  //           this.imagenesLoaded = true;
+  //         }
+  //       } else if (recorrido !== null) {
+  //         console.error('RecorridoId no está definido');
+  //       }
+  //     });
+  //     effect(() => {
+  //       const imagenes = this.imagenService.imagenesRecorrido3d$();
+  //       this.imagenesRecorrido3d = imagenes
+  //       console.log('Imágenes cargadas:', this.imagenesRecorrido3d);
+  //       this.initPanellum();
+  //     });
+  //   }else{
+  //     effect(() => {
+  //       const imagenes = this.imagenService.imagenesRecorrido3d$();
+  //       this.imagenesRecorrido3d = imagenes
+  //       console.log('Imágenes cargadas:', this.imagenesRecorrido3d);
+  //       this.initPanellum();
+  //     });
+  //   }
+  // }
 
   constructor() {
-    if(this.propiedadId !== 0 && this.recorrido3d == null){
-      effect(() => {
+    effect(() => {
+      // Este efecto maneja la carga de imágenes, ya sea que vengan del servicio o del input
+      const imagenes = this.imagenService.imagenesRecorrido3d$();
+      if (imagenes.length > 0) {
+        this.imagenesRecorrido3d = imagenes;
+        console.log('Imágenes cargadas:', this.imagenesRecorrido3d);
+        this.initPanellum();
+      }
+    });
+
+    effect(() => {
+      console.log("VISOR recorrido3d", this.recorrido3d);
+      // Este efecto maneja el caso cuando se proporciona solo propiedadId
+      if (this.propiedadId !== null && !this.recorrido3d) {
         const recorrido = this.recorrido3dService.recorrido3dRegistrado$();
         if (recorrido !== null && recorrido.recorrido3dId !== undefined) {
           this.recorrido3d = recorrido;
-          console.log("this.recorrido3d", this.recorrido3d);
-          if (!this.imagenesLoaded) {
-            this.loadImagenesRecorrido3d(recorrido.recorrido3dId);
-            this.imagenesLoaded = true;
-          }
-        } else if (recorrido !== null) {
-          console.error('RecorridoId no está definido');
+          console.log("Recorrido3D cargado desde el servicio:", this.recorrido3d);
+          this.loadImagenesRecorrido3d(recorrido.recorrido3dId);
         }
-      });
-      effect(() => {
-        const imagenes = this.imagenService.imagenesRecorrido3d$();
-        this.imagenesRecorrido3d = imagenes
-        console.log('Imágenes cargadas:', this.imagenesRecorrido3d);
-        this.initPanellum();
-      });
-    }else{
-      effect(() => {
-        const imagenes = this.imagenService.imagenesRecorrido3d$();
-        this.imagenesRecorrido3d = imagenes
-        console.log('Imágenes cargadas:', this.imagenesRecorrido3d);
-        this.initPanellum();
-      });
-    }
+      }
+    });
   }
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
-  }
+  
+
+  // ngOnInit() {
+  //   console.log('Cargando Pannellum');
+  //   if (typeof pannellum?.viewer === 'function') {
+  //     console.log('Pannellum cargado correctamente');
+  //     this.loadRecorrido3d();
+  //   } else {
+  //     console.error('Pannellum no está cargado correctamente');
+  //   }
+  // }
 
   ngOnInit() {
-    console.log('Cargando Pannellum');
-    if (typeof pannellum?.viewer === 'function') {
-      console.log('Pannellum cargado correctamente');
+    this.loadRecorrido3d();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['propiedadId'] || changes['recorrido3d']) {
       this.loadRecorrido3d();
-    } else {
-      console.error('Pannellum no está cargado correctamente');
     }
   }
 
+  // loadRecorrido3d() {
+  //   if(this.propiedadId !== 0 && this.recorrido3d !== null){
+  //     console.log("entrando");
+  //     console.log("enbtradndo", this.recorrido3d);
+  //     const loadedId = untracked(() => this.recorrido3dService.loadedId$());
+  //     if (loadedId !== this.propiedadId) {
+  //       this.recorrido3dService.getByIdSignal(this.propiedadId);
+  //     }
+  //   }
+  // }
+  
   loadRecorrido3d() {
-    if(this.propiedadId !== 0){
-      const loadedId = untracked(() => this.recorrido3dService.loadedId$());
-      if (loadedId !== this.propiedadId) {
-        this.recorrido3dService.getByIdSignal(this.propiedadId);
-      }
+    if (this.recorrido3d && this.recorrido3d.recorrido3dId !== undefined) {
+      // Caso: Se recibió un recorrido3d directamente (desde el form)
+      console.log("Usando recorrido3D recibido directamente del form");
+      this.loadImagenesRecorrido3d(this.recorrido3d.recorrido3dId);
+    } else if (this.propiedadId !== null) {
+      // Caso: Solo se recibió propiedadId (usado en otra parte del proyecto)
+      console.log("Cargando recorrido3D para propiedadId:", this.propiedadId);
+      this.recorrido3dService.getByIdSignal(this.propiedadId);
     }
   }
+
+  // loadImagenesRecorrido3d(recorrido3dId: number) {
+  //   if (this.recorrido3d && this.recorrido3d.archivoRecorrido) {
+  //     this.tourConfig = JSON.parse(this.recorrido3d.archivoRecorrido) as TourConfig;
+  //     this.imagenService.getImagenesRecorrido3dById(recorrido3dId);
+  //   }
+  // }
 
   loadImagenesRecorrido3d(recorrido3dId: number) {
     if (this.recorrido3d && this.recorrido3d.archivoRecorrido) {
@@ -84,8 +138,17 @@ export class Recorrido3dVisorComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private handleNewRecorrido3d(recorrido: IRecorrido3D) {
+    console.log("Nuevo recorrido3d recibido:", recorrido);
+    this.imagenesLoaded = false;
+    if (recorrido.recorrido3dId) {
+      this.loadImagenesRecorrido3d(recorrido.recorrido3dId);
+    }
+  }
+
   initPanellum(): void {
-    if (this.recorrido3d && this.recorrido3d.archivoRecorrido) {
+    // if (this.recorrido3d && this.recorrido3d.archivoRecorrido) {
+      if (this.recorrido3d && this.recorrido3d.archivoRecorrido && this.imagenesRecorrido3d.length > 0) {
       try {
         this.tourConfig = JSON.parse(this.recorrido3d.archivoRecorrido) as TourConfig;
         console.log('Tour config:', this.tourConfig);
