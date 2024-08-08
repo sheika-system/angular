@@ -160,3 +160,8 @@ export interface PagedResponse<T> {
   numberOfElements: number;
   empty: boolean;
 }
+
+export interface ICurrency {
+  value: string,
+  viewValue: string
+}
