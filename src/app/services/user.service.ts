@@ -36,14 +36,18 @@ export class UserService extends BaseService<IUser> {
     });
   }
 
-  getByIdSignal(id: number) {
-    this.find(id).subscribe({
-      next: (response: any) => {
-        this.userSignal.set(response);
-      },
-      error: (error: any) => {
-        console.error('Error fetching user', error);
-      }
+  getByIdSignal(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.find(id).subscribe({
+        next: (response: any) => {
+          this.userSignal.set(response);
+          resolve();
+        },
+        error: (error: any) => {
+          console.error('Error fetching user', error);
+          reject(error);
+        }
+      });
     });
   }
   
