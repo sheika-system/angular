@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, Input, OnInit, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -8,7 +8,7 @@ import { TopbarComponent } from '../../components/app-layout/elements/topbar/top
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { UbicacionSelectorComponent } from '../../components/ubicacion/ubicacion-selector/ubicacion-selector.component';
-import { IAmenidad, IImagen, IPropiedad, ITipoPropiedad, IUbicacion, IUser } from '../../interfaces';
+import { IAmenidad, ICurrency, IImagen, IPropiedad, ITipoPropiedad, IUbicacion, IUser } from '../../interfaces';
 import { UbicacionComponent } from "../ubicacion/ubicacion.component";
 import { UbicacionService } from '../../services/ubicacion.service';
 import { AmenidadComponent } from "../../components/amenidad/amenidad.component";
@@ -63,6 +63,8 @@ export class PropiedadComponent implements OnInit {
 
   public registerError!: String;
   public validregister!: boolean;
+  monedaInvalid = false;
+  monedaTouched = false;
 
   currentUserId: number | undefined;
   user: IUser = {};
@@ -89,12 +91,21 @@ export class PropiedadComponent implements OnInit {
     tipoPropiedadId: 0,
     nombre: ''
   }
+  currency: ICurrency = {
+    value: '',
+    viewValue: ''
+  }
+
+  currencies: ICurrency[] = [
+    { value: 'USD', viewValue: 'Dólar Estadounidense (USD)' },
+    { value: 'CRC', viewValue: 'Colón Costarricense (CRC)' }
+  ];
 
   propiedad: IPropiedad = {
     nombre: '',
     descripcion: '',
     tipoPropiedad: this.tipoPropiedad,
-    moneda: '',
+    moneda: this.currency.value,
     precio: 0,
     ubicacion: { ...this.ubicacionMaps }, // Crea una copia de ubicacionMaps
     amenidades: this.listaAmenidades,
@@ -104,16 +115,9 @@ export class PropiedadComponent implements OnInit {
     metrosCuadrados: 0,
     disponibilidad: true,
     listaImagenes: [],
-    user: this.userService.user$()
+    user: undefined
   };
-  
 
-
-  selectedCurrency: string | undefined;
-  currencies = [
-    { value: 'USD', viewValue: 'Dólar Estadounidense (USD)' },
-    { value: 'CRC', viewValue: 'Colón Costarricense (CRC)' }
-  ];
 
   // Parte de google maps
 
@@ -184,7 +188,6 @@ export class PropiedadComponent implements OnInit {
     } else {
       console.error('El usuario no está autenticado');
     }
-    console.log("User: ",this.userService.user$())
   }
   
   
@@ -199,6 +202,26 @@ export class PropiedadComponent implements OnInit {
     ) {
       this.registerError = 'Por favor, asegúrate de que todos los campos numéricos no tengan valores negativos.';
       return;
+    }
+    if(
+      (this.propiedad.nombre) == '' ||
+      (this.propiedad.descripcion) == '' ||
+      (this.propiedad.tipoPropiedad) == undefined ||
+      (this.propiedad.moneda) == '' ||
+      (this.propiedad.precio ?? 0) <= 0 ||
+      (this.propiedad.ubicacion) == undefined ||
+      (this.propiedad.annioConstruccion?? 0) <= 0 ||
+      (this.propiedad.banniosCant?? 0) <= 0 ||
+      (this.propiedad.cuartosCant?? 0) <= 0 ||
+      (this.propiedad.metrosCuadrados?? 0) <= 0 
+    ) {
+      this.registerError = 'Por favor, asegúrate de que todos los campos esten completos';
+      return;
+    }
+
+    if(this.propiedad.user?.id == undefined) {
+      this.registerError = 'Usuario no encontrado, intente mas tarde'
+      return
     }
 
     // Crear una copia de propiedad para no modificar el original directamente
@@ -225,19 +248,46 @@ export class PropiedadComponent implements OnInit {
       console.log(propiedadToSubmit)
     }
     
+    async cargarDatosUsuario(): Promise<void> {
+      try {
+        await this.userService.getByIdSignal(this.currentUserId!);
+    
+        // Accede al usuario a través de la señal después de que la promesa se resuelva
+        const user = this.userService.user$();
+    
+        if (user) {  
+          this.user = user;
+          this.propiedad.user = user;
+          console.log("User: ",this.user)
+        } else {
+          throw new Error('Usuario no encontrado');
+        }
+      } catch (error) {
+        console.error('Error al obtener datos del usuario:', error);
+        throw error;
+      }
+    }
+    
     
     
     ngOnInit() {
-      this.service.getAllSignal();
-      this.service.getProvincias();
-      this.service.getCantones();
-      this.service.getDistritos();
-      this.amenidadService.getAllSignal();
-      this.tipoPropService.getAllSignal();
-      if (!this.propiedad.ubicacion) {
-        this.propiedad.ubicacion = { ...this.ubicacionMaps };
-      }
+      this.cargarDatosUsuario().then(() => {
+        this.service.getAllSignal();
+        this.service.getProvincias();
+        this.service.getCantones();
+        this.service.getDistritos();
+        this.amenidadService.getAllSignal();
+        this.tipoPropService.getAllSignal();
+        
+        if (!this.propiedad.ubicacion) {
+          this.propiedad.ubicacion = { ...this.ubicacionMaps };
+        }
+      }).catch((error) => {
+        console.error('Error al cargar el usuario:', error);
+        this.registerError = 'Error al cargar el usuario';
+      });
     }
+    
     updateUbicacionAndFilter(newUbicacion: Partial<IUbicacion>) {
       this.ubicacionMaps = { ...this.ubicacionMaps, ...newUbicacion };
       this.buildLocationFilter();
@@ -349,10 +399,18 @@ export class PropiedadComponent implements OnInit {
     this.propiedad.listaImagenes = params;
   }
 
+  onMonedaChange(event: Event) {
+    const selectedId = (event.target as HTMLSelectElement).value;
+    this.currency = this.currencies.find(curren => (curren.value?.toString() ?? '') === selectedId) || {
+      viewValue: "",
+      value: ""
+    };
+    this.propiedad.moneda = this.currency.value;
+    this.monedaTouched = true;
+    this.monedaInvalid = !this.currency.value;
+  }
+
   volverHome() {
     this.router.navigateByUrl('/app/home');
   }
 }
-
-
-

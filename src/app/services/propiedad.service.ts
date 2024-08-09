@@ -3,6 +3,7 @@ import { Injectable, signal } from "@angular/core";
 import { BaseService } from "./base-service";
 import { IPropiedad, IResponse } from '../interfaces';
 import { Observable } from 'rxjs/internal/Observable';
+import { catchError, tap, throwError } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -62,5 +63,18 @@ export class PropiedadService extends BaseService<IPropiedad> {
             }
         });
     }
+
+    deletePropiedad(propiedad: IPropiedad) {
+        return this.http.delete('propiedades/' + propiedad.propiedadId).pipe(
+          tap(() => {
+            const updatedPropiedad = this.propiedadListSignal().filter(p => p.propiedadId !== propiedad.propiedadId);
+            this.propiedadListSignal.set(updatedPropiedad);
+          }),
+          catchError((error: any) => {
+            console.error("Error eliminando propiedad", error);
+            return throwError(error);
+          })
+        );
+      }
 }
 
