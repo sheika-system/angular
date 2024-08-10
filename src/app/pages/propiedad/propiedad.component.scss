@@ -21,7 +21,7 @@
       width: 80%;
       padding: 40px;
       border-radius: 10px;
-      box-shadow: 0 0 37px rgba(8, 21, 66, 0.05);
+      box-shadow:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
       margin: 0 auto;
       background-color: #fff;
     }
@@ -95,12 +95,7 @@
     font-size: 16px;
   }
   
-  select:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-
+  
   .returnHome {
     text-align: right;
   }
@@ -138,6 +133,7 @@
 
   .moneda {
     margin-bottom: 10px;
+    
   }
 
   .ubicacion-selected {
