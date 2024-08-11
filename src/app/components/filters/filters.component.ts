@@ -114,6 +114,30 @@ export class FiltersComponent implements OnInit {
     }
   }
 
+  resetFilters() {
+    this.filters = {
+      priceRange: [0, 10000],
+      propertyType: '',
+      provincia: '',
+      canton:'',
+      distrito:'',
+      amenities: [],
+      areaRange: [0, 1000]
+    };
+  
+    // Reset individual controls
+    this.tipoPropiedad = { tipoPropiedadId: 0, nombre: '' };
+    this.listaAmenidades = [{ amenidadId: 0, nombre: '' }];
+    this.priceStart = 0;
+    this.priceEnd = 10000;
+    this.areaStart = 0;
+    this.areaEnd = 1000;
+  
+    // Emit the reset filters
+    this.applyFilters();
+  }
+
+
   applyFilters() {
     this.filtersChanged.emit(this.filters);
   }
