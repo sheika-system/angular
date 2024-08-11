@@ -91,8 +91,10 @@ export class FiltersComponent implements OnInit {
       const numericValue = Number(value);
       if (thumb === 'start') {
         this.filters.priceRange[0] = numericValue;
+        this.priceStart=numericValue;
       } else if (thumb === 'end') {
         this.filters.priceRange[1] = numericValue;
+        this.priceEnd= numericValue;
       }
       
       this.applyFilters();
@@ -106,8 +108,10 @@ export class FiltersComponent implements OnInit {
       const numericValue = Number(value);
       if (thumb === 'start') {
         this.filters.areaRange[0] = numericValue;
+        this.areaStart=numericValue;
       } else if (thumb === 'end') {
         this.filters.areaRange[1] = numericValue;
+        this.areaEnd=numericValue;
       }
       
       this.applyFilters();
@@ -135,6 +139,7 @@ export class FiltersComponent implements OnInit {
   
     // Emit the reset filters
     this.applyFilters();
+    window.location.reload();
   }
 
 

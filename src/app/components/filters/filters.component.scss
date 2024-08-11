@@ -23,7 +23,7 @@
 .filter-group input,
 .filter-group select,
 .filter-group mat-slider {
-  width: 100%;
+  width: 90%;
 }
 
 .price-range-values,
@@ -33,9 +33,6 @@
   width: 100%;
 }
 
-app-tipo-propiedad .col-md-4 {
-  width:100%;
-}
 
 app-amenidad{
   flex: 1;
@@ -45,10 +42,13 @@ app-amenidad{
 button {
   padding: 10px 20px;
   background-color: #00bfa5; /* Same color as sliders */
+  margin-top: 25px;
   color: white;
   border: none;
   border-radius: 5px;
+  align-items: center ;
   cursor: pointer;
+
 }
 
 button:hover {
