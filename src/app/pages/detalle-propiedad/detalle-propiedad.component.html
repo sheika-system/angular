@@ -45,6 +45,7 @@
                     <h4 class="text-nowrap" *ngIf="i !== propiedad.amenidades!.length - 1">{{amenidad.nombre}},&nbsp;</h4>
                 </div>
             </div>
+            <hr>
             <h3>{{propiedad.descripcion}}</h3>
         </div>
         <div class="d-flex align-items-center">
@@ -55,13 +56,50 @@
                 <h1 class="texto-azul texto-moneda"><strong>₡ {{propiedad.precio}}/mes</strong></h1>
             }
             @if(propiedad.disponibilidad) {
+                <button class="btn btn-rentar" (click)="showModal(solicitudRenta)">Rentar</button>
                 <button class="btn btn-propietario">Contactar Propietario</button>
             }
-            <button class="btn btn-tour-3d">Ver Tour 3D</button>
+            <button class="btn btn-propietario">Ver Tour 3D</button>
         </div>
     </div>
 </div>
-<div class="padding-left">
-    <btn-inicio></btn-inicio>
-</div>
-<div class="bottom-margin"></div>
+
+<app-modal #solicitudRenta>
+    <div class="solicitud-wrapper">
+        <form [formGroup]="rentaForm" (ngSubmit)="onSubmit(solicitudRenta)" *ngIf="userId !== propiedad.user?.id">
+            <h1 class="texto-blue"><strong>Solicitud de Renta</strong></h1>
+            <p class="input-label">Llena los siguientes datos para mandar una solicitud de renta al propietario</p>
+            <hr>
+            <div class="d-flex dates-wrapper">
+                <div class="fecha-input-wrapper">
+                    <label class="input-label" for="fechaInicio"><strong>Fecha de inicio <span class="text-danger">*</span></strong></label>
+                    <input class="form-control" type="date" formControlName="fechaInicio" required>
+                </div>
+        
+                <div class="fecha-input-wrapper">
+                    <label class="input-label" for="fechaFin"><strong>Fecha de fin <span class="text-danger">*</span></strong></label>
+                    <input class="form-control" type="date" formControlName="fechaFin" required>
+                </div>
+            </div>
+            <div *ngIf="rentaForm.errors?.['dateNotAfterToday']" class="error-message input-label text-danger pb-3">
+                *Las fechas no pueden ser de hoy o antes.
+            </div>
+            <div *ngIf="rentaForm.errors?.['dateRangeInvalid']" class="error-message input-label text-danger pb-3">
+                *La fecha de fin debe ser después de la fecha de inicio.
+            </div>
+            <label for="comentario" class="input-label"><strong>Comentario</strong></label>
+            <textarea class="form-control text-area" formControlName="comentario" placeholder="Escribe un comentario"></textarea>
+            <div class="d-flex justify-content-center align-items-center btn-enviar-wrapper">
+                <button class="btn btn-rentar" [disabled]="rentaForm.invalid">Enviar Solicitud</button>
+            </div>
+            <div class="success input-label d-flex align-items-center justify-content-center" *ngIf="formSuccess">
+                <span class="text-success">Solicitud enviada, redireccionando...</span>
+            </div>
+        </form>
+        <div *ngIf="userId === propiedad.user?.id" class="d-flex justify-content-center align-items-center danger-text-wrapper">
+            <span class="text-danger own-property">
+                * No puedes rentar una propiedad que te pertenezca
+            </span>
+        </div>
+    </div>
+</app-modal>

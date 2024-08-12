@@ -21,6 +21,7 @@ import { PropiedadDetalleComponent } from './pages/detalle-propiedad/detalle-pro
 import { PropiedadesUsuarioComponent } from './pages/propiedades-usuario/propiedades-usuario.component';
 import { TokenExpiredComponent } from './pages/token-expired/token-expired.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { RentasComponent } from './pages/rentas/rentas.component';
 
 
 
@@ -179,6 +180,17 @@ export const routes: Routes = [
             IRole.user
           ],
           name: 'PropiedadUsuario'
+        }
+      },
+      {
+        path: 'rentas',
+        component: RentasComponent,
+        data: {
+          authorites: [
+            IRole.admin,
+            IRole.superAdmin,
+            IRole.user
+          ]
         }
       }
     ],

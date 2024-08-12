@@ -1,0 +1,45 @@
+.detalle-renta-wrapper {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+}
+
+.form-texto {
+    font-size: 16px;
+}
+
+.text-area {
+    resize: none;
+    height: 100px;
+}
+
+.btn-enviar-wrapper {
+    padding-top: 15px;
+}
+
+.btn-rentar {
+    background-color: #01c38e;
+    color: white;
+}
+
+.btn-rentar:hover {
+    opacity: 0.7;
+    transition: ease 100ms;
+}
+
+.input-wrapper {
+    padding-bottom: 15px;
+}
+
+.fecha-input-wrapper {
+    padding-right: 50px;
+}
+
+.texto-link:hover {
+    color: #01c38e;
+    transition: ease 100ms;
+}
+
+.update-feedback {
+    padding-top: 15px;
+}

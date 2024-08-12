@@ -45,8 +45,26 @@
     padding-right: 20px;
     padding-left: 20px;
     margin-left: 20px;
-    background-color: black;
+    background-color: #132d46;
     color: white;
+}
+
+.btn-propietario:hover {
+    opacity: 0.7;
+    transition: ease 100ms;
+}
+
+.btn-rentar {
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-left: 20px;
+    background-color: #01c38e;
+    color: white;
+}
+
+.btn-rentar:hover {
+    opacity: 0.7;
+    transition: ease 100ms;
 }
 
 .btn-tour-3d {
@@ -62,4 +80,44 @@
 
 .padding-left {
     padding-left: 200px;
+}
+
+.solicitud-wrapper {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+}
+
+.input-label {
+    font-size: 16px;
+}
+
+.fecha-input-wrapper {
+    padding-right: 50px;
+}
+
+.btn-enviar-wrapper {
+    padding-top: 30px;
+}
+
+.dates-wrapper {
+    padding-bottom: 30px;
+}
+
+.text-area {
+    resize: none;
+    height: 100px;
+}
+
+.success {
+    padding-top: 15px;
+}
+
+.own-property {
+    text-align: center;
+    font-size: 22px;
+}
+
+.danger-text-wrapper {
+    padding-bottom: 15px;
 }

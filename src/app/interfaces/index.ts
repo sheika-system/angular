@@ -160,3 +160,15 @@ export interface PagedResponse<T> {
   numberOfElements: number;
   empty: boolean;
 }
+
+export interface IRenta {
+  rentaId?: number;
+  estado?: string;
+  comentario?: string;
+  fechaInicio?: Date;
+  fechaFin?: Date;
+  fechaCreacion?: Date;
+  fechaModificacion?: Date;
+  propiedad?: IPropiedad;
+  user?: IUser;
+}

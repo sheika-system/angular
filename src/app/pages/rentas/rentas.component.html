@@ -1,0 +1,75 @@
+<div class="solicitudes-container">
+    <h1 class="texto-blue">
+        <strong>Solicitudes de Renta</strong>
+    </h1>
+    <hr>
+    <div class="tabs-container">
+        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasEnviadas" checked>
+        <label for="tabRentasEnviadas" class="tabs__label">Enviadas</label>
+        <div class="tabs__content">
+            @defer {
+                <div *ngFor="let rentaEnviada of rentasEnviadas">
+                    <app-renta-item
+                    [renta]="rentaEnviada"
+                    [tipo]="'enviadas'">
+                    </app-renta-item>
+                </div>
+            } @loading {
+                <app-loader></app-loader>
+            }
+        </div>
+
+        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasRecibidas">
+        <label for="tabRentasRecibidas" class="tabs__label">Recibidas</label>
+        <div class="tabs__content">
+            @defer {
+                <div *ngFor="let rentaRecibida of rentasRecibidas">
+                    <app-renta-item
+                    [renta]="rentaRecibida"
+                    [tipo]="'recibidas'">
+                    </app-renta-item>
+                </div>
+            } @loading {
+                <app-loader></app-loader>
+            }
+        </div>
+
+        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasActivas">
+        <label for="tabRentasActivas" class="tabs__label">Activas</label>
+        <div class="tabs__content">
+            @defer {
+                <div *ngFor="let rentaActiva of rentasActivas">
+                    <app-renta-item
+                    [renta]="rentaActiva"
+                    [tipo]="'activas'">
+                    </app-renta-item>
+                </div>
+            } @loading {
+                <app-loader></app-loader>
+            }
+        </div>
+
+        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasCompletas">
+        <label for="tabRentasCompletas" class="tabs__label">Completas</label>
+        <div class="tabs__content">
+            @defer {
+                <div *ngIf="rentasCompletas!.length > 0; else noRentasTemplate">
+                    <div *ngFor="let rentaCompleta of rentasCompletas">
+                        <app-renta-item
+                            [renta]="rentaCompleta"
+                            [tipo]="'completas'">
+                        </app-renta-item>
+                    </div>
+                </div>
+            } @loading {
+                <app-loader></app-loader>
+            }
+        </div>
+    </div>
+</div>
+
+<ng-template #noRentasTemplate>
+    <div class="texto-error d-flex justify-content-center align-items-center">
+        <span>No existen solicitudes</span>
+    </div>
+</ng-template>

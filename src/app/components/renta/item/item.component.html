@@ -1,0 +1,59 @@
+<div class="renta-item-wrapper">
+    <div *ngIf="renta" class="d-flex" (click)="verDetalle(detalleRenta)">
+        <img class="propiedad-img" [src]="renta.propiedad?.listaImagenes![0].imagen ? 'data:image/jpeg;base64,' + renta.propiedad?.listaImagenes![0].imagen : 'assets/img/login/noImageFound.jpg'" alt="Imagen propiedad">
+        <div class="solicitud-texto-wrapper">
+            <span class="solicitud-texto texto-blue"><strong>Solicitud enviada por: </strong>
+                <a class="texto-blue texto-link" [href]="'/app/perfil/' + renta.user?.id" (click)="navigate($event)">{{renta.user?.nombre}} {{renta.user?.apellido}}</a>
+            </span>
+            <span class="solicitud-texto texto-blue"><strong>Propiedad: </strong>
+                <a class="texto-blue texto-link" [href]="'/app/propiedad/' + renta.propiedad?.propiedadId" (click)="navigate($event)">{{renta.propiedad?.nombre}}</a>
+            </span>
+            <span class="solicitud-texto texto-blue"><strong>Estado: </strong>
+                <span class="text-capitalize">{{renta.estado}}</span>
+            </span>
+        </div>
+        <div class="solicitud-texto-wrapper-2">
+            <span class="solicitud-texto texto-blue"><strong>Fecha de inicio: </strong>
+                {{renta.fechaInicio | date:'dd/MM/yyyy'}}
+            </span>
+            <span class="solicitud-texto texto-blue"><strong>Fecha de fin: </strong>
+                {{renta.fechaFin | date:'dd/MM/yyyy'}}
+            </span>
+        </div>
+        <div class="btns-wrapper">
+            <div class="btns-confirmation-wrapper" *ngIf="tipo === 'recibidas'">
+                <button class="btn btn-green" (click)="showConfirm($event, confirmAccept)">Aceptar</button>
+                <button class="btn btn-red" (click)="showConfirm($event, confirmDeny)">Rechazar</button>
+            </div>
+            <button class="btn btn-send-message"><i class="fa-solid fa-message"></i></button>
+        </div>
+    </div>
+</div>
+
+<app-modal #detalleRenta>
+    <app-renta-form
+        [renta]="renta"
+        [tipo]="tipo"
+        [modal]="detalleRenta"
+    ></app-renta-form>
+</app-modal>
+
+<app-modal #confirmAccept>
+    <div class="confirm-content d-flex justify-content-center align-items-center">
+        <h1 class="texto-blue">¿Quieres aceptar la solicitud de renta de {{renta.user?.nombre}} {{renta.user?.apellido}} para la propiedad: {{renta.propiedad?.nombre}}?</h1>
+        <button class="btn btn-green" (click)="updateEstado(renta, 'activa', confirmAccept)">Aceptar</button>
+    </div>
+    <div class="texto-feedback d-flex justify-content-center align-items-center" *ngIf="editStatus">
+        <span class="text-success">Solicitud aceptada</span>
+    </div>
+</app-modal>
+
+<app-modal #confirmDeny>
+    <div class="confirm-content d-flex justify-content-center align-items-center">
+        <h1 class="text-danger">¿Quieres rechazar la solicitud de renta de {{renta.user?.nombre}} {{renta.user?.apellido}} para la propiedad: {{renta.propiedad?.nombre}}?</h1>
+        <button class="btn btn-red" (click)="updateEstado(renta, 'cancelada', confirmDeny)">Rechazar</button>
+    </div>
+    <div class="texto-feedback d-flex justify-content-center align-items-center" *ngIf="editStatus">
+        <span class="text-danger">Solicitud rechazada</span>
+    </div>
+</app-modal>
