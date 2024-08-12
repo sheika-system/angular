@@ -1,4 +1,4 @@
-import { CalificacionUsuarioService } from './../../../../services/calificacion-usuario.service';
+import { CalificacionUsuarioService } from '../../../../services/calificaion-usuario.service';
 
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit, inject, input } from '@angular/core';
@@ -16,29 +16,35 @@ import { ICalificacionUsuario } from '../../../../interfaces';
   
 })
 export class CalificacionUsuarioComponent  {
-  public nombreUsuario: string=""
-  public ImagenUsuario: string=""
+  public nombreUsuario: string="";
+  public ImagenUsuario: string="";
   public editSuccess!: boolean;
   CalificacionUsuarioService = inject(CalificacionUsuarioService)
   public calificacionUsuario!: ICalificacionUsuario;
   @Input() nombre!: string;
   @Input() imagen!: string;
   @Input() calificacionPromedio!: number;
-  comment: string = '';
+  comentario: string = "";
 
     stars: number[] = [1, 2, 3, 4, 5];
     selectedValue: number= 0;
   
     constructor(private userService: UserService) { }
-    
+
     ngOnInit() {
+      this.calificacionUsuario = {
+        comentario: "",
+        valor: 0,
+        // Otras propiedades que tenga ICalificacionUsuario
+      };
     }
+
     onSubmit(form: NgForm) {
       this.calificacionUsuario.comentario = form.value.comentario;
       this.calificacionUsuario.valor = this.selectedValue;
-      console.log(form.value);
-      console.log('Comentario:', this.calificacionUsuario.comentario);
-      console.log('Calificación seleccionada:', this.calificacionUsuario.valor);
+      console.log(this.nombreUsuario)
+      console.log('Comentario:', form.value.comentario);
+  
      this.CalificacionUsuarioService.updateCalificacionUsuarioSignal(this.calificacionUsuario).subscribe({
         next: () => {
           this.editSuccess = true;

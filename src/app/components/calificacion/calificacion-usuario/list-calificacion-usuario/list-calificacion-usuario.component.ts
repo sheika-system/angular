@@ -7,7 +7,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CalificacionUsuarioService } from '../../../../services/calificacion-usuario.service';
+import { CalificacionUsuarioService } from '../../../../services/calificaion-usuario.service';
 import { ICalificacionUsuario } from '../../../../interfaces';
 import { ModalComponent } from '../../../modal/modal.component';
 import { MatIcon } from '@angular/material/icon';
