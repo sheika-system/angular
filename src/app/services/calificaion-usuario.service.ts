@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class CalificacionUsuarioService extends BaseService<ICalificacionUsuario> {
-  protected override source: string = 'calificaciones';
+  protected override source: string = 'calificacionUsuario';
   protected baseUrl: string = 'http://localhost:4200';
   private calificacionUsuarioListSignal = signal<ICalificacionUsuario[]>([]);
   private calificacionUsuarioSignal = signal<ICalificacionUsuario>({});

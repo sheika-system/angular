@@ -60,8 +60,8 @@ export interface IDistrito {
 
 export interface ICalificacionUsuario{
   id?: number;
-  usuarioCalificadoid?: IUser;
-  usuarioCalificadorid?: IUser;
+  usuarioCalificado?: IUser;
+  usuarioCalificador?: IUser;
   valor?: number;
   fecha?: Date;
   comentario?: string;

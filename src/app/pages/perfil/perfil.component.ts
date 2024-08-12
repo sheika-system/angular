@@ -7,6 +7,8 @@ import { SvgIconComponent } from '../../components/svg-icon/svg-icon.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { PerfilFormComponent } from '../../components/perfil/perfil-form/perfil-form.component';
 import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.component";
+import { CalificacionUsuarioCardComponent } from "../../components/calificacion-usuario-card/calificacion-usuario-card.component";
+import { CalificacionUsuarioComponent } from "../../components/calificacion/calificacion-usuario/form-calificacion-usuario/calificacion-usuario.component";
 
 @Component({
   selector: 'app-perfil',
@@ -16,7 +18,9 @@ import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.compo
     SvgIconComponent,
     ModalComponent,
     PerfilFormComponent,
-    BtnInicioComponent
+    BtnInicioComponent,
+    CalificacionUsuarioCardComponent,
+    CalificacionUsuarioComponent
 ],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss'
@@ -57,5 +61,9 @@ export class PerfilComponent {
 
   verPropiedadesUsuario() {
     window.location.assign('/app/propiedadesUsuario/' + this.id);
+  }
+
+  calificarUsuario(modal: any) {
+    modal.show();
   }
 }

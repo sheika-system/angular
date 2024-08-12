@@ -49,8 +49,12 @@
               <button class="btn btn-volver-home" (click)="verPropiedadesUsuario()">
                 <span class="texto-white">Ver propiedades</span>
               </button>
+              <button class="btn btn-volver-home" (click)="calificarUsuario(CalificacionUsuario)">
+                <span class="texto-white">Calificar Usuario</span>
+              </button>
           </div>
         </div>
+        
       </div>
     </div>
 </div>
@@ -61,3 +65,13 @@
     >
     </app-perfil-form>
   </app-modal>
+
+  <app-modal #CalificacionUsuario>
+    <app-calificacion-usuario
+      [usuarioCalificadoId]="id"
+      [usuarioCalificadorId]="currentUserId"
+    >
+    </app-calificacion-usuario>
+  </app-modal>
+  
+

@@ -8,7 +8,7 @@ import { UserService } from '../../../../services/user.service';
 import { ICalificacionUsuario } from '../../../../interfaces';
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-calificacion-usuario',
   templateUrl: './calificacion-usuario.component.html',
   styleUrls: [ './calificacion-usuario.component.scss' ],
   standalone: true,
@@ -24,6 +24,9 @@ export class CalificacionUsuarioComponent  {
   @Input() nombre!: string;
   @Input() imagen!: string;
   @Input() calificacionPromedio!: number;
+  @Input() usuarioCalificadoId!: string | null;
+  @Input() usuarioCalificadorId!: string;
+  
   comentario: string = "";
 
     stars: number[] = [1, 2, 3, 4, 5];
@@ -35,17 +38,21 @@ export class CalificacionUsuarioComponent  {
       this.calificacionUsuario = {
         comentario: "",
         valor: 0,
-        // Otras propiedades que tenga ICalificacionUsuario
       };
     }
 
     onSubmit(form: NgForm) {
+      const userCalificadoId = parseInt(this.usuarioCalificadoId ?? '0', 10);
+      const userCalificadorId = parseInt(this.usuarioCalificadorId ?? '0', 10);
       this.calificacionUsuario.comentario = form.value.comentario;
       this.calificacionUsuario.valor = this.selectedValue;
-      console.log(this.nombreUsuario)
-      console.log('Comentario:', form.value.comentario);
-  
-     this.CalificacionUsuarioService.updateCalificacionUsuarioSignal(this.calificacionUsuario).subscribe({
+      if (!this.calificacionUsuario.usuarioCalificado && !this.calificacionUsuario.usuarioCalificador) {
+        this.calificacionUsuario.usuarioCalificado = {id:userCalificadoId};
+        this.calificacionUsuario.usuarioCalificador = {id:userCalificadorId};
+      }
+      console.log(this.calificacionUsuario)
+
+      this.CalificacionUsuarioService.saveCalificacionUsuarioSignal(this.calificacionUsuario).subscribe({
         next: () => {
           this.editSuccess = true;
           setTimeout(function(){
