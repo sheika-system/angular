@@ -21,6 +21,8 @@ import { PropiedadDetalleComponent } from './pages/detalle-propiedad/detalle-pro
 import { PropiedadesUsuarioComponent } from './pages/propiedades-usuario/propiedades-usuario.component';
 import { TokenExpiredComponent } from './pages/token-expired/token-expired.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { CalificacionUsuarioComponent } from './components/calificacion/calificacion-usuario/form-calificacion-usuario/calificacion-usuario.component';
+import { ListCalificacionUsuarioComponent } from './components/calificacion/calificacion-usuario/list-calificacion-usuario/list-calificacion-usuario.component';
 
 
 
@@ -94,6 +96,27 @@ export const routes: Routes = [
             IRole.superAdmin
           ],
           name: 'Ubicaciones'
+        }
+      },
+      {
+      path: 'calificacion',
+        component: CalificacionUsuarioComponent, data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin
+          ],
+          name: 'Users'
+        }
+      },
+      {
+        path: 'listCalificacionUsuario',
+        component: ListCalificacionUsuarioComponent, 
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin
+          ],
+          name: 'Calificaciones de Usuario'
         }
       },
       {
@@ -187,4 +210,5 @@ export const routes: Routes = [
     path: '**',
     component: NotFoundComponent
   }
+  
 ];

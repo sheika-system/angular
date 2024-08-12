@@ -58,6 +58,15 @@ export interface IDistrito {
   canton?: ICanton
 }
 
+export interface ICalificacionUsuario{
+  id?: number;
+  usuarioCalificadoid?: IUser;
+  usuarioCalificadorid?: IUser;
+  valor?: number;
+  fecha?: Date;
+  comentario?: string;
+}
+
 export interface IUbicacion {
   ubicacionId?: number;
   provincia?: IProvincia;
