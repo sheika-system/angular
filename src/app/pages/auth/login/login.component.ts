@@ -14,6 +14,7 @@ import { TopbarComponent } from '../../../components/app-layout/elements/topbar/
 })
 export class LoginComponent {
   public loginError!: string;
+  loginStatus: boolean = false;
   @ViewChild('email') emailModel!: NgModel;
   @ViewChild('password') passwordModel!: NgModel;
 
@@ -25,7 +26,9 @@ export class LoginComponent {
   constructor(
     private router: Router, 
     private authService: AuthService
-  ) {}
+  ) {
+    this.loginStatus = false;
+  }
 
   public handleLogin(event: Event) {
     event.preventDefault();
@@ -39,7 +42,8 @@ export class LoginComponent {
       this.authService.login(this.loginForm).subscribe({
         next: () => this.router.navigateByUrl('/home'),
         error: (err: any) => {
-          console.log("error")
+          console.log("error");
+          this.loginStatus = true;
           this.loginError = err.error.description;
         }
       });

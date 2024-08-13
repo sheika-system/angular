@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IAuthority, ILoginResponse, IResponse, IRole, IUser } from '../interfaces';
-import { Observable, firstValueFrom, of, tap } from 'rxjs';
+import { Observable, catchError, firstValueFrom, of, tap, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -61,6 +61,10 @@ export class AuthService {
         this.expiresIn = response.expiresIn;
         this.user = response.authUser;
         this.save();
+      }),
+      catchError(error => {
+        console.error(error);
+        return throwError(error);
       })
     );
   }

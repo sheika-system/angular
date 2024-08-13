@@ -165,3 +165,14 @@ export interface ICurrency {
   value: string,
   viewValue: string
 }
+export interface IRenta {
+  rentaId?: number;
+  estado?: string;
+  comentario?: string;
+  fechaInicio?: Date;
+  fechaFin?: Date;
+  fechaCreacion?: Date;
+  fechaModificacion?: Date;
+  propiedad?: IPropiedad;
+  user?: IUser;
+}

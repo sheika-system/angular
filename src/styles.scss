@@ -115,3 +115,21 @@ body {
   background-color: rgb(3, 136, 3);
   color: white;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #bcbec0;
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #939496; 
+}

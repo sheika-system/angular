@@ -1,0 +1,95 @@
+<div class="detalle-renta-wrapper">
+    <h1 class="texto-blue">
+        <strong>Renta</strong>
+    </h1>
+    <hr>
+    <form #frm="ngForm" (ngSubmit)="onSubmit(frm, modal)" *ngIf="currentUserId === renta.propiedad?.user?.id; else noEditable">
+        <div class="input-wrapper">
+            <p class="form-texto">
+                <strong>Solicitada por: </strong><a class="texto-blue texto-link" [href]="'/app/perfil/' + renta.user?.id">{{renta.user?.nombre}} {{renta.user?.apellido}}</a>
+            </p>
+        </div>
+
+        <div class="d-flex input-wrapper">
+            <div class="fecha-input-wrapper">
+                <label class="form-texto" for="fechaInicio"><strong>Fecha de inicio</strong></label>
+                <input #fechaInicio="ngModel" type="date" class="form-control" id="fechaInicio" name="fechaInicio"
+                    [(ngModel)]="fechaInicioFormatted"
+                >
+            </div>
+    
+            <div class="fecha-input-wrapper">
+                <label class="form-texto" for="fechaFin"><strong>Fecha de fin</strong></label>
+                <input #fechaFin="ngModel" type="date" class="form-control" id="fechaFin" name="fechaFin"
+                    [(ngModel)]="fechaFinFormatted"
+                >
+            </div>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="estado" class="form-texto"><strong>Estado</strong></label>
+            <select #estado="ngModel" class="form-select" id="estado" name="estado"
+                [(ngModel)]="renta.estado"
+            >
+                <option selected>{{renta.estado}}</option>
+                <option *ngFor="let estado of estados">{{estado}}</option>
+            </select>
+        </div>
+        <div class="input-wrapper">
+            <label for="comentario" class="form-texto"><strong>Comentario</strong></label>
+            <textarea #comentario="ngModel" class="form-control text-area" [value]="renta.comentario" id="comentario" name="comentario"
+                [(ngModel)]="renta.comentario" readonly
+            ></textarea>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center btn-enviar-wrapper">
+            <button class="btn btn-rentar" type="submit">Guardar</button>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center update-feedback" *ngIf="updateStatus">
+            <p class="text-success">Información guardada</p>
+        </div>
+
+        <input #rentaId="ngModel" type="number" id="rentaId" name="rentaId"
+        [(ngModel)]="renta.rentaId"
+        hidden>
+        <input #propiedadId="ngModel" type="number" id="propiedadId" name="propiedadId"
+        [(ngModel)]="renta.propiedad!.propiedadId"
+        hidden>
+        <input #userId="ngModel" type="number" id="userId" name="userId"
+        [(ngModel)]="renta.user!.id"
+        hidden>
+    </form>
+
+    <ng-template #noEditable>
+        <div class="input-wrapper">
+            <p class="form-texto">
+                <strong>Solicitada por: </strong><a class="texto-blue texto-link" [href]="'/app/perfil/' + renta.user?.id">{{renta.user?.nombre}} {{renta.user?.apellido}}</a>
+            </p>
+        </div>
+
+        <div class="input-wrapper">
+            <p class="form-texto">
+                <strong>Estado: </strong>
+                <span class="text-capitalize">{{renta.estado}}</span>
+            </p>
+        </div>
+
+        <div class="d-flex input-wrapper">
+            <div class="fecha-input-wrapper">
+                <label class="form-texto" for="fechaInicio"><strong>Fecha de inicio</strong></label>
+                <p class="form-texto" id="fechaInicio">{{renta.fechaInicio | date:'dd/MM/yyyy'}}</p>
+            </div>
+    
+            <div class="fecha-input-wrapper">
+                <label class="form-texto" for="fechaFin"><strong>Fecha de fin</strong></label>
+                <p class="form-texto" id="fechaFin">{{renta.fechaFin | date:'dd/MM/yyyy'}}</p>
+            </div>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="comentario" class="form-texto"><strong>Comentario</strong></label>
+            <textarea class="form-control text-area" [value]="renta.comentario" id="comentario" name="comentario" readonly></textarea>
+        </div>
+    </ng-template>
+</div>
