@@ -8,7 +8,7 @@ import { ModalComponent } from '../../components/modal/modal.component';
 import { PerfilFormComponent } from '../../components/perfil/perfil-form/perfil-form.component';
 import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.component";
 import { CalificacionUsuarioCardComponent } from "../../components/calificacion-usuario-card/calificacion-usuario-card.component";
-import { CalificacionUsuarioComponent } from "../../components/calificacion/calificacion-usuario/form-calificacion-usuario/calificacion-usuario.component";
+import { CalificacionUsuarioComponent } from "../../components/calificacion-usuario/calificacion-usuario/form-calificacion-usuario/calificacion-usuario.component";
 
 @Component({
   selector: 'app-perfil',
