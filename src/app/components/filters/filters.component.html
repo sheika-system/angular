@@ -1,0 +1,59 @@
+<div class="filters-container">
+  <form (ngSubmit)="applyFilters()" style="display: flex; flex-direction: row; gap: 20px;">
+
+    
+    <app-tipo-propiedad
+      [tipoPropiedades]="tipoPropService.tipoPropiedades$()"
+      (tipoPropiedadChange)="onTipoPropiedadChange($event)"
+      [tipoPropiedadObtenida]="tipoPropiedad">
+    </app-tipo-propiedad>
+
+    <div class="filter-group">
+      <label>Amenidades</label>
+    <app-amenidad
+                [amenidades]="amenidadService.amenidades$()"
+                (amenidadesChange)="onAmenidadesChange($event)"
+                [amenidadesObtenidas]="listaAmenidades">
+              </app-amenidad>
+            </div>
+
+              <app-ubicacion-selector 
+              (ubicacionChange)="onUbicacionChange($event)" 
+              [provincias]="service.provincias$()"
+              [cantones]="service.cantones$()" 
+              [distritos]="service.distritos$()" 
+              [mostrarDireccion]="false">
+            </app-ubicacion-selector>
+         
+
+    <div class="filter-group">
+      <label for="priceRange">Rango de Precio</label>
+      <mat-slider min="0" max="10000" step="100">
+        <input value="0" matSliderStartThumb [(ngModel)]="priceStart" (change)="onPriceChange($event, 'start')" >
+        <input value="10000" matSliderEndThumb [(ngModel)]="priceEnd" (change)="onPriceChange($event, 'end')" > 
+      </mat-slider>
+      <div class="price-range-values">
+        <span>{{ priceStart}}</span>
+        <span>{{ priceEnd }}</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label for="areaRange">Rango de Área (m²)</label>
+      <mat-slider [min]="0" [max]="1000" step="100">
+        <input matSliderStartThumb [(ngModel)]="areaStart" (change)="onAreaChange($event, 'start')">
+        <input matSliderEndThumb [(ngModel)]="areaEnd" (change)="onAreaChange($event, 'end')">
+      </mat-slider>
+      <div class="area-range-values">
+        <span>{{ areaStart }} m²</span>
+        <span>{{ areaEnd }} m²</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <button type="button" (click)="resetFilters()">Limpiar</button>
+    </div>
+
+  </form>
+</div>
+

@@ -1,10 +1,6 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
+<app-filters (filtersChanged)="onFiltersChanged($event)"></app-filters>
+
 <div class="parent">
     @defer {
         <app-propiedad-generador
@@ -15,3 +11,4 @@
         <app-loader></app-loader>
     }
 </div>
+

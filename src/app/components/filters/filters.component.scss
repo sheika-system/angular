@@ -1,0 +1,57 @@
+.filters-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 40px;
+  align-items: center;  /* Centers vertically */
+  justify-content: center;  /* Centers horizontally */
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 80px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.filter-group label {
+  margin-bottom: 5px;
+}
+
+.filter-group input,
+.filter-group select,
+.filter-group mat-slider {
+  width: 90%;
+}
+
+.price-range-values,
+.area-range-values {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+app-amenidad{
+  flex: 1;
+  
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #00bfa5; /* Same color as sliders */
+  margin-top: 25px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  align-items: center ;
+  cursor: pointer;
+
+}
+
+button:hover {
+  background-color: #008f75;
+}
+
