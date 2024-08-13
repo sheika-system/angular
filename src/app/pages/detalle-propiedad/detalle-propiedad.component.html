@@ -17,6 +17,17 @@
                 <span class="fa fa-xl fa-star"></span>
             </div>
         </div>
+        <app-modal #CalificacionPropiedad>
+            <app-calificacion-propiedad
+            [propiedadCalificadaId]="propiedadId.toString()"
+              [usuarioCalificadorId]="currentUserId"
+            >
+            </app-calificacion-propiedad>
+          </app-modal>
+
+
+
+
         <div>
             <h3>
                 <strong>Propietario: </strong>

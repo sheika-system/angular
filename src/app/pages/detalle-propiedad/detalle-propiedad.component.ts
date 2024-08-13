@@ -5,17 +5,19 @@ import { IPropiedad, IImagen } from '../../interfaces';
 import { ImagenComponent } from '../../components/imagen/imagen.component';
 import { ImagenModalComponent } from '../../components/imagen/imagen-modal/imagen-modal.component';
 import { CommonModule } from '@angular/common';
+import { ModalComponent } from '../../components/modal/modal.component';
 import { BtnInicioComponent } from '../../components/btn-inicio/btn-inicio.component';
-
+import { CalificacionPropiedadComponent } from "../../components/calificacion-propiedad/form-calificacion-propiedad/calificacion-propiedad.component";
 @Component({
   selector: 'app-propiedad',
   standalone: true,
-  imports: [ImagenComponent, ImagenModalComponent, CommonModule, BtnInicioComponent],
+  imports: [ImagenComponent, ImagenModalComponent, ModalComponent, CommonModule, BtnInicioComponent, CalificacionPropiedadComponent],
   templateUrl: './detalle-propiedad.component.html',
   styleUrl: './detalle-propiedad.component.scss'
 })
 export class PropiedadDetalleComponent{
   protected propiedadId: number;
+  protected currentUserId: string = '';
   listaImagenes: IImagen[] = [];
   protected propiedad: IPropiedad = {
     listaImagenes: this.listaImagenes
@@ -24,7 +26,11 @@ export class PropiedadDetalleComponent{
 
   constructor(private route: ActivatedRoute) {
     this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
-
+    let user = localStorage.getItem('auth_user');
+    if(user) {
+      this.currentUserId = String(JSON.parse(user)?.id);
+    }
+    
     try {
       this.service.getByIdSignal(this.propiedadId);
       effect(() => {
