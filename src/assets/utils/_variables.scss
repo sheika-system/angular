@@ -194,15 +194,14 @@ $card-margin-bottom: 30px;
 $card-border-color: 1px solid $light-gray;
 $card-border-radious: 15px;
 $common-shadow-color: rgba($info-color, 0.08);
-$card-box-shadow: 0px 9px 20px rgba(46, 35, 94, 0.07);
+$card-box-shadow:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
 $card-header-bg-color: $white;
 $card-header-font-transform: capitalize;
 $card-header-span-size: 12px;
 $card-header-span-color: $theme-body-sub-title-color;
 $card-body-bg-color: $transparent-color;
 $card-footer-bg-color: $white;
-$card-hover-box-shadow: 0 0 40px rgba(8, 21, 66, 0.05);
-
+$card-hover-box-shadow:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
 //footer settings
 $footer_bg_color: $white;
 $footer_box_shadow: 0 0 20px rgba($semi-dark, 0.1);
@@ -274,14 +273,14 @@ $sidebar-compact-width: 265px;
 $main-header-position: fixed;
 $main-header-top: 0;
 $main-header-shadow: 0 0 20px rgba($semi-dark, 0.1);
-$main-header-shadow-1: 0px 4px 40px rgba(39, 32, 120, 0.1);
+$main-header-shadow-1:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
 
 //page settings
 $page-body-padding: 0 15px 0 15px;
 $page-body-bg-color: $light-color;
 $page-body-margin-bottom: 0px;
 $page-title-padding: 15px 30px;
-$common-box-shadow: 2px 3.464px 8px 0px rgba(22, 145, 248, 0.18);
+$common-box-shadow:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
 $page-title-font-size: 24px;
 $page-title-margin-bottom: 0;
 $page-title-text-tranform: capitalize;

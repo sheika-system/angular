@@ -350,7 +350,7 @@
               backface-visibility: hidden;
               border-radius: 10px;
               overflow: hidden;
-              box-shadow: 0 0 20px rgba(89, 102, 122, 0.1);
+              box-shadow:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
               width: 300px;
               height: 300px;
 
@@ -2206,7 +2206,7 @@
       display: block;
       text-align: center;
       padding: 24px 30px;
-      box-shadow: -9px 0 20px rgba(89, 102, 122, 0.1);
+      box-shadow:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
     }
     .page-header {
       margin-left: 150px;
@@ -2269,7 +2269,7 @@
           width: 150px;
           text-align: left;
           transition: 0.3s;
-          box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
+          box-shadow:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
         }
 
         .sidebar-main {
@@ -2326,7 +2326,7 @@
                 left: 150px;
                 width: 230px;
                 background-color: $white;
-                box-shadow: 0 16px 15px 15px rgba(126, 55, 216, 0.03);
+                box-shadow:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
                 transition: all 0.5s ease-in-out;
                 display: none;
                 padding-top: 20px;
@@ -2525,7 +2525,7 @@
       display: block;
       text-align: center;
       padding: 27px 30px;
-      box-shadow: -9px 0 20px rgba(89, 102, 122, 0.1);
+      box-shadow:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
     }
 
     .page-header {
@@ -2924,7 +2924,7 @@
         margin: 0 auto;
         max-width: 1560px;
         background-color: $body-color;
-        box-shadow: 0 0 20px 7px rgba(8, 21, 66, 0.05);
+        box-shadow: 0 8px 6px -6px rgba(1, 195, 142, 0.1);
         border-radius: 0 0 15px 15px;
       }
     }
