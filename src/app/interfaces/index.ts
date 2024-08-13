@@ -66,6 +66,14 @@ export interface ICalificacionUsuario{
   fecha?: Date;
   comentario?: string;
 }
+export interface ICalificacionPropiedad{	
+  id?: number;
+  propiedadCalificada?: IPropiedad;
+  usuarioCalificador?: IUser;
+  valor?: number;
+  fecha?: Date;
+  comentario?: string;
+}
 
 export interface IUbicacion {
   ubicacionId?: number;

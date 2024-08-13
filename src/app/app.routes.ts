@@ -23,6 +23,8 @@ import { TokenExpiredComponent } from './pages/token-expired/token-expired.compo
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CalificacionUsuarioComponent } from './components/calificacion-usuario/calificacion-usuario/form-calificacion-usuario/calificacion-usuario.component';
 import { ListCalificacionUsuarioComponent } from './components/calificacion-usuario/calificacion-usuario/list-calificacion-usuario/list-calificacion-usuario.component';
+import { CalificacionPropiedadComponent } from './components/calificacion-propiedad/form-calificacion-propiedad/calificacion-propiedad.component';
+import { ListCalificacionPropiedadComponent } from './components/calificacion-propiedad/list-calificacion-propiedad/list-calificacion-propiedad.component';
 
 
 
@@ -119,6 +121,27 @@ export const routes: Routes = [
           name: 'Calificaciones de Usuario'
         }
       },
+      {
+        path: 'calificacionPropiedad',
+          component: CalificacionPropiedadComponent, data: { 
+            authorities: [
+              IRole.admin, 
+              IRole.superAdmin
+            ],
+            name: 'Users'
+          }
+        },
+        {
+          path: 'listCalificacionPropiedad',
+          component: ListCalificacionPropiedadComponent, 
+          data: { 
+            authorities: [
+              IRole.admin, 
+              IRole.superAdmin
+            ],
+            name: 'Calificaciones de Usuario'
+          }
+        },
       {
         path: 'delitos',
         component: DelitoComponent,
