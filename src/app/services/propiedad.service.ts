@@ -76,5 +76,18 @@ export class PropiedadService extends BaseService<IPropiedad> {
           })
         );
       }
+
+      updatePropiedadSignal(propiedad: IPropiedad): Observable<any> {
+        return this.edit(propiedad.propiedadId, propiedad).pipe(
+          tap((response: any) => {
+            const updatedPropiedades = this.propiedadListSignal().map(p => p.propiedadId === propiedad.propiedadId ? response : p);
+            this.propiedadListSignal.set(updatedPropiedades);
+          }),
+          catchError(error => {
+            console.error('Error updating propietie', error);
+            return throwError(error);
+          })
+        );
+      }
 }
 

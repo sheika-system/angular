@@ -44,12 +44,12 @@
                                Contactar Propietario
                             </button>
                         </div>
-                        <div class="btn-style">
-                            <button type="button" (click)="deletePropiedad(propiedad)" class="btn btn-danger">
-                            <i class="fa-solid fa-trash white"
-                            ></i>
-                        </button>
-                        </div>
+                        <div *ngIf="isOwnerOrSpecificPage()" class="btn-style">
+                            <button type="button" (click)="showDelete(propiedad, deleteModal)" class="btn">
+                              <i class="fa-solid fa-trash white trash-icon"></i>
+                            </button>
+                          </div>
+                          
                     </div>
                 </div>
             </div>
@@ -64,3 +64,19 @@
             <button class="btn btn-green" (click)="goLogin(accountRequired)">Iniciar Sesión</button>
         </div>
     </app-modal>
+
+    <app-modal #deleteModal>
+        <div class="d-flex justify-content-center align-items-center margin">
+          <div class="delete-wrapper">
+          </div>
+            <h1>
+              <span class="text-danger"><strong>¿ Quieres borrar la propiedad con ID: {{propiedad.propiedadId}} ?</strong></span>
+            </h1>
+            <div class="d-flex justify-content-center align-items-center">
+              <button class="btn btn-danger" (click)="deletePropiedad(propiedad)"><i class="fa-solid fa-trash fa-l"></i>&nbsp;&nbsp;Borrar</button>
+            </div>
+            <div *ngIf="successStatus" class="d-flex justify-content-center align-items-center">
+              <p class="delete-success">{{successMessage}}</p>
+          </div>
+        </div>
+      </app-modal>

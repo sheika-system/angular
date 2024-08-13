@@ -1,9 +1,9 @@
-<mat-form-field appearance="outline" class="form-label">
-    <mat-label class="form-label">Amenidades</mat-label>
-    <mat-select [formControl]="amenidadesFormControl" multiple>
-      <mat-option [value]="DESELECT_ALL_VALUE">Remover selección</mat-option>
-      @for (amenidad of amenidades; track amenidad) {
-        <mat-option [value]="amenidad.amenidadId">{{amenidad.nombre}}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+<mat-form-field appearance="outline" class="form-label col-md-10">
+  <mat-label class="form-label">Amenidades</mat-label>
+  <mat-select [formControl]="amenidadesFormControl" multiple panelClass="custom-overlay-panel">
+    <mat-option [value]="DESELECT_ALL_VALUE">Remover selección</mat-option>
+    @for (amenidad of amenidades; track amenidad) {
+      <mat-option [value]="amenidad.amenidadId">{{amenidad.nombre}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>

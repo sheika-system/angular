@@ -58,10 +58,57 @@
                 <button class="btn btn-propietario">Contactar Propietario</button>
             }
             <button class="btn btn-tour-3d">Ver Tour 3D</button>
+            <!-- @if() { -->
+                <div>
+                    <i class="fa-solid fa-pen-to-square fa-2xl propiedad-edit" (click)="showDetail(propiedad, formModal)"></i>
+                </div>
+            <!-- } -->
+
         </div>
     </div>
 </div>
 <div class="padding-left">
-    <btn-inicio></btn-inicio>
+    <div class="button-container">
+        <btn-inicio></btn-inicio>
+        <div>
+            <img class="fa-solid fa-2xl propiedad-edit img-edit" src="../../../assets/icons/editar-imagen.png" (click)="showImg(listaImagenes, imgModal)" alt="edit" />
+            <!-- <i class="fa-solid fa-star fa-2xl propiedad-edit img-edit" (click)="showImg(listaImagenes, imgModal)"></i> -->
+        </div>
+    </div>
 </div>
 <div class="bottom-margin"></div>
+
+
+
+<div class="modal-dialog modal-xl"> <!-- Para un modal extra grande -->
+    <div class="modal-content">
+        <!-- Contenido del modal -->
+        <app-modal size="lg" #formModal class="large-modal">
+            <app-form-propiedad
+            [propiedad]="propiedad"></app-form-propiedad>
+        </app-modal>
+    </div>
+  </div>
+
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <!-- Contenido del modal -->
+        <app-modal size="lg" #imgModal class="large-modal">
+            <form #frm="ngForm" autocomplete="off">
+                <div class="img-selection">
+                    <h2>Sección de imágenes</h2>
+                    <app-imagen
+                    [listaImagenes]="imagenService.imagenesPropiedad$()"
+                    [propiedadImagen]="propiedad"
+                    [verRegistro]="true"
+                    [verCarousel]="false"
+                    (regImagenes)="onImagenesRegistrar($event)">
+                    </app-imagen>
+                  </div>
+                  <div class="d-flex justify-content-center inline-flex">
+                    <button type="submit" class="btn btn-green" (click)="handleUpdate(frm)">Actualizar imagenes de propiedad</button>
+                  </div>
+            </form>
+        </app-modal>
+    </div>
+  </div>

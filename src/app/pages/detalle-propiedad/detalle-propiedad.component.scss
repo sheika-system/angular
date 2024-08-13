@@ -63,3 +63,51 @@
 .padding-left {
     padding-left: 200px;
 }
+
+.propiedad-edit {
+    margin-left: 25px;
+    color: #132d46;
+}
+
+.propiedad-edit:hover {
+    opacity: 70%;
+    cursor: pointer;
+  }
+
+  /* Archivo CSS o SCSS */
+.large-modal {
+    max-width: 100%; /* O cualquier porcentaje de ancho que necesites */
+    max-height: 100%; /* O cualquier porcentaje de alto que necesites */
+    width: auto;
+    height: auto;
+    padding: 20px; /* Ajusta el padding según tus necesidades */
+  }
+  
+  .large-modal .modal-content {
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .img-edit {
+    margin-left: 900px;
+    width: 40px;
+  }
+
+  .button-container {
+    display: flex;
+    box-sizing: border-box;
+    margin-bottom: 55px;
+  }
+
+  .img-selection {
+    margin: 5%;
+}
+
+.btn-green {
+    background-color: #01c38e;
+    color: white;
+  }
+  
+  .btn-green:hover {
+    background-color: #01916a;
+  }
