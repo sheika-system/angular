@@ -1,0 +1,46 @@
+.rentas-container {
+    padding: 50px 150px;
+    padding-bottom: 35px;
+}
+
+.table-container {
+    margin-top: 20px;
+}
+
+.texto-blue {
+    margin: 0;
+}
+
+.table-wrapper {
+    box-shadow: 1px 1px 10px 1px #cbcdcf;
+}
+
+.fa:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity ease 150ms;
+}
+
+.icon-blue {
+    color: #132d46;
+}
+
+.icon-trash {
+    margin-left: 20px;
+    color: rgba(255, 0, 0, 0.733);
+}
+
+.search-bar {
+    margin-bottom: 15px;
+    width: 20%;
+    box-shadow: 1px 1px 10px 1px #cbcdcf;
+}
+
+.delete-wrapper {
+    padding-bottom: 20px;
+}
+
+.delete-success {
+    color: green;
+    padding-top: 15px;
+}

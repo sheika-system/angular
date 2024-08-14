@@ -114,4 +114,17 @@ export class RentaService extends BaseService<IRenta> {
             })
         );
     }
+
+    deleteRentaSignal(rentaId: number): Observable<any> {
+        return this.del(rentaId).pipe(
+            tap((response: any) => {
+                const updatedRentas = this.rentaListSignal().filter(r => r.rentaId !== rentaId);
+                this.rentaListSignal.set(updatedRentas);
+            }),
+            catchError(error => {
+                console.error('Error borrando renta', error);
+                return throwError(error);
+            })
+        );
+    }
 }

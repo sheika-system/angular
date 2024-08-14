@@ -22,6 +22,7 @@ import { PropiedadesUsuarioComponent } from './pages/propiedades-usuario/propied
 import { TokenExpiredComponent } from './pages/token-expired/token-expired.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RentasComponent } from './pages/rentas/rentas.component';
+import { ListaComponent } from './components/renta/lista/lista.component';
 
 
 
@@ -190,6 +191,17 @@ export const routes: Routes = [
             IRole.admin,
             IRole.superAdmin,
             IRole.user
+          ]
+        }
+      },
+      {
+        path: 'listadoRentas',
+        component: ListaComponent,
+        canActivate: [AdminRoleGuard],
+        data: {
+          authorites: [
+            IRole.admin,
+            IRole.superAdmin,
           ]
         }
       }

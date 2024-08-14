@@ -19,8 +19,9 @@ export class FormComponent implements OnInit{
   rentaForm!: FormGroup;
   estados: string[] = ['completa', 'pendiente', 'activa', 'cancelada'];
   currentUserId!: number;
-  fechaFinFormatted!: string;
-  fechaInicioFormatted!: string;
+  currentUserRole!: string;
+  @Input() fechaFinFormatted!: string;
+  @Input() fechaInicioFormatted!: string;
   updateStatus!: boolean;
   errorStatus!: boolean;
 
@@ -29,13 +30,14 @@ export class FormComponent implements OnInit{
 
     if(user) {
       this.currentUserId = parseInt(JSON.parse(user).id);
+      this.currentUserRole = String(JSON.parse(user).role.name);
     }
     if(this.renta.fechaFin && this.renta.fechaInicio) {
       const fechaInicio = new Date(this.renta.fechaInicio);
       const fechaFin = new Date(this.renta.fechaFin);
 
-      this.fechaInicioFormatted = fechaInicio.toISOString().split('T')[0];
-      this.fechaFinFormatted = fechaFin.toISOString().split('T')[0];
+      this.fechaInicioFormatted = this.formatDate(fechaInicio);
+      this.fechaFinFormatted = this.formatDate(fechaFin);
     }
 
     this.estados = this.estados.filter(estado => estado !== this.renta.estado);
@@ -48,10 +50,13 @@ export class FormComponent implements OnInit{
     delete this.renta.user?.authorities;
     delete this.renta.propiedad?.user?.authorities;
 
+    console.log(this.renta);
+
     this.service.updateRentaSignal(this.renta).subscribe({
       next: () => {
         this.updateStatus = true;
         setTimeout(() => {
+          this.updateStatus = false;
           modal.hide();
           location.reload();
         }, 1000);
@@ -62,4 +67,13 @@ export class FormComponent implements OnInit{
       }
     });
   }
+
+  formatDate = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+  
+    return `${year}-${month}-${day}`;
+  };
+  
 }

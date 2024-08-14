@@ -3,7 +3,7 @@
         <strong>Renta</strong>
     </h1>
     <hr>
-    <form #frm="ngForm" (ngSubmit)="onSubmit(frm, modal)" *ngIf="currentUserId === renta.propiedad?.user?.id; else noEditable">
+    <form #frm="ngForm" (ngSubmit)="onSubmit(frm, modal)" *ngIf="currentUserId === renta.propiedad?.user?.id || currentUserRole === 'SUPER_ADMIN'; else noEditable">
         <div class="input-wrapper">
             <p class="form-texto">
                 <strong>Solicitada por: </strong><a class="texto-blue texto-link" [href]="'/app/perfil/' + renta.user?.id">{{renta.user?.nombre}} {{renta.user?.apellido}}</a>
@@ -35,7 +35,14 @@
                 <option *ngFor="let estado of estados">{{estado}}</option>
             </select>
         </div>
-        <div class="input-wrapper">
+        <div class="input-wrapper" *ngIf="renta.user?.id === currentUserId || currentUserRole === 'SUPER_ADMIN'">
+            <label for="comentario" class="form-texto"><strong>Comentario</strong></label>
+            <textarea #comentario="ngModel" class="form-control text-area" [value]="renta.comentario" id="comentario" name="comentario"
+                [(ngModel)]="renta.comentario"
+            ></textarea>
+        </div>
+
+        <div class="input-wrapper" *ngIf="renta.user?.id !== currentUserId && currentUserRole !== 'SUPER_ADMIN'">
             <label for="comentario" class="form-texto"><strong>Comentario</strong></label>
             <textarea #comentario="ngModel" class="form-control text-area" [value]="renta.comentario" id="comentario" name="comentario"
                 [(ngModel)]="renta.comentario" readonly
