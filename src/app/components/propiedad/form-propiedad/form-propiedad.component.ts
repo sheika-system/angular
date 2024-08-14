@@ -166,7 +166,6 @@ export class FormPropiedadComponent {
         if (user) {  
           this.user = user;
           this.propiedad.user = user;
-          console.log("User: ",this.user)
         } else {
           throw new Error('Usuario no encontrado');
         }

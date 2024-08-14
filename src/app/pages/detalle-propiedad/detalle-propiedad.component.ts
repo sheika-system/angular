@@ -21,52 +21,44 @@ import { UserService } from '../../services/user.service';
 })
 export class PropiedadDetalleComponent{
   protected propiedadId: number;
+  public editSuccess!: boolean;
+  feedbackMessage: IFeedBackMessage = {type: IFeedbackStatus.default, message: ''};
+  currentUserId: number | undefined;
+  protected id: string | null = '';
+  user: IUser = {};
   listaImagenes: IImagen[] = [];
   protected propiedad: IPropiedad = {
     listaImagenes: this.listaImagenes
   };
   private service = inject(PropiedadService);
   imagenService = inject(ImagenService);
-  propiedadService = inject(PropiedadService)
-  userService = inject(UserService)
+  propiedadService = inject(PropiedadService);
+  userService = inject(UserService);
 
-  public editSuccess!: boolean;
-  feedbackMessage: IFeedBackMessage = {type: IFeedbackStatus.default, message: ''};
-  currentUserId: number | undefined;
-  user: IUser = {};
-
+  
   constructor(private route: ActivatedRoute) {
+    this.cargarDatosUsuario();  // Cargar datos del usuario actual
     this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
 
-    try {
-      this.service.getByIdSignal(this.propiedadId);
-      effect(() => {
-        this.propiedad = this.service.propiedad$();
-        console.log(this.propiedad);
-      })
-    } catch(error) {
-      console.error("El id no está en un formato correcto o no existe: " + error);
-    }
+        try {
+            this.service.getByIdSignal(this.propiedadId);
+            effect(() => {
+                this.propiedad = this.service.propiedad$();
+                console.log(this.propiedad);
+            });
+        } catch (error) {
+            console.error("El id no está en un formato correcto o no existe: " + error);
+        }
   }
 
   async cargarDatosUsuario(): Promise<void> {
     try {
-      await this.userService.getByIdSignal(this.currentUserId!);
-  
-      // Accede al usuario a través de la señal después de que la promesa se resuelva
-      const user = this.userService.user$();
-  
-      if (user) {  
-        this.user = user;
-        this.propiedad.user = user;
-        console.log("User: ",this.user)
-      } else {
-        throw new Error('Usuario no encontrado');
-      }
-    } catch (error) {
+      // Aquí puedes asignar el ID del usuario actual
+      const user = await this.userService.user$(); // Método para obtener el usuario logeado actual
+      this.currentUserId = user?.id;
+  } catch (error) {
       console.error('Error al obtener datos del usuario:', error);
-      throw error;
-    }
+  }
   }
 
   private sanitizeUser(user: IUser): any {
@@ -81,7 +73,7 @@ export class PropiedadDetalleComponent{
       });
       return;
     } else {
-      const sanitizedUser = this.sanitizeUser(this.user);
+      const sanitizedUser = this.sanitizeUser(this.propiedad);
       this.propiedad.user = sanitizedUser;
       this.propiedadService.updatePropiedadSignal(this.propiedad).subscribe({
         next: () => {
@@ -98,6 +90,7 @@ export class PropiedadDetalleComponent{
       });       
     }
   }
+
 
   showDetail(propiedad: IPropiedad, modal: any) {
     propiedad = this.propiedad;

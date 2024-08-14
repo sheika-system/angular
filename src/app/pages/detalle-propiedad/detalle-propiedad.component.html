@@ -58,11 +58,10 @@
                 <button class="btn btn-propietario">Contactar Propietario</button>
             }
             <button class="btn btn-tour-3d">Ver Tour 3D</button>
-            <!-- @if() { -->
-                <div>
+
+                <div *ngIf="propiedad.user?.id === currentUserId">
                     <i class="fa-solid fa-pen-to-square fa-2xl propiedad-edit" (click)="showDetail(propiedad, formModal)"></i>
                 </div>
-            <!-- } -->
 
         </div>
     </div>
@@ -70,7 +69,7 @@
 <div class="padding-left">
     <div class="button-container">
         <btn-inicio></btn-inicio>
-        <div>
+        <div *ngIf="propiedad.user?.id === currentUserId">
             <img class="fa-solid fa-2xl propiedad-edit img-edit" src="../../../assets/icons/editar-imagen.png" (click)="showImg(listaImagenes, imgModal)" alt="edit" />
             <!-- <i class="fa-solid fa-star fa-2xl propiedad-edit img-edit" (click)="showImg(listaImagenes, imgModal)"></i> -->
         </div>
@@ -80,15 +79,11 @@
 
 
 
-<div class="modal-dialog modal-xl"> <!-- Para un modal extra grande -->
-    <div class="modal-content">
-        <!-- Contenido del modal -->
+
         <app-modal size="lg" #formModal class="large-modal">
             <app-form-propiedad
             [propiedad]="propiedad"></app-form-propiedad>
         </app-modal>
-    </div>
-  </div>
 
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -108,6 +103,11 @@
                   <div class="d-flex justify-content-center inline-flex">
                     <button type="submit" class="btn btn-green" (click)="handleUpdate(frm)">Actualizar imagenes de propiedad</button>
                   </div>
+                  @if(editSuccess) {
+                    <div class="mt-3 d-flex justify-content-center align-items-center">
+                        <p class="text-success">Datos guardados</p>
+                    </div>
+                }
             </form>
         </app-modal>
     </div>
