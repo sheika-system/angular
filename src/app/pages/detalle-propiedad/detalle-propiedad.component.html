@@ -12,11 +12,12 @@
             <div class="estrellas-container">
                 
                 <app-calificacion-propiedad-card  [propiedadId]="propiedadId"></app-calificacion-propiedad-card>
-                 <button class="btn btn-volver-home" (click)="calificarPropiedad(CalificacionPropiedad)">
-                    <span class="texto-white">Calificar Propiedad</span>
-                  </button>
+                
         
             </div>
+            <button class="btn btn-calificar" (click)="calificarPropiedad(CalificacionPropiedad)">
+                <span class="texto-white">Calificar Propiedad</span>
+              </button>
         </div>
         
         <app-modal #CalificacionPropiedad>
