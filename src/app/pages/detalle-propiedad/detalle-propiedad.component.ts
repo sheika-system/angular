@@ -41,4 +41,8 @@ export class PropiedadDetalleComponent{
       console.error("El id no está en un formato correcto o no existe: " + error);
     }
   }
+
+  calificarPropiedad(modal: any) {
+    modal.show();
+  }
 }
