@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 
 @Component({
-  selector: 'app-calificacion-usuario-card',
+  selector: 'app-calificacion-propiedad-card',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './calificacion-propiedad-card.component.html',

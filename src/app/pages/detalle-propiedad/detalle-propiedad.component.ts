@@ -8,10 +8,12 @@ import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { BtnInicioComponent } from '../../components/btn-inicio/btn-inicio.component';
 import { CalificacionPropiedadComponent } from "../../components/calificacion-propiedad/form-calificacion-propiedad/calificacion-propiedad.component";
+import { CalificacionPropiedadCardComponent } from '../../components/calificacion-propiedad-card/calificacion-propiedad-card.component';
+
 @Component({
   selector: 'app-propiedad',
   standalone: true,
-  imports: [ImagenComponent, ImagenModalComponent, ModalComponent, CommonModule, BtnInicioComponent, CalificacionPropiedadComponent],
+  imports: [ImagenComponent, ImagenModalComponent, ModalComponent, CommonModule, BtnInicioComponent, CalificacionPropiedadComponent,CalificacionPropiedadCardComponent],
   templateUrl: './detalle-propiedad.component.html',
   styleUrl: './detalle-propiedad.component.scss'
 })
