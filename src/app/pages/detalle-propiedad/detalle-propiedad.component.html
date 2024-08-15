@@ -59,7 +59,7 @@
             }
             <button class="btn btn-tour-3d">Ver Tour 3D</button>
 
-                <div *ngIf="propiedad.user?.id === currentUserId">
+                <div *ngIf="isOwnerOrSpecificPage()">
                     <i class="fa-solid fa-pen-to-square fa-2xl propiedad-edit" (click)="showDetail(propiedad, formModal)"></i>
                 </div>
 
@@ -69,21 +69,19 @@
 <div class="padding-left">
     <div class="button-container">
         <btn-inicio></btn-inicio>
-        <div *ngIf="propiedad.user?.id === currentUserId">
+        <div *ngIf="isOwnerOrSpecificPage()">
             <img class="fa-solid fa-2xl propiedad-edit img-edit" src="../../../assets/icons/editar-imagen.png" (click)="showImg(listaImagenes, imgModal)" alt="edit" />
             <!-- <i class="fa-solid fa-star fa-2xl propiedad-edit img-edit" (click)="showImg(listaImagenes, imgModal)"></i> -->
         </div>
     </div>
 </div>
-<div class="bottom-margin"></div>
+<div class="bottom-margin">
+    <app-modal size="lg" #formModal class="large-modal">
+        <app-form-propiedad
+        [propiedad]="propiedad"></app-form-propiedad>
+    </app-modal>
 
-
-
-
-        <app-modal size="lg" #formModal class="large-modal">
-            <app-form-propiedad
-            [propiedad]="propiedad"></app-form-propiedad>
-        </app-modal>
+</div>
 
   <div class="modal-dialog modal-xl">
     <div class="modal-content">

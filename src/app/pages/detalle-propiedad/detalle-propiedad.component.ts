@@ -37,8 +37,8 @@ export class PropiedadDetalleComponent{
 
   
   constructor(private route: ActivatedRoute) {
-    this.cargarDatosUsuario();  // Cargar datos del usuario actual
     this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
+    this.cargarDatosUsuario();
 
         try {
             this.service.getByIdSignal(this.propiedadId);
@@ -60,6 +60,7 @@ export class PropiedadDetalleComponent{
       console.error('Error al obtener datos del usuario:', error);
   }
   }
+
 
   private sanitizeUser(user: IUser): any {
     const { authorities, ...sanitizedUser } = user;
@@ -89,6 +90,12 @@ export class PropiedadDetalleComponent{
         }
       });       
     }
+  }
+
+  isOwnerOrSpecificPage(): boolean {
+    const ownerUserId = this.propiedad.user?.id;
+
+    return (this.currentUserId === ownerUserId);
   }
 
 
