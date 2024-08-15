@@ -23,8 +23,8 @@ export class PropiedadDetalleComponent{
   protected propiedadId: number;
   public editSuccess!: boolean;
   feedbackMessage: IFeedBackMessage = {type: IFeedbackStatus.default, message: ''};
-  currentUserId: number | undefined;
-  protected id: string | null = '';
+  protected id: number | undefined;
+  protected currentUserId: number | undefined;
   user: IUser = {};
   listaImagenes: IImagen[] = [];
   protected propiedad: IPropiedad = {
@@ -37,28 +37,35 @@ export class PropiedadDetalleComponent{
 
   
   constructor(private route: ActivatedRoute) {
+    let user = localStorage.getItem('auth_user');
+
+    if(user) {
+      this.currentUserId = parseInt(String(JSON.parse(user)?.id));
+    }
+    console.log("CurrentUser: " + this.currentUserId, " id: " + this.id)
+
+    const userId = this.id;
+    if (userId) {
+      this.userService.getByIdSignal(userId);
+      effect(() => {
+        this.user = this.userService.user$();
+      })
+    } else {
+      console.error('El ID no es un número o el usuario no existe');
+    }
+
     this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
-    this.cargarDatosUsuario();
 
         try {
             this.service.getByIdSignal(this.propiedadId);
             effect(() => {
                 this.propiedad = this.service.propiedad$();
                 console.log(this.propiedad);
+                this.id = this.propiedad.user?.id
             });
         } catch (error) {
             console.error("El id no está en un formato correcto o no existe: " + error);
         }
-  }
-
-  async cargarDatosUsuario(): Promise<void> {
-    try {
-      // Aquí puedes asignar el ID del usuario actual
-      const user = await this.userService.user$(); // Método para obtener el usuario logeado actual
-      this.currentUserId = user?.id;
-  } catch (error) {
-      console.error('Error al obtener datos del usuario:', error);
-  }
   }
 
 
@@ -91,13 +98,6 @@ export class PropiedadDetalleComponent{
       });       
     }
   }
-
-  isOwnerOrSpecificPage(): boolean {
-    const ownerUserId = this.propiedad.user?.id;
-
-    return (this.currentUserId === ownerUserId);
-  }
-
 
   showDetail(propiedad: IPropiedad, modal: any) {
     propiedad = this.propiedad;
