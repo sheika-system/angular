@@ -82,20 +82,21 @@ export class CalificacionPropiedadService extends BaseService<ICalificacionPropi
     );
   }
 
-  getByPropiedadCalificadaId(propiedadCalificadaId: number) {
-    return this.http.get<ICalificacionPropiedad[]>(`${this.baseUrl}/${this.source}/propiedad/${propiedadCalificadaId}`).pipe(
-      tap((response: any) => {
+  getByPropiedadCalificadaId(propiedadCalificadaId: number): Observable<ICalificacionPropiedad[]> {
+    return this.http.get<ICalificacionPropiedad[]>(`${this.source}/propiedad/${propiedadCalificadaId}`).pipe(
+      tap((response: ICalificacionPropiedad[]) => {
         this.calificacionPropiedadListSignal.set(response);
       }),
       catchError(error => {
-        console.error('Error fetching calificaciones by propiedad calificada', error);
+        console.error('Error fetching calificaciones', error);
         return throwError(error);
       })
     );
-  }
+}
+
 
   getByUsuarioCalificadorId(usuarioCalificadorId: number) {
-    return this.http.get<ICalificacionPropiedad[]>(`${this.baseUrl}/${this.source}/calificador/${usuarioCalificadorId}`).pipe(
+    return this.http.get<ICalificacionPropiedad[]>(`${this.baseUrl}/calificacionPropiedad/calificador/${usuarioCalificadorId}`).pipe(
       tap((response: any) => {
         this.calificacionPropiedadListSignal.set(response);
       }),

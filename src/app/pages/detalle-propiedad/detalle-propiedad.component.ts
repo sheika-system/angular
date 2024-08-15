@@ -25,6 +25,7 @@ export class PropiedadDetalleComponent{
     listaImagenes: this.listaImagenes
   };
   private service = inject(PropiedadService);
+  
 
   constructor(private route: ActivatedRoute) {
     this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);

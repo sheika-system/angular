@@ -25,7 +25,7 @@ import { CalificacionUsuarioComponent } from './components/calificacion-usuario/
 import { ListCalificacionUsuarioComponent } from './components/calificacion-usuario/calificacion-usuario/list-calificacion-usuario/list-calificacion-usuario.component';
 import { CalificacionPropiedadComponent } from './components/calificacion-propiedad/form-calificacion-propiedad/calificacion-propiedad.component';
 import { ListCalificacionPropiedadComponent } from './components/calificacion-propiedad/list-calificacion-propiedad/list-calificacion-propiedad.component';
-
+import { CalificacionPropiedadCardComponent } from './components/calificacion-propiedad-card/calificacion-propiedad-card.component';
 
 
 export const routes: Routes = [
@@ -201,6 +201,18 @@ export const routes: Routes = [
             IRole.user
           ],
           name: 'Perfil'
+        }
+      },
+      {
+        path: 'estrellas/:id',
+        component: CalificacionPropiedadCardComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'estrellas'
         }
       },
       {
