@@ -1,0 +1,135 @@
+<div class="page-wrapper compact-wrapper">
+  <div class="login-container">
+    <div class="d-flex align-items-center justify-content-center h-100">
+      <div class="login-card">
+        <div class="w-100">
+          <div class="text-center">
+            <a class="logo text-center">
+              <img class="img-fluid mb-4 logo-rentheaven" src="../../../../assets/icons/rentheavenlogo.png" alt="Logo" style="width: 10%;" />
+            </a>
+          </div>
+          <div class="login-main">
+            <form #frm="ngForm" autocomplete="off" (ngSubmit)="handleUpdate(frm)">
+              
+              <div class="container-register">
+                
+                <!-- Bloque del formulario -->
+                <div class="container-form">
+                  
+                  <div class="mb-3">
+                    <h1><strong>Actualizar Propiedad</strong></h1>
+                    <small style="color: #4f4f4f">Completa los datos que se necesiten para actualizar una propiedad</small>
+                  </div>
+                  <!-- Nombre -->
+                  <div class="form-group mb-3 col-md-10">
+                    <label for="nombre" class="form-label mb-2">Nombre</label>
+                    <input #nombre="ngModel" type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" [(ngModel)]="propiedad.nombre" [value]="[propiedad.nombre]" [ngClass]="{ 'is-invalid': nombre.invalid && nombre.touched, 'is-valid': nombre.valid && nombre.touched }" required />
+                    <div *ngIf="nombre.invalid && nombre.touched" class="invalid-feedback">Digite un nombre válido</div>
+                  </div>
+      
+                  <!-- Descripción -->
+                  <div class="form-group mb-3 col-md-10">
+                    <label for="descripcion" class="form-label mb-2">Descripción</label>
+                    <textarea #descripcion="ngModel" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" [(ngModel)]="propiedad.descripcion" [ngClass]="{ 'is-invalid': descripcion.invalid && descripcion.touched, 'is-valid': descripcion.valid && descripcion.touched }" required></textarea>
+                    <div *ngIf="descripcion.invalid && descripcion.touched" class="invalid-feedback">Digite una descripción válida</div>
+                  </div>
+                  
+                  <!-- Amenidades -->
+                  <label for="amenidades" class="form-label mb-2">Amenidades</label> <br>
+                  <app-amenidad
+                    [amenidades]="amenidadService.amenidades$()"
+                    (amenidadesChange)="onAmenidadChange($event)"
+                    [amenidadesObtenidas]="listaAmenidades">
+                  </app-amenidad>
+      
+                  <!-- Tipo de Propiedad -->
+                  <app-tipo-propiedad
+                    [tipoPropiedades]="tipoPropService.tipoPropiedades$()"
+                    (tipoPropiedadChange)="onTipoPropiedadChange($event)"
+                    [tipoPropiedadObtenida]="tipoPropiedad">
+                  </app-tipo-propiedad>
+      
+                  <!-- Moneda -->
+                  <div class="col-md-10 mb-3">
+                    <label for="moneda" class="form-label">Moneda</label>
+                    <select name="moneda" id="moneda" class="form-select" (change)="onMonedaChange($event)"
+                            [class.is-invalid]="monedaInvalid" [class.is-valid]="!monedaInvalid && monedaTouched" required>
+                      <option value="">Seleccione un tipo de moneda</option>
+                      <option *ngFor="let curren of currencies" [value]="curren.value" [selected]="propiedad.moneda === curren.value">
+                        {{ curren.viewValue }}
+                      </option>
+                    </select>
+                  </div>
+
+      
+                  <!-- Precio -->
+                  <div class="form-group mb-3 col-md-10">
+                    <label for="precio" class="form-label mb-2">Precio</label>
+                    <input #precio="ngModel" type="number" class="form-control" id="precio" name="precio" placeholder="Precio" min="0" [(ngModel)]="propiedad.precio" [ngClass]="{ 'is-invalid': precio.invalid && precio.touched, 'is-valid': precio.valid && precio.touched }" required />
+                    <div *ngIf="precio.invalid && precio.touched" class="invalid-feedback">Digite un precio válido</div>
+                  </div>
+      
+                  <!-- Año de Construcción -->
+                  <div class="form-group mb-3 col-md-10">
+                    <label for="annioConstruccion" class="form-label mb-2">Año de Construcción</label>
+                    <input #annioConstruccion="ngModel" type="number" class="form-control" id="annioConstruccion" name="annioConstruccion" placeholder="Año de Construcción"[(ngModel)]="propiedad.annioConstruccion" [ngClass]="{ 'is-invalid': annioConstruccion.invalid && annioConstruccion.touched, 'is-valid': annioConstruccion.valid && annioConstruccion.touched }" required />
+                    <div *ngIf="annioConstruccion.invalid && annioConstruccion.touched" class="invalid-feedback">Digite un año válido</div>
+                  </div>
+      
+                  <!-- Cantidad de Cuartos -->
+                  <div class="form-group mb-3 col-md-10">
+                    <label for="cuartosCant" class="form-label mb-2">Cantidad de Cuartos</label>
+                    <input #cuartosCant="ngModel" type="number" class="form-control" id="cuartosCant" name="cuartosCant" placeholder="Cantidad de Cuartos" [(ngModel)]="propiedad.cuartosCant" [ngClass]="{ 'is-invalid': cuartosCant.invalid && cuartosCant.touched, 'is-valid': cuartosCant.valid && cuartosCant.touched }" required />
+                    <div *ngIf="cuartosCant.invalid && cuartosCant.touched" class="invalid-feedback">Digite una cantidad válida</div>
+                  </div>
+      
+                  <!-- Cantidad de Baños -->
+                  <div class="form-group mb-3 col-md-10">
+                    <label for="banniosCant" class="form-label mb-2">Cantidad de Baños</label>
+                    <input #banniosCant="ngModel" type="number" class="form-control" id="banniosCant" name="banniosCant" placeholder="Cantidad de Baños"  [(ngModel)]="propiedad.banniosCant" [ngClass]="{ 'is-invalid': banniosCant.invalid && banniosCant.touched, 'is-valid': banniosCant.valid && banniosCant.touched }" required />
+                    <div *ngIf="banniosCant.invalid && banniosCant.touched" class="invalid-feedback">Digite una cantidad válida</div>
+                  </div>
+      
+                  <!-- Metros Cuadrados -->
+                  <div class="form-group mb-3 col-md-10">
+                    <label for="metrosCuadrados" class="form-label mb-2">Metros Cuadrados</label>
+                    <input #metrosCuadrados="ngModel" type="number" class="form-control" id="metrosCuadrados" name="metrosCuadrados" placeholder="Metros Cuadrados" [(ngModel)]="propiedad.metrosCuadrados" [ngClass]="{ 'is-invalid': metrosCuadrados.invalid && metrosCuadrados.touched, 'is-valid': metrosCuadrados.valid && metrosCuadrados.touched }" required />
+                    <div *ngIf="metrosCuadrados.invalid && metrosCuadrados.touched" class="invalid-feedback">Digite un valor válido</div>
+                  </div>
+                  
+                </div>
+  
+                <!-- Bloque de ubicación e imágenes -->
+                <div class="map-container">          
+                    
+                    <div class="ubicacion-selected">
+                        <h2>Ubicación seleccionada</h2>
+                        <app-ubicacion-selector 
+                        (ubicacionChange)="onUbicacionChange($event)" 
+                        [provincias]="service.provincias$()"
+                        [cantones]="service.cantones$()" 
+                        [distritos]="service.distritos$()" 
+                        [ubicacion]="ubicacion" 
+                        [mostrarDireccion]="true">
+                      </app-ubicacion-selector>
+                  </div>
+                </div>
+              
+              </div>
+
+              <!-- Botón de Guardar -->
+              <div class="d-flex justify-content-center inline-flex">
+                <button type="submit" class="btn btn-green">Actualizar Propiedad</button>
+              </div>
+              @if(editSuccess) {
+                  <div class="mt-3 d-flex justify-content-center align-items-center">
+                      <p class="text-success">Datos guardados</p>
+                  </div>
+              }
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -32,14 +32,10 @@ import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.compo
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     RouterLink,
-    MatFormFieldModule,
-    MatSelectModule,
     TopbarComponent,
     LoaderComponent,
     UbicacionSelectorComponent,
-    ModalComponent,
     UbicacionComponent,
     AmenidadComponent,
     TipoPropiedadComponent,
@@ -211,8 +207,8 @@ export class PropiedadComponent implements OnInit {
       (this.propiedad.precio ?? 0) <= 0 ||
       (this.propiedad.ubicacion) == undefined ||
       (this.propiedad.annioConstruccion?? 0) <= 0 ||
-      (this.propiedad.banniosCant?? 0) <= 0 ||
-      (this.propiedad.cuartosCant?? 0) <= 0 ||
+      (this.propiedad.banniosCant?? 0) < 0 ||
+      (this.propiedad.cuartosCant?? 0) < 0 ||
       (this.propiedad.metrosCuadrados?? 0) <= 0 
     ) {
       this.registerError = 'Por favor, asegúrate de que todos los campos esten completos';

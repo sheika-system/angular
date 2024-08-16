@@ -21,7 +21,7 @@
       width: 80%;
       padding: 40px;
       border-radius: 10px;
-      box-shadow:  0 8px 6px -6px rgba(1, 195, 142, 0.1);
+      box-shadow: 0 0 37px rgba(8, 21, 66, 0.05);
       margin: 0 auto;
       background-color: #fff;
     }
@@ -96,7 +96,12 @@
     font-size: 16px;
   }
   
-  
+  select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
   .returnHome {
     text-align: right;
   }
@@ -114,11 +119,11 @@
     margin-bottom: 30px;
   }
 
-  .container-register {
-    display: flex;
-    box-sizing: border-box;
-    margin-bottom: 55px;
-  }
+  // .container-register {
+  //   display: flex;
+  //   box-sizing: border-box;
+  //   margin-bottom: 55px;
+  // }
 
   .container-form{
     flex: 4.5;
@@ -134,7 +139,6 @@
 
   .moneda {
     margin-bottom: 10px;
-    
   }
 
   .ubicacion-selected {
@@ -151,3 +155,30 @@
   .btn-green:hover {
     background-color: #01916a;
   }
+
+  .hidden {
+    display: none;
+}
+
+.uploaded-photo {
+  max-width: 100px !important;
+  width: 100px;
+  max-height: 100px !important;
+  height: 100px !important;
+  display: block;
+  object-fit:cover;
+}
+
+.uploaded-photo-container {
+  border: #01c38e solid 2px;
+  max-height: 100px;
+  max-width: 100px;
+  height: 100px;
+  width: 100px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.photo-btn {
+  display: none;
+}
