@@ -14,7 +14,7 @@ import { Recorrido3dService } from '@app/services/recorrido3d.service';
 export class Recorrido3dFormComponent {
   @Input() propiedadId: number = 0;
   recorrido3d: IRecorrido3D | null = null;
-  @Output() generateRecorrido3d: EventEmitter<IRecorrido3D> = new EventEmitter<IRecorrido3D>(); 
+  @Output() generateRecorrido3d: EventEmitter<IRecorrido3D> = new EventEmitter<IRecorrido3D>();
 
   recorrido3dService = inject(Recorrido3dService);
   images: {file: File, url: string}[] = [];
@@ -58,7 +58,7 @@ export class Recorrido3dFormComponent {
           this.recorrido3d = response;
           console.log('Recorrido 3D creado:', this.recorrido3d);
           if(this.recorrido3d !== null){
-            this.generateRecorrido3d.emit(this.recorrido3d);
+            this.generateRecorrido3d.emit(response);
           }else{
             console.error('Error al crear el recorrido 3D');
           }

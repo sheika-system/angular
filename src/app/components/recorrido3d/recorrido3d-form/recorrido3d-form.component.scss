@@ -1,34 +1,57 @@
+// Variables
+$primary-color: #007bff;
+$success-color: #28a745;
+$danger-color: #dc3545;
+$gray-light: #f8f9fa;
+$gray-medium: #6c757d;
+$gray-dark: #343a40;
+
 .recorrido3d-setup {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-  
-    .file-upload {
-      margin-bottom: 20px;
-      text-align: center;
-  
-      .file-input-label {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        cursor: pointer;
-        border-radius: 5px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: $gray-light;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: $gray-dark;
+    font-size: 2rem;
+  }
+
+  .file-upload {
+    margin-bottom: 30px;
+    text-align: center;
+
+    .file-input-label {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #01c38e;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #01916a;
       }
-  
-      .file-input {
-        display: none;
+
+      i {
+        margin-right: 10px;
       }
     }
-    
-    // Estilos para la lista de imagenes a seleccionar
-    .image-list {
-        display: flex;
+
+    .file-info {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: $gray-medium;
+    }
+  }
+  
+  .image-list {
+    display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
@@ -37,34 +60,34 @@
       position: relative;
       width: 150px;
       cursor: move;
-      transition: transform 0.2s ease;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
       &:hover {
         transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
-      &.drag-over-before {
-        &::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -10px;
-          width: 4px;
-          height: 100%;
-          background-color: #007bff;
-        }
-      }
-
+      &.drag-over-before,
       &.drag-over-after {
+        &::before,
         &::after {
           content: '';
           position: absolute;
           top: 0;
-          right: -10px;
           width: 4px;
           height: 100%;
-          background-color: #007bff;
+          background-color: $primary-color;
+          transition: opacity 0.3s ease;
         }
+      }
+
+      &.drag-over-before::before {
+        left: -10px;
+      }
+
+      &.drag-over-after::after {
+        right: -10px;
       }
 
       img {
@@ -74,80 +97,217 @@
         border-radius: 5px;
       }
     
-          .image-controls {
-            position: absolute;
-            top: 5px;
-            right: 5px;
+      .image-controls {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+
+        .control-btn {
+          background-color: rgba(255, 255, 255, 0.8);
+          border: none;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          cursor: pointer;
+          font-size: 14px;
+          transition: all 0.3s ease;
     
-            .control-btn {
-              background-color: rgba(255, 255, 255, 0.7);
-              border: none;
-              border-radius: 50%;
-              width: 25px;
-              height: 25px;
-              cursor: pointer;
-              font-size: 12px;
-    
-              &.remove-btn {
-                background-color: rgba(255, 0, 0, 0.7);
-                color: white;
-              }
-            }
-          }
-    
-          .drag-handle {
-            position: absolute;
-            bottom: 5px;
-            left: 5px;
+          &.remove-btn {
+            background-color: #dc3545; // Color rojo para el botón de eliminar
             color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-size: 12px;
+    
+            &:hover {
+              background-color: darken(#dc3545, 10%);
+            }
           }
         }
       }
-  
-    .create-tour-btn {
-      display: block;
-      width: 200px;
-      margin: 20px auto 0;
-      padding: 10px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-  
-      &:disabled {
-        background-color: #6c757d;
-        cursor: not-allowed;
+
+      .drag-handle {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 4px 8px;
+        border-radius: 3px;
+        font-size: 12px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.8);
+        }
       }
     }
 
-    // Cajas de texto
-    .form-group {
-        margin-bottom: 20px;
-    
-        label {
-          display: block;
-          margin-bottom: 5px;
-          font-weight: bold;
-        }
-    
-        input[type="text"],
-        textarea {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          font-size: 16px;
-        }
-    
-        textarea {
-          height: 100px;
-          resize: vertical;
-        }
+    h4 {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 15px;
+      color: $gray-dark;
+    }
+    .image-item {
+      // ... (estilos existentes)
+
+      .scene-label {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-size: 0.8em;
       }
+    }
+
   }
+
+  .create-tour-btn {
+    display: block;
+    width: 220px;
+    margin: 30px auto 0;
+    padding: 12px;
+    background-color: #01c38e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-align: center;
+
+    &:hover:not(:disabled) {
+      background-color: #01916a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    &:disabled {
+      background-color: #6c757d; // Mantenemos el gris para el estado deshabilitado
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    i {
+      margin-right: 10px;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 25px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: $gray-dark;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+        outline: none;
+      }
+    }
+
+    textarea {
+      height: 120px;
+      resize: vertical;
+    }
+  }
+
+  .scene-explanation {
+    border-left: 4px solid #01c38e;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    background-color: #f8f8f8;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      color: #01916a;
+      margin-bottom: 10px;
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 0.95em;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 0;
+    }
+  }
+
+  .create-tour-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    margin: 30px auto 0;
+    padding: 12px;
+    background-color: #01c38e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  
+    &:hover:not(:disabled) {
+      background-color: #01916a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  
+    &:disabled {
+      background-color: #6c757d;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  
+    i {
+      margin-right: 10px;
+      font-size: 1.2em; // Hace el icono un poco más grande
+    }
+  
+    .texto-white {
+      color: white;
+    }
+  }
+
+  // Estilos generales para botones (por si los necesitas en otras partes del formulario)
+  .btn {
+    padding-top: 6px;
+    background-color: #01c38e;
+    color: white;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #01916a;
+    }
+
+    .texto-white {
+      color: white;
+      padding-left: 10px;
+    }
+
+    .fa-arrow-left {
+      color: white;
+    }
+  }
+
+
+}

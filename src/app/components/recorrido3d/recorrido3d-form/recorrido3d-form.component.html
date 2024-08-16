@@ -1,21 +1,60 @@
 <div class="recorrido3d-setup">
-    <h2>Configuración del Recorrido 3D</h2>
+  <h2>Configuración del Recorrido 3D</h2>
+  
+  <form (ngSubmit)="createTour()" #recorridoForm="ngForm">
     <div class="form-group">
-        <label for="nombre">Nombre del Recorrido *</label>
-        <input id="nombre" type="text" [(ngModel)]="nombre" required>
+      <label for="nombre">Nombre del Recorrido *</label>
+      <input 
+        id="nombre" 
+        name="nombre"
+        type="text" 
+        [(ngModel)]="nombre" 
+        required 
+        #nombreInput="ngModel"
+        [class.is-invalid]="nombreInput.invalid && (nombreInput.dirty || nombreInput.touched)"
+        aria-describedby="nombre-help"
+      >
+      <small id="nombre-help" class="form-text text-muted">Ingrese un nombre descriptivo para su recorrido.</small>
+      <div *ngIf="nombreInput.invalid && (nombreInput.dirty || nombreInput.touched)" class="invalid-feedback">
+        El nombre del recorrido es obligatorio.
       </div>
-    
-      <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" [(ngModel)]="descripcion"></textarea>
-      </div>
-
-    <div class="file-upload">
-      <label for="file-input" class="file-input-label">Seleccionar Imágenes</label>
-      <input id="file-input" type="file" (change)="onFileSelected($event)" multiple accept="image/*" class="file-input">
     </div>
   
-    <div class="image-list">
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <textarea 
+        id="descripcion" 
+        name="descripcion"
+        [(ngModel)]="descripcion"
+        rows="3"
+        aria-describedby="descripcion-help"
+      ></textarea>
+      <small id="descripcion-help" class="form-text text-muted">Proporcione una breve descripción del recorrido (opcional).</small>
+    </div>
+
+    <div class="scene-explanation">
+      <h3>Imágenes y Escenas</h3>
+      <p>Cada imagen que seleccione representará una escena individual en su recorrido 3D. 
+         Las escenas se conectarán entre sí para crear una experiencia inmersiva completa.</p>
+    </div>
+
+    <div class="file-upload">
+      <label for="file-input" class="file-input-label">
+        <i class="fas fa-cloud-upload-alt"></i> Seleccionar Imágenes
+      </label>
+      <input 
+        id="file-input" 
+        type="file" 
+        (change)="onFileSelected($event)" 
+        multiple 
+        accept="image/*" 
+        class="file-input"
+      >
+      <p class="file-info">Seleccione las imágenes para su recorrido 3D (formatos aceptados: JPG, JPEG, PNG, GIF).</p>
+    </div>
+  
+    <div class="image-list" aria-live="polite">
+      <h4>Escenas del Recorrido:</h4>
       <div *ngFor="let image of images; let i = index" 
            class="image-item" 
            [ngClass]="getDragItemClass(i)"
@@ -24,15 +63,26 @@
            (dragover)="onDragOver($event, i)"
            (dragleave)="onDragLeave($event)"
            (drop)="onDrop($event, i)">
-        <img [src]="image.url" alt="Imagen {{i+1}}">
+        <img [src]="image.url" [alt]="'Escena ' + (i+1) + ' del recorrido'">
         <div class="image-controls">
-          <button (click)="removeImage(i)" class="control-btn remove-btn">X</button>
+          <button type="button" (click)="removeImage(i)" class="control-btn remove-btn" aria-label="Eliminar escena">
+            <i class="fas fa-trash-alt"></i>
+          </button>
         </div>
-        <div class="drag-handle">☰</div>
+        <div class="drag-handle" aria-hidden="true">
+          <i class="fas fa-grip-lines"></i>
+        </div>
+        <p class="scene-label">Escena {{i+1}}</p>
       </div>
     </div>
   
-    <button (click)="createTour()" class="create-tour-btn" [disabled]="!isFormValid()">
-    Crear Recorrido 3D
-  </button>
-  </div>
+    <button 
+      type="submit" 
+      class="create-tour-btn" 
+      [disabled]="!recorridoForm.form.valid || images.length === 0"
+    >
+      <i class="fas fa-compass"></i> 
+      <span class="texto-white">Crear Recorrido 3D</span>
+    </button>
+  </form>
+</div>

@@ -55,13 +55,44 @@
                 <h1 class="texto-azul texto-moneda"><strong>₡ {{propiedad.precio}}/mes</strong></h1>
             }
             @if(propiedad.disponibilidad) {
-                <button class="btn btn-propietario">Contactar Propietario</button>
+                <button class="btn btn-propietario me-2">Contactar Propietario</button>
             }
-            <button class="btn btn-tour-3d">Ver Tour 3D</button>
+            @if(esPropietario) {
+                <button 
+                  class="btn btn-secondary me-2" 
+                  (click)="toggleRecorrido3DForm()"
+                  [disabled]="verRecorrido3dFormInvalid">
+                  Registrar Tour 3D
+                </button>
+            }
+
+            <button 
+                class="btn btn-info" 
+                (click)="toggleVisorRecorrido3D()"
+                [disabled]="verRecorrido3dInvalid">
+            Ver Tour 3D
+            </button>
         </div>
     </div>
 </div>
 <div class="padding-left">
     <btn-inicio></btn-inicio>
 </div>
+<br/>
+<br/>
+<div class="container recorrido3d-form-container" [@slideInOut]="verRecorrido3DForm">
+  <app-recorrido3d-form *ngIf="verRecorrido3DForm"
+    [propiedadId]="propiedadId"
+    (generateRecorrido3d)="mostrarRecorrido3dCreado($event)">
+  </app-recorrido3d-form>
+</div>
+
+<div class="container recorrido3d-visor-container" [@slideInOut]="verVisorRecorrido3D">
+  <app-recorrido3d-visor *ngIf="verVisorRecorrido3D"
+    [recorrido3d]="this.recorrido3d"
+    (panoramaCargado)="mostrarPanorama($event)"
+    (recorrido3dEliminado)="manejarEliminacionRecorrido3D()">
+  </app-recorrido3d-visor>
+</div>
+
 <div class="bottom-margin"></div>

@@ -1,19 +1,48 @@
-<div class="recorrido-result" *ngIf="recorrido3d">
-    <h2>Recorrido 3D Creado</h2>
-  
-    <div class="recorrido-details" *ngIf="this.verDetalleRecorrido">
-      <p><strong>Nombre:</strong> {{ recorrido3d.nombre }}</p>
-      <p><strong>Descripción:</strong> {{ recorrido3d.descripcion }}</p>
-      <p><strong>Fecha de Creación:</strong> {{ recorrido3d.fechaCreacion | date:'medium' }}</p>
-      <p><strong>Número de Imágenes:</strong> {{ recorrido3d.imagenes?.length || 0 }}</p>
-    </div>
-  
-    <div id="panorama" style="width: 100%; height: 600px;"></div>
-  
-    <div class="scene-selector" *ngIf="tourConfig && tourConfig.scenes">
-      <h3>Escenas</h3>
-      <button *ngFor="let scene of tourConfig.scenes | keyvalue" (click)="changeScene(scene.key)">
-        {{ scene.value && scene.value.title ? scene.value.title : 'Escena sin título' }}
-      </button>
-    </div>
+<article class="recorrido-result" *ngIf="recorrido3d">
+  <div class="recorrido-header">
+    <h1 class="recorrido-result__title">Recorrido 3D Creado</h1>
+    <button class="btn-eliminar-recorrido3d" (click)="eliminarRecorrido3D()">
+      <i class="fas fa-trash-alt" aria-hidden="true"></i>
+      <span class="texto-white">Eliminar Recorrido 3D</span>
+    </button>
   </div>
+
+  <section class="recorrido-details" *ngIf="this.verDetalleRecorrido">
+    <h2 class="recorrido-details__title">Detalles del Recorrido</h2>
+    <dl class="recorrido-details__list">
+      <dt>Nombre:</dt>
+      <dd>{{ recorrido3d.nombre }}</dd>
+      <dt>Descripción:</dt>
+      <dd>{{ recorrido3d.descripcion ? recorrido3d.descripcion : 'Sin descripción.' }}</dd>
+    </dl>
+  </section>
+
+  <section class="panorama-container">
+    <h2 class="panorama-container__title">Vista Panorámica</h2>
+    <div id="panorama" class="panorama-view" [style.visibility]="panoramaReady ? 'visible' : 'hidden'" aria-label="Vista panorámica del recorrido 3D"></div>
+    <div *ngIf="!panoramaReady" class="loading-placeholder">Cargando Recorrido 3D...</div>
+  </section>
+
+  <section class="scene-selector" *ngIf="tourConfig && tourConfig.scenes">
+    <h2 class="scene-selector__title">Escenas</h2>
+    <div class="scene-selector__description">
+      <p>Selecciona una escena para explorar diferentes partes del tour.</p>
+    </div>
+    <ul class="scene-selector__list">
+      <li *ngFor="let scene of tourConfig.scenes | keyvalue">
+        <button 
+          class="scene-selector__button" 
+          (click)="changeScene(scene.key)"
+          [attr.aria-label]="'Cambiar a la escena: ' + (scene.value && scene.value.title ? scene.value.title : 'Escena sin título')"
+        >
+          <span class="scene-selector__icon">
+            <i class="fas fa-image" aria-hidden="true"></i>
+          </span>
+          <span class="scene-selector__button-text">
+            {{ scene.value && scene.value.title ? scene.value.title : 'Escena sin título' }}
+          </span>
+        </button>
+      </li>
+    </ul>
+  </section>
+</article>

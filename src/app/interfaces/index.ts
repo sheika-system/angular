@@ -181,7 +181,7 @@ export interface TourConfig {
 export interface Scene {
   imageId: number;
   title: string;
-
+}
 export interface ICurrency {
   value: string,
   viewValue: string
