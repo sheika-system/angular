@@ -9,11 +9,13 @@ import { ModalComponent } from '../../components/modal/modal.component';
 import { BtnInicioComponent } from '../../components/btn-inicio/btn-inicio.component';
 import { CalificacionPropiedadComponent } from "../../components/calificacion-propiedad/form-calificacion-propiedad/calificacion-propiedad.component";
 import { CalificacionPropiedadCardComponent } from '../../components/calificacion-propiedad-card/calificacion-propiedad-card.component';
+import { ComentarioPropiedadComponent} from '../../components/calificacion-propiedad/comentarios-propiedad/comentarios-propiedad';
+
 
 @Component({
   selector: 'app-propiedad',
   standalone: true,
-  imports: [ImagenComponent, ImagenModalComponent, ModalComponent, CommonModule, BtnInicioComponent, CalificacionPropiedadComponent,CalificacionPropiedadCardComponent],
+  imports: [ImagenComponent, ImagenModalComponent, ModalComponent, CommonModule, BtnInicioComponent, CalificacionPropiedadComponent,CalificacionPropiedadCardComponent,ComentarioPropiedadComponent],
   templateUrl: './detalle-propiedad.component.html',
   styleUrl: './detalle-propiedad.component.scss'
 })

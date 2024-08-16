@@ -3,6 +3,10 @@
     padding-top: 50px;
 }
 
+.coments{
+    margin: 0 10%;
+}
+
 .propiedad-info-container {
     padding-top: 20px;
     padding-left: 25px;
@@ -51,9 +55,11 @@
 .btn-calificar {
     padding-right: 20px;
     padding-left: 20px;
-    margin-left: 20px;
     background-color: #01c38e;
     color: white;
+    float: right;
+    
+
 }
 .btn-tour-3d {
     padding-right: 20px;
@@ -67,5 +73,5 @@
 }
 
 .padding-left {
-    padding-left: 200px;
+    padding-left: 10%;
 }
