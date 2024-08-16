@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-12">
       <form>
-        <div class="row mb-3">
-          <div class="col-md-4 mb-3">
-            <label for="provincia" class="form-label">Provincia</label>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="provincia" class="form-label" *ngIf="mostrarNombres">Provincia</label>
             <select #provinciaSelect class="form-select" id="provincia" name="provincia" (change)="onProvinciaChange($event)"
               [class.is-invalid]="provinciaInvalid" [class.is-valid]="!provinciaInvalid && provinciaTouched" required>
               <option value="">Seleccione una provincia</option>
@@ -18,8 +18,8 @@
             </div>
           </div>
 
-          <div class="col-md-4 mb-3">
-            <label for="canton" class="form-label">Cantón</label>
+          <div class="col-md-4">
+            <label for="canton" class="form-label" *ngIf="mostrarNombres">Cantón</label>
             <select class="form-select" id="canton" name="canton" (change)="onCantonChange($event)"
               [class.is-invalid]="cantonInvalid" [class.is-valid]="!cantonInvalid && cantonTouched" required>
               <option value="">Seleccione un cantón</option>
@@ -33,8 +33,8 @@
             </div>
           </div>
 
-          <div class="col-md-4 mb-3">
-            <label for="distrito" class="form-label">Distrito</label>
+          <div class="col-md-4">
+            <label for="distrito" class="form-label" *ngIf="mostrarNombres">Distrito</label>
             <select class="form-select" id="distrito" name="distrito" (change)="onDistritoChange($event)"
               [class.is-invalid]="distritoInvalid" [class.is-valid]="!distritoInvalid && distritoTouched" required>
               <option value="">Seleccione un distrito</option>
@@ -49,7 +49,7 @@
           </div>
         </div>
 
-        <div class="col-md-7 mb-3" *ngIf="mostrarDireccion">
+        <div class="col-md-7 mb-3 mt-3" *ngIf="mostrarDireccion">
           <label for="direccion" class="form-label">Dirección (opcional)</label>
           <input type="text" class="form-control" id="direccion" name="direccion"
             [ngModel]="ubicacion.direccion" (ngModelChange)="onDireccionChange($event)">

@@ -20,6 +20,7 @@ export class UbicacionSelectorComponent implements OnChanges{
       this.actualizarValidacion();
     }
   }
+  @Input() mostrarNombres: boolean = true;
   @Input() ubicacion: IUbicacion = {
     direccion: "",
     latitud: 0,
