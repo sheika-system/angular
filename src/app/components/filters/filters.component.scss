@@ -41,7 +41,7 @@ app-amenidad{
 
 button {
   padding: 10px 20px;
-  background-color: #00bfa5; /* Same color as sliders */
+  background-color: #01c38e; /* Same color as sliders */
   margin-top: 25px;
   color: white;
   border: none;
@@ -52,6 +52,6 @@ button {
 }
 
 button:hover {
-  background-color: #008f75;
+  opacity: 0.7;
 }
 

@@ -4,66 +4,160 @@
     </h1>
     <hr>
     <div class="tabs-container">
-        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasEnviadas" checked>
+        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasEnviadas" checked (change)="resetFilters()">
         <label for="tabRentasEnviadas" class="tabs__label">Enviadas</label>
         <div class="tabs__content">
-            @defer {
-                <div *ngFor="let rentaEnviada of rentasEnviadas">
-                    <app-renta-item
-                    [renta]="rentaEnviada"
-                    [tipo]="'enviadas'">
-                    </app-renta-item>
-                </div>
-            } @loading {
-                <app-loader></app-loader>
-            }
-        </div>
-
-        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasRecibidas">
-        <label for="tabRentasRecibidas" class="tabs__label">Recibidas</label>
-        <div class="tabs__content">
-            @defer {
-                <div *ngFor="let rentaRecibida of rentasRecibidas">
-                    <app-renta-item
-                    [renta]="rentaRecibida"
-                    [tipo]="'recibidas'">
-                    </app-renta-item>
-                </div>
-            } @loading {
-                <app-loader></app-loader>
-            }
-        </div>
-
-        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasActivas">
-        <label for="tabRentasActivas" class="tabs__label">Activas</label>
-        <div class="tabs__content">
-            @defer {
-                <div *ngFor="let rentaActiva of rentasActivas">
-                    <app-renta-item
-                    [renta]="rentaActiva"
-                    [tipo]="'activas'">
-                    </app-renta-item>
-                </div>
-            } @loading {
-                <app-loader></app-loader>
-            }
-        </div>
-
-        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasCompletas">
-        <label for="tabRentasCompletas" class="tabs__label">Completas</label>
-        <div class="tabs__content">
-            @defer {
-                <div *ngIf="rentasCompletas!.length > 0; else noRentasTemplate">
-                    <div *ngFor="let rentaCompleta of rentasCompletas">
+            <div class="search-bar d-flex">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <select class="form-select" [(ngModel)]="selectedTipoPropiedad" (change)="filterRentasTipoPropiedad()">
+                    <option value="" disabled selected hidden>Tipo de propiedad</option>
+                    <option *ngFor="let tipoPropiedad of tiposDePropiedad" [value]="tipoPropiedad.nombre">
+                        {{tipoPropiedad.nombre}}
+                    </option>
+                </select>
+                <app-ubicacion-selector
+                (ubicacionChange)="onUbicacionChangeEnviadas($event)"
+                [provincias]="ubicacionService.provincias$()"
+                [cantones]="ubicacionService.cantones$()"
+                [distritos]="ubicacionService.distritos$()"
+                [mostrarNombres]="false"
+                [mostrarDireccion]="false"
+                ></app-ubicacion-selector>
+                <button class="btn btn-reset" (click)="resetFilters()">
+                    <i class="fa-solid fa-rotate-right fa-lg"></i>
+                </button>
+            </div>
+            <div class="item-wrapper">
+                @defer {
+                <div *ngIf="rentasEnviadas!.length > 0; else noRentasTemplate">
+                    <div *ngFor="let rentaEnviada of rentasEnviadas">
                         <app-renta-item
-                            [renta]="rentaCompleta"
-                            [tipo]="'completas'">
+                        [renta]="rentaEnviada"
+                        [tipo]="'enviadas'">
                         </app-renta-item>
                     </div>
                 </div>
-            } @loading {
-                <app-loader></app-loader>
-            }
+                } @loading {
+                    <app-loader></app-loader>
+                }
+            </div>
+        </div>
+
+        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasRecibidas" (change)="resetFilters()">
+        <label for="tabRentasRecibidas" class="tabs__label">Recibidas</label>
+        <div class="tabs__content">
+            <div class="search-bar d-flex">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <select class="form-select" [(ngModel)]="selectedTipoPropiedad" (change)="filterRentasTipoPropiedad()">
+                    <option value="" disabled selected hidden>Tipo de propiedad</option>
+                    <option *ngFor="let tipoPropiedad of tiposDePropiedad" [value]="tipoPropiedad.nombre">
+                        {{tipoPropiedad.nombre}}
+                    </option>
+                </select>
+                <app-ubicacion-selector
+                (ubicacionChange)="onUbicacionChangeRecibidas($event)"
+                [provincias]="ubicacionService.provincias$()"
+                [cantones]="ubicacionService.cantones$()"
+                [distritos]="ubicacionService.distritos$()"
+                [mostrarNombres]="false"
+                [mostrarDireccion]="false"
+                ></app-ubicacion-selector>
+                <button class="btn btn-reset" (click)="resetFilters()">
+                    <i class="fa-solid fa-rotate-right fa-lg"></i>
+                </button>
+            </div>
+            <div class="item-wrapper">
+                @defer {
+                    <div *ngIf="rentasRecibidas!.length > 0; else noRentasTemplate">
+                        <div *ngFor="let rentaRecibida of rentasRecibidas">
+                            <app-renta-item
+                            [renta]="rentaRecibida"
+                            [tipo]="'recibidas'">
+                            </app-renta-item>
+                        </div>
+                    </div>
+                } @loading {
+                    <app-loader></app-loader>
+                }
+            </div>
+        </div>
+
+        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasActivas" (change)="resetFilters()">
+        <label for="tabRentasActivas" class="tabs__label">Activas</label>
+        <div class="tabs__content">
+            <div class="search-bar d-flex">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <select class="form-select" [(ngModel)]="selectedTipoPropiedad" (change)="filterRentasTipoPropiedad()">
+                    <option value="" disabled selected hidden>Tipo de propiedad</option>
+                    <option *ngFor="let tipoPropiedad of tiposDePropiedad" [value]="tipoPropiedad.nombre">
+                        {{tipoPropiedad.nombre}}
+                    </option>
+                </select>
+                <app-ubicacion-selector
+                (ubicacionChange)="onUbicacionChangeActivas($event)"
+                [provincias]="ubicacionService.provincias$()"
+                [cantones]="ubicacionService.cantones$()"
+                [distritos]="ubicacionService.distritos$()"
+                [mostrarNombres]="false"
+                [mostrarDireccion]="false"
+                ></app-ubicacion-selector>
+                <button class="btn btn-reset" (click)="resetFilters()">
+                    <i class="fa-solid fa-rotate-right fa-lg"></i>
+                </button>
+            </div>
+            <div class="item-wrapper">
+                @defer {
+                    <div *ngIf="rentasActivas!.length > 0; else noRentasTemplate">
+                        <div *ngFor="let rentaActiva of rentasActivas">
+                            <app-renta-item
+                            [renta]="rentaActiva"
+                            [tipo]="'activas'">
+                            </app-renta-item>
+                        </div>
+                    </div>
+                } @loading {
+                    <app-loader></app-loader>
+                }
+            </div>
+        </div>
+
+        <input type="radio" class="tabs__radio" name="rentas" id="tabRentasCompletas" (change)="resetFilters()">
+        <label for="tabRentasCompletas" class="tabs__label">Completas</label>
+        <div class="tabs__content">
+            <div class="search-bar d-flex">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <select class="form-select" [(ngModel)]="selectedTipoPropiedad" (change)="filterRentasTipoPropiedad()">
+                    <option value="" disabled selected hidden>Tipo de propiedad</option>
+                    <option *ngFor="let tipoPropiedad of tiposDePropiedad" [value]="tipoPropiedad.nombre">
+                        {{tipoPropiedad.nombre}}
+                    </option>
+                </select>
+                <app-ubicacion-selector
+                (ubicacionChange)="onUbicacionChangeCompletas($event)"
+                [provincias]="ubicacionService.provincias$()"
+                [cantones]="ubicacionService.cantones$()"
+                [distritos]="ubicacionService.distritos$()"
+                [mostrarNombres]="false"
+                [mostrarDireccion]="false"
+                ></app-ubicacion-selector>
+                <button class="btn btn-reset" (click)="resetFilters()">
+                    <i class="fa-solid fa-rotate-right fa-lg"></i>
+                </button>
+            </div>
+            <div class="item-wrapper">
+                @defer {
+                    <div *ngIf="rentasCompletas!.length > 0; else noRentasTemplate">
+                        <div *ngFor="let rentaCompleta of rentasCompletas">
+                            <app-renta-item
+                                [renta]="rentaCompleta"
+                                [tipo]="'completas'">
+                            </app-renta-item>
+                        </div>
+                    </div>
+                } @loading {
+                    <app-loader></app-loader>
+                }
+            </div>
         </div>
     </div>
 </div>

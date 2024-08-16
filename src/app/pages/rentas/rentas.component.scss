@@ -37,10 +37,10 @@
     border-bottom-right-radius: 15px;
     border-top-right-radius: 15px;
     box-shadow: 0px 0px 15px 0px #cbcdcf;
+    clip-path: inset(0px -15px -15px -15px);
     display: none;
     overflow: scroll;
     height: 60vh;
-    padding: 20px 30px;
     -webkit-animation: fadeEffect 0.5s;
     animation: fadeEffect 0.5s;
 }
@@ -72,4 +72,46 @@
     color: rgb(187, 187, 187);
     font-size: 35px;
     padding-top: 25vh;
+}
+
+.search-bar {
+    background-color: #01c38e;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding: 10px 30px;
+}
+
+.item-wrapper {
+    padding: 20px 30px;
+}
+
+.form-select {
+    margin-left: 15px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.fa-magnifying-glass {
+    font-size: 20px;
+    color: white;
+    margin-top: 8px;
+}
+
+.fa-rotate-right {
+    color: white;
+}
+
+.btn-reset {
+    background-color: #132d46;
+    height: min-content;
+}
+
+.background-blue {
+    border-radius: 5px;
+    align-content: center;
+}
+
+.background-blue:hover {
+    opacity: 0.7;
 }
