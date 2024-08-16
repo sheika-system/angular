@@ -45,6 +45,7 @@ export class ComentarioPropiedadComponent implements AfterViewInit {
   successStatus: boolean = false;
   successMessage!: string;
   currentCalificacionId: number = 0;
+  @Input() propiedadId!: number ;
   
   calificacionToModify: ICalificacionPropiedad = {};
 
@@ -54,7 +55,7 @@ export class ComentarioPropiedadComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
-    this.service.getAllSignal();
+    this.service.getByPropiedadCalificadaId(this.propiedadId);
     effect(() => {
       const calificaciones = this.service.calificaciones$();
       this.calificacionList.data = calificaciones;
