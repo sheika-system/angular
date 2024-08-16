@@ -82,9 +82,9 @@ export class CalificacionUsuarioService extends BaseService<ICalificacionUsuario
     );
   }
 
-  getByUsuarioCalificadoId(usuarioCalificadoId: number) {
-    return this.http.get<ICalificacionUsuario[]>(`${this.baseUrl}/${this.source}/calificado/${usuarioCalificadoId}`).pipe(
-      tap((response: any) => {
+  getByUsuarioCalificadoId(usuarioCalificadoId: number): Observable<ICalificacionUsuario[]> {
+    return this.http.get<ICalificacionUsuario[]>(`${this.source}/calificado/${usuarioCalificadoId}`).pipe(
+      tap((response: ICalificacionUsuario[]) => {
         this.calificacionUsuarioListSignal.set(response);
       }),
       catchError(error => {

@@ -1,0 +1,28 @@
+<input class="form-control search-bar" matInput (input)="applyFilter($event)" placeholder="Buscar">
+<div class="table-wrapper">
+  <table mat-table [dataSource]="calificacionList" matSort matSortActive="id" matSortDirection="asc">
+
+    <ng-container matColumnDef="usuarioCalificadorId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario:</th>
+      <td mat-cell *matCellDef="let row">{{row.usuarioCalificador?.nombre}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="comentario">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Comentario:</th>
+      <td mat-cell *matCellDef="let row">{{row.comentario}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="valor">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Calificación:</th>
+        <td mat-cell *matCellDef="let row">
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+            <i class="fa" [ngClass]="{'fa-star': i < row.valor, 'fa-star-o': i >= row.valor}"></i>
+          </ng-container>
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+  <mat-paginator [pageSize]="8" [pageSizeOptions]="[5, 8, 10, 15, 20]" showFirstLastButtons></mat-paginator>
+</div>

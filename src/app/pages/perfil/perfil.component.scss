@@ -31,6 +31,7 @@
         width: 60%;
         .login-main {
           padding: 0px;
+          
         }
       }
     }
@@ -40,6 +41,7 @@
         width: 100%;
         .login-main {
           padding: 0px;
+          
         }
       }
     }
@@ -163,4 +165,18 @@
 
 .fa-arrow-left {
     color: white;
+}
+
+.btn-calificar {
+  padding-right: 20px;
+  padding-left: 20px;
+  background-color: #01c38e;
+  color: white;
+  float: right;
+  
+
+}
+
+.coments{
+   margin-top: 50px;
 }

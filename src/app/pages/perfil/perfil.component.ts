@@ -9,7 +9,7 @@ import { PerfilFormComponent } from '../../components/perfil/perfil-form/perfil-
 import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.component";
 import { CalificacionUsuarioCardComponent } from "../../components/calificacion-usuario-card/calificacion-usuario-card.component";
 import { CalificacionUsuarioComponent } from "../../components/calificacion-usuario/calificacion-usuario/form-calificacion-usuario/calificacion-usuario.component";
-
+import {ComentarioUsuarioComponent} from "../../components/calificacion-usuario/calificacion-usuario/comentarios-usuario/comentarios-usuario"
 @Component({
   selector: 'app-perfil',
   standalone: true,
@@ -20,13 +20,15 @@ import { CalificacionUsuarioComponent } from "../../components/calificacion-usua
     PerfilFormComponent,
     BtnInicioComponent,
     CalificacionUsuarioCardComponent,
-    CalificacionUsuarioComponent
+    CalificacionUsuarioComponent,
+    ComentarioUsuarioComponent
 ],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss'
 })
 export class PerfilComponent {
   protected id: string | null = '';
+  protected usuarioId:  number = 0;
   protected currentUserId: string = '';
   protected currentUserRole: string = '';
   private service = inject(UserService);
@@ -36,7 +38,9 @@ export class PerfilComponent {
 
   constructor(private route: ActivatedRoute){
     let user = localStorage.getItem('auth_user');
-
+    if (this.id!== null) {
+      this.usuarioId = Number(this.id);
+    }
     if(user) {
       this.currentUserId = String(JSON.parse(user)?.id);
       this.currentUserRole = String(JSON.parse(user)?.role.name);
@@ -51,6 +55,12 @@ export class PerfilComponent {
       })
     } else {
       console.error('El ID no es un número o el usuario no existe');
+    }
+  }
+
+  ngOnInit() {
+    if (this.id!== null) {
+      this.usuarioId = Number(this.id);
     }
   }
 
