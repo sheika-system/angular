@@ -1,0 +1,34 @@
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 300px;
+    display: flex;
+    align-items: center; 
+    text-align: left; 
+    gap: 16px; 
+  }
+  
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+  }
+  
+  .rating {
+    display: flex;
+    font-size: 24px;
+    color: #ddd;
+    align-items: center;
+    
+    .fa {
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+    .fa-star {
+      color: #01c38e;
+    }
+  }
+  

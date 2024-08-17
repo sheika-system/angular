@@ -1,0 +1,71 @@
+<input class="form-control search-bar" matInput (input)="applyFilter($event)" placeholder="Buscar">
+<div class="table-wrapper">
+  <table mat-table [dataSource]="calificacionList" matSort matSortActive="id" matSortDirection="asc">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="usuarioCalificadoId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario Calificado</th>
+      <td mat-cell *matCellDef="let row">{{row.usuarioCalificado?.nombre}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="usuarioCalificadorId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario Calificador</th>
+      <td mat-cell *matCellDef="let row">{{row.usuarioCalificador?.nombre}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="valor">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor</th>
+      <td mat-cell *matCellDef="let row">{{row.valor}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+      <td mat-cell *matCellDef="let row">{{row.fecha | date:'dd/MM/yyyy'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="comentario">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Comentario</th>
+      <td mat-cell *matCellDef="let row">{{row.comentario}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let row">
+        <i class="fa fa-pen-to-square fa-xl icon-blue" (click)="showEdit(row, formModal)"></i>
+        <i class="fa fa-trash fa-xl icon-blue icon-trash" (click)="showDelete(row, deleteModal)"></i>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+  <mat-paginator [pageSize]="8" [pageSizeOptions]="[5, 8, 10, 15, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+<app-modal size="lg" #formModal>
+  <app-calificacion-usuario-card ></app-calificacion-usuario-card>
+</app-modal>
+
+<app-modal #deleteModal>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="delete-wrapper">
+      <h1 *ngIf="currentCalificacionId === calificacionToModify.id">
+        <span class="text-danger"><strong>No puedes borrar esta calificación</strong></span>
+      </h1>
+    </div>
+    <div *ngIf="currentCalificacionId !== calificacionToModify.id" class="delete-wrapper">
+      <h1>
+        <span class="text-danger"><strong>¿Quieres borrar la calificación con ID: {{calificacionToModify.id}}?</strong></span>
+      </h1>
+      <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-danger" (click)="deleteCalificacion(calificacionToModify.id)"><i class="fa-solid fa-trash fa-l"></i>&nbsp;&nbsp;Borrar</button>
+      </div>
+      <div *ngIf="successStatus" class="d-flex justify-content-center align-items-center">
+        <p class="delete-success">{{successMessage}}</p>
+      </div>
+    </div>
+  </div>
+</app-modal>

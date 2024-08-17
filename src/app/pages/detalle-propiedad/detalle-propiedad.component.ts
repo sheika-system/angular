@@ -5,17 +5,22 @@ import { IPropiedad, IImagen, IFeedBackMessage, IFeedbackStatus, IUser, IRenta  
 import { ImagenComponent } from '../../components/imagen/imagen.component';
 import { ImagenModalComponent } from '../../components/imagen/imagen-modal/imagen-modal.component';
 import { CommonModule } from '@angular/common';
+import { ModalComponent } from '../../components/modal/modal.component';
 import { BtnInicioComponent } from '../../components/btn-inicio/btn-inicio.component';
-import { ModalComponent } from "../../components/modal/modal.component";
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule, FormsModule, NgForm} from '@angular/forms';
 import { RentaService } from '../../services/renta.service';
 import { FormPropiedadComponent } from "../../components/propiedad/form-propiedad/form-propiedad.component";
 import { ImagenService } from '../../services/imagen.service';
 import { UserService } from '../../services/user.service';
+import { CalificacionPropiedadComponent } from "../../components/calificacion-propiedad/form-calificacion-propiedad/calificacion-propiedad.component";
+import { CalificacionPropiedadCardComponent } from '../../components/calificacion-propiedad-card/calificacion-propiedad-card.component';
+import { ComentarioPropiedadComponent} from '../../components/calificacion-propiedad/comentarios-propiedad/comentarios-propiedad';
+
 
 @Component({
   selector: 'app-propiedad',
   standalone: true,
+
 
   imports: [
     ImagenComponent,
@@ -25,7 +30,11 @@ import { UserService } from '../../services/user.service';
     ModalComponent,
     FormPropiedadComponent,
     ReactiveFormsModule,
-    FormsModule],
+    FormsModule,
+    CalificacionPropiedadComponent,
+    CalificacionPropiedadCardComponent,
+    ComentarioPropiedadComponent],
+
   templateUrl: './detalle-propiedad.component.html',
   styleUrl: './detalle-propiedad.component.scss'
 })
@@ -50,16 +59,27 @@ export class PropiedadDetalleComponent implements OnInit{
   formFailure: boolean = false;
   errorMessage!: string
   private service = inject(PropiedadService);
-  imagenService = inject(ImagenService);
-  propiedadService = inject(PropiedadService);
-  userService = inject(UserService);
-  private rentaService = inject(RentaService);
   
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {
-    let user = localStorage.getItem('auth_user');
+imagenService = inject(ImagenService);
+propiedadService = inject(PropiedadService);
+userService = inject(UserService);
+private rentaService = inject(RentaService);
 
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {
+    this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
+    let user = localStorage.getItem('auth_user');
     if(user) {
-      this.currentUserId = parseInt(String(JSON.parse(user)?.id));
+      this.currentUserId = JSON.parse(user)?.id;
+    }
+    
+    try {
+      this.service.getByIdSignal(this.propiedadId);
+      effect(() => {
+        this.propiedad = this.service.propiedad$();
+        console.log(this.propiedad);
+      })
+    } catch(error) {
+      console.error("El id no está en un formato correcto o no existe: " + error);
     }
     console.log("CurrentUser: " + this.currentUserId, " id: " + this.id)
 
@@ -140,8 +160,13 @@ onSubmit(modal: any): void {
       }
     });
   }
+
+  
 }
 
+calificarPropiedad(modal: any) {
+  modal.show();
+}
 showModal(modal: any) {
   modal.show()
 }

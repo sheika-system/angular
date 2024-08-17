@@ -23,7 +23,11 @@ import { TokenExpiredComponent } from './pages/token-expired/token-expired.compo
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RentasComponent } from './pages/rentas/rentas.component';
 import { ListaComponent } from './components/renta/lista/lista.component';
-
+import { CalificacionUsuarioComponent } from './components/calificacion-usuario/calificacion-usuario/form-calificacion-usuario/calificacion-usuario.component';
+import { ListCalificacionUsuarioComponent } from './components/calificacion-usuario/calificacion-usuario/list-calificacion-usuario/list-calificacion-usuario.component';
+import { CalificacionPropiedadComponent } from './components/calificacion-propiedad/form-calificacion-propiedad/calificacion-propiedad.component';
+import { ListCalificacionPropiedadComponent } from './components/calificacion-propiedad/list-calificacion-propiedad/list-calificacion-propiedad.component';
+import { CalificacionPropiedadCardComponent } from './components/calificacion-propiedad-card/calificacion-propiedad-card.component';
 
 
 export const routes: Routes = [
@@ -99,6 +103,48 @@ export const routes: Routes = [
         }
       },
       {
+      path: 'calificacion',
+        component: CalificacionUsuarioComponent, data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin
+          ],
+          name: 'Users'
+        }
+      },
+      {
+        path: 'listCalificacionUsuario',
+        component: ListCalificacionUsuarioComponent, 
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin
+          ],
+          name: 'Calificaciones de Usuario'
+        }
+      },
+      {
+        path: 'calificacionPropiedad',
+          component: CalificacionPropiedadComponent, data: { 
+            authorities: [
+              IRole.admin, 
+              IRole.superAdmin
+            ],
+            name: 'Users'
+          }
+        },
+        {
+          path: 'listCalificacionPropiedad',
+          component: ListCalificacionPropiedadComponent, 
+          data: { 
+            authorities: [
+              IRole.admin, 
+              IRole.superAdmin
+            ],
+            name: 'Calificaciones de Usuario'
+          }
+        },
+      {
         path: 'delitos',
         component: DelitoComponent,
         data: { 
@@ -160,6 +206,18 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'estrellas/:id',
+        component: CalificacionPropiedadCardComponent,
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'estrellas'
+        }
+      },
+      {
         path: 'propiedad/:id',
         component: PropiedadDetalleComponent,
         data: { 
@@ -211,4 +269,5 @@ export const routes: Routes = [
     path: '**',
     component: NotFoundComponent
   }
+  
 ];

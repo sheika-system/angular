@@ -3,6 +3,10 @@
     padding-top: 50px;
 }
 
+.coments{
+    margin: 0 10%;
+}
+
 .propiedad-info-container {
     padding-top: 20px;
     padding-left: 25px;
@@ -48,7 +52,14 @@
     background-color: #132d46;
     color: white;
 }
-
+.btn-calificar {
+    padding-right: 20px;
+    padding-left: 20px;
+    background-color: #01c38e;
+    color: white;
+    float: right;
+    
+}
 .btn-propietario:hover {
     opacity: 0.7;
     transition: ease 100ms;
@@ -79,7 +90,7 @@
 }
 
 .padding-left {
-    padding-left: 200px;
+    padding-left: 10%;
 }
 
 .solicitud-wrapper {
@@ -168,3 +179,4 @@
   .btn-green:hover {
     background-color: #01916a;
   }
+   

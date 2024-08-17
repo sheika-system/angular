@@ -5,6 +5,7 @@ import { UbicacionSelectorComponent } from '../../ubicacion/ubicacion-selector/u
 import { UbicacionService } from '../../../services/ubicacion.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../services/user.service';
+import {CalificacionUsuarioCardComponent} from '../../calificacion-usuario-card/calificacion-usuario-card.component';
 import { catchError, tap, throwError } from 'rxjs';
 
 @Component({

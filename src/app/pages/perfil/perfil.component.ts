@@ -7,7 +7,9 @@ import { SvgIconComponent } from '../../components/svg-icon/svg-icon.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { PerfilFormComponent } from '../../components/perfil/perfil-form/perfil-form.component';
 import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.component";
-
+import { CalificacionUsuarioCardComponent } from "../../components/calificacion-usuario-card/calificacion-usuario-card.component";
+import { CalificacionUsuarioComponent } from "../../components/calificacion-usuario/calificacion-usuario/form-calificacion-usuario/calificacion-usuario.component";
+import {ComentarioUsuarioComponent} from "../../components/calificacion-usuario/calificacion-usuario/comentarios-usuario/comentarios-usuario"
 @Component({
   selector: 'app-perfil',
   standalone: true,
@@ -16,13 +18,17 @@ import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.compo
     SvgIconComponent,
     ModalComponent,
     PerfilFormComponent,
-    BtnInicioComponent
+    BtnInicioComponent,
+    CalificacionUsuarioCardComponent,
+    CalificacionUsuarioComponent,
+    ComentarioUsuarioComponent
 ],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss'
 })
 export class PerfilComponent {
   protected id: string | null = '';
+  protected usuarioId:  number = 0;
   protected currentUserId: string = '';
   protected currentUserRole: string = '';
   private service = inject(UserService);
@@ -32,7 +38,9 @@ export class PerfilComponent {
 
   constructor(private route: ActivatedRoute){
     let user = localStorage.getItem('auth_user');
-
+    if (this.id!== null) {
+      this.usuarioId = Number(this.id);
+    }
     if(user) {
       this.currentUserId = String(JSON.parse(user)?.id);
       this.currentUserRole = String(JSON.parse(user)?.role.name);
@@ -50,6 +58,12 @@ export class PerfilComponent {
     }
   }
 
+  ngOnInit() {
+    if (this.id!== null) {
+      this.usuarioId = Number(this.id);
+    }
+  }
+
   showDetail(user: IUser, modal: any) {
     user = this.user;
     modal.show();
@@ -57,5 +71,9 @@ export class PerfilComponent {
 
   verPropiedadesUsuario() {
     window.location.assign('/app/propiedadesUsuario/' + this.id);
+  }
+
+  calificarUsuario(modal: any) {
+    modal.show();
   }
 }

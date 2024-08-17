@@ -25,6 +25,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { UserService } from '../../services/user.service';
 import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.component";
+import { CalificacionPropiedadComponent } from "../../components/calificacion-propiedad/form-calificacion-propiedad/calificacion-propiedad.component";
 
 @Component({
   selector: 'app-propiedad',
@@ -42,7 +43,8 @@ import { BtnInicioComponent } from "../../components/btn-inicio/btn-inicio.compo
     ImagenComponent,
     UbicacionFormComponent,
     MapComponent,
-    BtnInicioComponent
+    BtnInicioComponent,
+    CalificacionPropiedadComponent
 ],
   templateUrl: './propiedad.component.html',
   styleUrls: ['./propiedad.component.scss']
@@ -409,4 +411,6 @@ export class PropiedadComponent implements OnInit {
   volverHome() {
     this.router.navigateByUrl('/app/home');
   }
+
+  
 }

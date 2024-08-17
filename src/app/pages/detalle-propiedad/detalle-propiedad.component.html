@@ -10,13 +10,24 @@
         <div class="d-flex">
             <h1 class="texto-azul"><strong>{{propiedad.nombre}}</strong></h1>
             <div class="estrellas-container">
-                <span class="fa fa-xl fa-star checked"></span>
-                <span class="fa fa-xl fa-star checked"></span>
-                <span class="fa fa-xl fa-star checked"></span>
-                <span class="fa fa-xl fa-star"></span>
-                <span class="fa fa-xl fa-star"></span>
+                
+                <app-calificacion-propiedad-card  [propiedadId]="propiedadId"></app-calificacion-propiedad-card>
+                
+        
             </div>
         </div>
+        
+        <app-modal #CalificacionPropiedad>
+            <app-calificacion-propiedad
+            [propiedadCalificadaId]="propiedadId.toString()"
+              [usuarioCalificadorId]="currentUserId"
+            >
+            </app-calificacion-propiedad>
+          </app-modal>
+
+
+
+
         <div>
             <h3>
                 <strong>Propietario: </strong>
@@ -65,6 +76,16 @@
             </div>
         </div>
     </div>
+    
+</div>
+<div class="coments">
+<h3>
+    <strong>Comentarios y calificaciones: </strong>
+    <button class="btn btn-calificar" (click)="calificarPropiedad(CalificacionPropiedad)">
+        <span class="texto-white">Dejar un comentario</span>
+      </button>
+</h3>
+<app-comentario-propiedad [propiedadId]="propiedadId"></app-comentario-propiedad>
 </div>
 
 <app-modal #solicitudRenta>

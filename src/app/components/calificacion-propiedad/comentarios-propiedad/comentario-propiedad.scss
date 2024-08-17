@@ -1,0 +1,101 @@
+.table-wrapper {
+    box-shadow: 1px 1px 10px 1px #cbcdcf;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-bottom: 1rem;
+}
+
+.fa{
+    color:#01c38e;
+}
+
+.fa:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity ease 150ms;
+}
+
+.icon-blue {
+    color: #132d46;
+}
+
+.icon-trash {
+    margin-left: 20px;
+    color: rgba(255, 0, 0, 0.733);
+}
+
+.search-bar {
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 1px 1px 10px 1px #cbcdcf;
+    border-radius: 4px;
+}
+
+.delete-wrapper {
+    padding-bottom: 20px;
+}
+
+.delete-success {
+    color: green;
+    padding-top: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.rating-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.rating-list li {
+    display: inline;
+    font-size: 1.5rem;
+    color: #f5c518;
+    cursor: pointer;
+    transition: color 150ms ease;
+}
+
+.rating-list li.selected {
+    color: #f5a623;
+}
+
+.comment-container {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 1px 1px 10px 1px #cbcdcf;
+}
+
+.comment-container h2 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #132d46;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+}
+
+button:hover {
+    background-color: #0e1b2a;
+}
