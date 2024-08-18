@@ -1,6 +1,6 @@
 <div class="recorrido-header">
   <h1 class="recorrido-result__title">Recorrido 3D Creado</h1>
-  <button class="btn-eliminar-recorrido3d" (click)="eliminarRecorrido3D()">
+  <button class="btn-eliminar-recorrido3d" *ngIf="this.esPropietario" (click)="eliminarRecorrido3D()">
     <i class="fas fa-trash-alt"></i>
     Eliminar Recorrido 3D
   </button>

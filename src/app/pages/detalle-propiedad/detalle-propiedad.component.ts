@@ -91,11 +91,22 @@ export class PropiedadDetalleComponent implements OnInit{
     const user = localStorage.getItem('auth_user');
     if (user) {
       this.currentUserId = JSON.parse(user)?.id;
+      this.checkEsPropietario();
     }
   }
 
-  private checkEsPropietario(): void {
-    this.esPropietario = this.currentUserId === this.propiedad.user?.id;
+  // private checkEsPropietario(): void {
+  //   this.esPropietario = this.currentUserId === this.propiedad.user?.id;
+  // }
+
+  private checkEsPropietario(): void{
+    if (this.currentUserId !== null && this.propiedad) {
+      const nuevoEsPropietario = this.currentUserId === this.propiedad.user?.id;
+      if (this.esPropietario !== nuevoEsPropietario) {
+        this.esPropietario = nuevoEsPropietario;
+        console.log('Es propietario actualizado:', this.esPropietario);
+      }
+    }
   }
 
   private updateButtonStates(): void {

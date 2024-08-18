@@ -21,6 +21,7 @@ declare const pannellum: any;
 export class Recorrido3dVisorComponent implements OnInit, OnChanges {
   @ViewChild('panorama', { static: false }) panoramaElement!: ElementRef;
   @Input() recorrido3d: IRecorrido3D | null = null;
+  @Input() esPropietario: boolean = false;
   @Output() panoramaCargado: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() recorrido3dEliminado: EventEmitter<void> = new EventEmitter<void>();
 
@@ -81,7 +82,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
       const puntosInteres = puntoInteresService.puntoInteresList$();
       this.puntosInteresList = puntosInteres;
       this.puntosInteresReadySubject.next(true);
-      console.log("this.puntosInteresList", this.puntosInteresList);
     });
 
     combineLatest([
@@ -98,7 +98,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     ).subscribe(sceneId => {
       this.handleSceneChange(sceneId);
     });
-
   }
 
   ngOnInit() {
@@ -109,6 +108,10 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['recorrido3d']) {
       this.loadRecorrido3d();
+    }
+
+    if (changes['esPropietario']) {
+      console.log('esPropietario ha cambiado:', this.esPropietario);
     }
   }
 
@@ -231,7 +234,7 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
           this.viewer.on('load', () => {
             this.ngZone.run(() => {
               this.currentSceneId = this.viewer.getScene();
-              console.log('Pannellum loaded, currentSceneId:', this.currentSceneId);
+              // console.log('Pannellum loaded, currentSceneId:', this.currentSceneId);
               this.setPanoramaReady(true);
               this.loadExistingPuntosInteres();
               this.cdr.detectChanges();
@@ -299,7 +302,7 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     const mouseUpTime = new Date().getTime();
     const timeDiff = mouseUpTime - this.mouseDownTime;
 
-    if (!this.hasMoved && timeDiff < 200 && !this.isFullscreen) {
+    if (!this.hasMoved && timeDiff < 200 && !this.isFullscreen && this.esPropietario) {
       this.handleClick(event);
     }
 
@@ -322,7 +325,7 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
           escenaId: this.currentSceneId
         };
 
-        console.log('Click handled, formData:', this.formData);
+        // console.log('Click handled, formData:', this.formData);
 
         const rect = this.panoramaElement.nativeElement.getBoundingClientRect();
         this.clickPosition = {
@@ -361,7 +364,7 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     this.isChangingScene = true;
 
     this.ngZone.run(() => {
-      console.log('Handling scene change to:', sceneId);
+      // console.log('Handling scene change to:', sceneId);
       this.currentSceneId = sceneId;
       
       // Wrap in a setTimeout to ensure it runs after current change detection cycle
@@ -375,7 +378,7 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
 
   changeScene(sceneId: string): void {
     if (this.viewer && typeof sceneId === 'string' && !this.isChangingScene) {
-      console.log('Changing scene to:', sceneId);
+      // console.log('Changing scene to:', sceneId);
       this.viewer.loadScene(sceneId);
     }
   }
@@ -459,23 +462,44 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
   //   hotSpotDiv.appendChild(tooltipSpan);
   // }
 
+  // addHotspotToViewer(punto: IPuntoInteres) {
+  //   if (punto.posicionX !== undefined && punto.posicionY !== undefined && punto.puntoInteresId !== undefined) {
+  //     const hotspotId = `puntoInteres_${punto.puntoInteresId}`;
+  //     this.viewer.addHotSpot({
+  //       pitch: punto.posicionX,
+  //       yaw: punto.posicionY,
+  //       cssClass: "custom-hotspot",
+  //       createTooltipFunc: this.createTooltip,
+  //       createTooltipArgs: punto.nombre || "Sin nombre",
+  //       id: hotspotId,
+  //       clickHandlerFunc: (event: any) => this.onHotspotClick(event, punto)
+  //     });
+  //     console.log(`Hotspot añadido: ${hotspotId} en (${punto.posicionX}, ${punto.posicionY})`);
+  //     this.currentHotspotIds.push(hotspotId);
+  //   }
+  // }
   addHotspotToViewer(punto: IPuntoInteres) {
     if (punto.posicionX !== undefined && punto.posicionY !== undefined && punto.puntoInteresId !== undefined) {
       const hotspotId = `puntoInteres_${punto.puntoInteresId}`;
-      this.viewer.addHotSpot({
+      const hotspotConfig: any = {
         pitch: punto.posicionX,
         yaw: punto.posicionY,
         cssClass: "custom-hotspot",
         createTooltipFunc: this.createTooltip,
         createTooltipArgs: punto.nombre || "Sin nombre",
         id: hotspotId,
-        clickHandlerFunc: (event: any) => this.onHotspotClick(event, punto)
-      });
+      };
+  
+      // Solo añadir el clickHandlerFunc si esPropietario es true
+      if (this.esPropietario) {
+        hotspotConfig.clickHandlerFunc = (event: any) => this.onHotspotClick(event, punto);
+      }
+  
+      this.viewer.addHotSpot(hotspotConfig);
       console.log(`Hotspot añadido: ${hotspotId} en (${punto.posicionX}, ${punto.posicionY})`);
       this.currentHotspotIds.push(hotspotId);
     }
   }
-  
   private createTooltip(hotSpotDiv: HTMLElement, tooltipArg: string) {
     hotSpotDiv.classList.add('custom-hotspot');
     const tooltipSpan = document.createElement('span');
@@ -553,7 +577,7 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     if (this.formData && this.recorrido3d) {
       // Asegurarse de que el escenaId esté actualizado justo antes de mostrar el formulario
       this.formData.escenaId = this.currentSceneId;
-      console.log('Confirmando añadir punto de interés, formData:', this.formData);
+      // console.log('Confirmando añadir punto de interés, formData:', this.formData);
       this.showPuntoInteresForm = true;
       this.cdr.detectChanges();
     } else {

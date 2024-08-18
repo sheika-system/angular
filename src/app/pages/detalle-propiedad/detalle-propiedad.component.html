@@ -90,6 +90,7 @@
 <div class="container recorrido3d-visor-container" [@slideInOut]="verVisorRecorrido3D">
   <app-recorrido3d-visor *ngIf="verVisorRecorrido3D"
     [recorrido3d]="this.recorrido3d"
+    [esPropietario]="this.esPropietario"
     (panoramaCargado)="mostrarPanorama($event)"
     (recorrido3dEliminado)="manejarEliminacionRecorrido3D()">
   </app-recorrido3d-visor>
