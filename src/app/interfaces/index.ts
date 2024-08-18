@@ -187,3 +187,12 @@ export interface ICurrency {
   viewValue: string
 
 }
+
+export interface IPuntoInteres {
+  puntoInteresId?: number,
+  nombre?: string,
+  posicionX?: number,
+  posicionY?: number,
+  recorrido3dId?: number,
+  escenaId: string;
+}

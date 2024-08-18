@@ -1,0 +1,9 @@
+<div class="punto-interes-info" [style.left.px]="position?.x" [style.top.px]="position?.y">
+    <h3>{{ puntoInteres.nombre }}</h3>
+    <p>Posición: ({{ puntoInteres.posicionX?.toFixed(2) }}, {{ puntoInteres.posicionY?.toFixed(2) }})</p>
+    <p>Escena: {{ puntoInteres.escenaId }}</p>
+    
+    <div class="actions">
+      <button (click)="onDelete()">Eliminar</button>
+    </div>
+  </div>
