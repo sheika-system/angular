@@ -62,7 +62,7 @@
                   class="btn btn-secondary me-2" 
                   (click)="toggleRecorrido3DForm()"
                   [disabled]="verRecorrido3dFormInvalid">
-                  Registrar Tour 3D
+                  Registrar Recorrido 3D
                 </button>
             }
 
@@ -70,7 +70,7 @@
                 class="btn btn-info" 
                 (click)="toggleVisorRecorrido3D()"
                 [disabled]="verRecorrido3dInvalid">
-            Ver Tour 3D
+            Ver Recorrido 3D
             </button>
         </div>
     </div>
@@ -80,14 +80,14 @@
 </div>
 <br/>
 <br/>
-<div class="container recorrido3d-form-container" [@slideInOut]="verRecorrido3DForm">
+<div class="container recorrido3d-form-container" [@slideInOut]="verRecorrido3DForm" #recorrido3DForm>
   <app-recorrido3d-form *ngIf="verRecorrido3DForm"
     [propiedadId]="propiedadId"
     (generateRecorrido3d)="mostrarRecorrido3dCreado($event)">
   </app-recorrido3d-form>
 </div>
 
-<div class="container recorrido3d-visor-container" [@slideInOut]="verVisorRecorrido3D">
+<div class="container recorrido3d-visor-container" [@slideInOut]="verVisorRecorrido3D" #recorrido3DVisor>
   <app-recorrido3d-visor *ngIf="verVisorRecorrido3D"
     [recorrido3d]="this.recorrido3d"
     [esPropietario]="this.esPropietario"

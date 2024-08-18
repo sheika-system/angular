@@ -23,12 +23,10 @@ export class PuntointeresFormComponent implements OnChanges, OnInit  {
   private puntoInteresService = inject(PuntoInteresService);
 
   ngOnInit() {
-    console.log('PuntointeresFormComponent inicializado con escenaId:', this.escenaId);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['escenaId']) {
-      console.log('Escena ID actualizada en PuntointeresFormComponent:', this.escenaId);
     }
   }
 
@@ -42,11 +40,8 @@ export class PuntointeresFormComponent implements OnChanges, OnInit  {
         escenaId: this.escenaId
       };
 
-      console.log('Guardando punto de interés:', newPuntoInteres);
-
       this.puntoInteresService.savePuntoInteresSignal(newPuntoInteres).subscribe({
         next: (savedPuntoInteres) => {
-          console.log('Punto de interés guardado:', savedPuntoInteres);
           this.puntoInteresAdded.emit(savedPuntoInteres);
           this.resetForm();
         },

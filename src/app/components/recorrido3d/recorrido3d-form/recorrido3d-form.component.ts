@@ -56,7 +56,6 @@ export class Recorrido3dFormComponent {
       .subscribe({
         next: (response) => {
           this.recorrido3d = response;
-          console.log('Recorrido 3D creado:', this.recorrido3d);
           if(this.recorrido3d !== null){
             this.generateRecorrido3d.emit(response);
           }else{

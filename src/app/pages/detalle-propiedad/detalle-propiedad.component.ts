@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, effect, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PropiedadService } from '../../services/propiedad.service';
 import { IPropiedad, IImagen, IRecorrido3D } from '../../interfaces';
@@ -38,6 +38,9 @@ import { Recorrido3dService } from '@app/services/recorrido3d.service';
   ]
 })
 export class PropiedadDetalleComponent implements OnInit{
+  @ViewChild('recorrido3DForm') recorrido3DFormElement!: ElementRef;
+  @ViewChild('recorrido3DVisor') recorrido3DVisorElement!: ElementRef;
+  
   protected propiedadId: number;
   recorrido3d: IRecorrido3D | null = null;
   listaImagenes: IImagen[] = [];
@@ -104,7 +107,6 @@ export class PropiedadDetalleComponent implements OnInit{
       const nuevoEsPropietario = this.currentUserId === this.propiedad.user?.id;
       if (this.esPropietario !== nuevoEsPropietario) {
         this.esPropietario = nuevoEsPropietario;
-        console.log('Es propietario actualizado:', this.esPropietario);
       }
     }
   }
@@ -120,17 +122,42 @@ export class PropiedadDetalleComponent implements OnInit{
     }
   }
 
+  // toggleRecorrido3DForm(): void {
+  //   if (!this.verRecorrido3dFormInvalid) {
+  //     this.verVisorRecorrido3D = false;
+  //     this.verRecorrido3DForm = !this.verRecorrido3DForm;
+  //   }
+  // }
+
   toggleRecorrido3DForm(): void {
     if (!this.verRecorrido3dFormInvalid) {
       this.verVisorRecorrido3D = false;
       this.verRecorrido3DForm = !this.verRecorrido3DForm;
+      if (this.verRecorrido3DForm) {
+        setTimeout(() => this.scrollToElement(this.recorrido3DFormElement), 300);
+      }
     }
   }
 
+  // toggleVisorRecorrido3D(): void {
+  //   if (!this.verRecorrido3dInvalid) {
+  //     this.verRecorrido3DForm = false;
+  //     this.verVisorRecorrido3D = !this.verVisorRecorrido3D;
+  //   }
+  // }
   toggleVisorRecorrido3D(): void {
     if (!this.verRecorrido3dInvalid) {
       this.verRecorrido3DForm = false;
       this.verVisorRecorrido3D = !this.verVisorRecorrido3D;
+      if (this.verVisorRecorrido3D) {
+        setTimeout(() => this.scrollToElement(this.recorrido3DVisorElement), 300);
+      }
+    }
+  }
+
+  private scrollToElement(elementRef: ElementRef): void {
+    if (elementRef && elementRef.nativeElement) {
+      elementRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
@@ -142,7 +169,6 @@ export class PropiedadDetalleComponent implements OnInit{
 
   mostrarPanorama(panoramaReady: boolean){
     this.panoramaReady = panoramaReady
-    // console.log("this.panoramaReady", this.panoramaReady);
   }
 
   mostrarRecorrido3dCreado(recorrido3d: IRecorrido3D) {
@@ -150,6 +176,9 @@ export class PropiedadDetalleComponent implements OnInit{
       this.recorrido3d = recorrido3d;
       this.recorrido3dService.setRecorrido3d(recorrido3d); // Asegúrate de que este método exista en tu servicio
       this.verVisorRecorrido3D = true;
+      if (this.verVisorRecorrido3D) {
+        setTimeout(() => this.scrollToElement(this.recorrido3DVisorElement), 300);
+      }
       // Asegúrate de que el estado se actualice completamente antes de mostrar el visor
       setTimeout(() => {
         this.updateButtonStates();

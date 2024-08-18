@@ -7,14 +7,13 @@ import { ImagenService } from '@app/services/imagen.service';
 import { PuntoInteresService } from '@app/services/punto-interes.service';
 import { Recorrido3dService } from '@app/services/recorrido3d.service';
 import { PuntointeresFormComponent } from "../../punto-interes/puntointeres-form/puntointeres-form.component";
-import { PuntointeresInfoComponent } from "../../punto-interes/puntointeres-info/puntointeres-info.component";
 
 declare const pannellum: any;
 
 @Component({
   selector: 'app-recorrido3d-visor',
   standalone: true,
-  imports: [CommonModule, FormsModule, PuntointeresFormComponent, PuntointeresInfoComponent],
+  imports: [CommonModule, FormsModule, PuntointeresFormComponent],
   templateUrl: './recorrido3d-visor.component.html',
   styleUrl: './recorrido3d-visor.component.scss'
 })
@@ -111,7 +110,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     }
 
     if (changes['esPropietario']) {
-      console.log('esPropietario ha cambiado:', this.esPropietario);
     }
   }
 
@@ -148,7 +146,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
       this.loadImagenesRecorrido3d(this.recorrido3d.recorrido3dId);
       this.loadPuntosInteresRecorrido(this.recorrido3d.recorrido3dId);
     } else {
-      console.log("No existe Recorrido 3D registrado previamente.");
       this.recorridoExiste = false;
       this.setPanoramaReady(false);
       this.resetViewer();
@@ -177,46 +174,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     this.imagenesRecorrido3d = [];
   }
 
-  // initPanellum(): void {
-  //   this.ngZone.runOutsideAngular(() => {
-  //     if (this.recorrido3d && this.recorrido3d.archivoRecorrido && this.imagenesRecorrido3d.length > 0) {
-  //       try {
-  //         this.tourConfig = JSON.parse(this.recorrido3d.archivoRecorrido) as TourConfig;
-  //         const pannellumConfig = this.createPannellumConfig();
-          
-  //         if (this.viewer) {
-  //           this.viewer.destroy();
-  //         }
-          
-  //         this.viewer = pannellum.viewer('panorama', pannellumConfig);
-  //         this.initializePannellumEvents();
-          
-  //         this.viewer.on('load', () => {
-  //           this.ngZone.run(() => {
-  //             this.currentSceneId = this.viewer.getScene();
-  //             console.log('Pannellum loaded, currentSceneId:', this.currentSceneId);
-  //             this.setPanoramaReady(true);
-  //             this.loadExistingPuntosInteres();
-  //             this.cdr.detectChanges();
-  //           });
-  //         });
-
-  //         this.viewer.on('scenechange', (sceneId: string) => {
-  //           this.ngZone.run(() => {
-  //             this.currentSceneId = sceneId;
-  //             console.log('Scene changed to:', this.currentSceneId);
-  //             this.loadExistingPuntosInteres();
-  //             this.cdr.detectChanges();
-  //           });
-  //         });
-  //       } catch (error) {
-  //         console.error('Error al inicializar Pannellum:', error);
-  //         this.setPanoramaReady(false);
-  //       }
-  //     }
-  //   });
-  // }
-
   initPanellum(): void {
     this.ngZone.runOutsideAngular(() => {
       if (this.recorrido3d && this.recorrido3d.archivoRecorrido && this.imagenesRecorrido3d.length > 0) {
@@ -234,7 +191,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
           this.viewer.on('load', () => {
             this.ngZone.run(() => {
               this.currentSceneId = this.viewer.getScene();
-              // console.log('Pannellum loaded, currentSceneId:', this.currentSceneId);
               this.setPanoramaReady(true);
               this.loadExistingPuntosInteres();
               this.cdr.detectChanges();
@@ -325,8 +281,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
           escenaId: this.currentSceneId
         };
 
-        // console.log('Click handled, formData:', this.formData);
-
         const rect = this.panoramaElement.nativeElement.getBoundingClientRect();
         this.clickPosition = {
           pitch: coords[0],
@@ -346,25 +300,14 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     });
   }
 
-  // handleSceneChange(sceneId: string): void {
-  //   this.ngZone.run(() => {
-  //     this.currentSceneId = sceneId;
-  //     console.log('Scene change handled:', this.currentSceneId);
-  //     this.loadExistingPuntosInteres();
-  //     this.cdr.detectChanges();
-  //   });
-  // }
-
   private handleSceneChange(sceneId: string): void {
     if (this.isChangingScene) {
-      console.log('Scene change already in progress, ignoring:', sceneId);
       return;
     }
 
     this.isChangingScene = true;
 
     this.ngZone.run(() => {
-      // console.log('Handling scene change to:', sceneId);
       this.currentSceneId = sceneId;
       
       // Wrap in a setTimeout to ensure it runs after current change detection cycle
@@ -378,7 +321,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
 
   changeScene(sceneId: string): void {
     if (this.viewer && typeof sceneId === 'string' && !this.isChangingScene) {
-      // console.log('Changing scene to:', sceneId);
       this.viewer.loadScene(sceneId);
     }
   }
@@ -424,60 +366,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     }
   }
 
-  // addHotspotToViewer(punto: IPuntoInteres) {
-  //   if (punto.posicionX !== undefined && punto.posicionY !== undefined && punto.puntoInteresId !== undefined) {
-  //     const hotspotId = `puntoInteres_${punto.puntoInteresId}`;
-  //     this.viewer.addHotSpot({
-  //       pitch: punto.posicionX,
-  //       yaw: punto.posicionY,
-  //       text: punto.nombre,
-  //       id: `puntoInteres_${punto.puntoInteresId}`,
-  //       clickHandlerFunc: (event: any) => this.onHotspotClick(event, punto)
-  //     });
-  //     this.currentHotspotIds.push(hotspotId);
-  //   }
-  // }
-
-  // addHotspotToViewer(punto: IPuntoInteres) {
-  //   if (punto.posicionX !== undefined && punto.posicionY !== undefined && punto.puntoInteresId !== undefined) {
-  //     const hotspotId = `puntoInteres_${punto.puntoInteresId}`;
-  //     this.viewer.addHotSpot({
-  //       pitch: punto.posicionX,
-  //       yaw: punto.posicionY,
-  //       cssClass: "custom-hotspot",
-  //       createTooltipFunc: this.createTooltip,
-  //       createTooltipArgs: punto.nombre || "Sin nombre",
-  //       id: hotspotId,
-  //     });
-  //     console.log(`Añadiendo hotspot personalizado: ${hotspotId} en (${punto.posicionX}, ${punto.posicionY})`);
-  //     this.currentHotspotIds.push(hotspotId);
-  //   }
-  // }
-  
-  // private createTooltip(hotSpotDiv: HTMLElement, tooltipArg: string) {
-  //   hotSpotDiv.classList.add('custom-hotspot');
-  //   const tooltipSpan = document.createElement('span');
-  //   tooltipSpan.classList.add('hotspot-tooltip');
-  //   tooltipSpan.textContent = tooltipArg;
-  //   hotSpotDiv.appendChild(tooltipSpan);
-  // }
-
-  // addHotspotToViewer(punto: IPuntoInteres) {
-  //   if (punto.posicionX !== undefined && punto.posicionY !== undefined && punto.puntoInteresId !== undefined) {
-  //     const hotspotId = `puntoInteres_${punto.puntoInteresId}`;
-  //     this.viewer.addHotSpot({
-  //       pitch: punto.posicionX,
-  //       yaw: punto.posicionY,
-  //       cssClass: "custom-hotspot",
-  //       createTooltipFunc: this.createTooltip,
-  //       createTooltipArgs: punto.nombre || "Sin nombre",
-  //       id: hotspotId,
-  //       clickHandlerFunc: (event: any) => this.onHotspotClick(event, punto)
-  //     });
-  //     console.log(`Hotspot añadido: ${hotspotId} en (${punto.posicionX}, ${punto.posicionY})`);
-  //     this.currentHotspotIds.push(hotspotId);
-  //   }
-  // }
   addHotspotToViewer(punto: IPuntoInteres) {
     if (punto.posicionX !== undefined && punto.posicionY !== undefined && punto.puntoInteresId !== undefined) {
       const hotspotId = `puntoInteres_${punto.puntoInteresId}`;
@@ -496,7 +384,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
       }
   
       this.viewer.addHotSpot(hotspotConfig);
-      console.log(`Hotspot añadido: ${hotspotId} en (${punto.posicionX}, ${punto.posicionY})`);
       this.currentHotspotIds.push(hotspotId);
     }
   }
@@ -517,9 +404,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
   }
 
   showDeleteConfirmDialog() {
-    // Implementa la lógica para mostrar un diálogo de confirmación
-    // Puedes usar un servicio de diálogo o un componente de modal
-    // Por ahora, usaremos un simple confirm de JavaScript
     if (confirm('¿Estás seguro de que quieres eliminar este punto de interés?')) {
       this.deletePuntoInteres();
     }
@@ -577,7 +461,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     if (this.formData && this.recorrido3d) {
       // Asegurarse de que el escenaId esté actualizado justo antes de mostrar el formulario
       this.formData.escenaId = this.currentSceneId;
-      // console.log('Confirmando añadir punto de interés, formData:', this.formData);
       this.showPuntoInteresForm = true;
       this.cdr.detectChanges();
     } else {
