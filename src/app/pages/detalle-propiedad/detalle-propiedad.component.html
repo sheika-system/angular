@@ -57,6 +57,10 @@
             @if(propiedad.disponibilidad) {
                 <button class="btn btn-propietario me-2">Contactar Propietario</button>
             }
+            
+        </div>
+        <br/>
+        <div class="d-flex align-items-center">
             @if(esPropietario) {
                 <button 
                   class="btn btn-secondary me-2" 
@@ -67,7 +71,7 @@
             }
 
             <button 
-                class="btn btn-info" 
+                class="btn btn-secondary me-2" 
                 (click)="toggleVisorRecorrido3D()"
                 [disabled]="verRecorrido3dInvalid">
             Ver Recorrido 3D
