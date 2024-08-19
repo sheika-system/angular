@@ -1,0 +1,37 @@
+.table-wrapper {
+    box-shadow: 1px 1px 10px 1px #cbcdcf;
+}
+
+.fa:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity ease 150ms;
+}
+
+.icon-blue {
+    color: #132d46;
+}
+
+.icon-trash {
+    margin-left: 20px;
+    color: rgba(255, 0, 0, 0.733);
+}
+
+.delete-wrapper {
+    padding-bottom: 20px;
+    margin: 10%;
+}
+
+.delete-success {
+    color: green;
+    padding-top: 15px;
+}
+
+.btn-green {
+    background-color: #01c38e;
+    color: white;
+    margin-right: 50px;
+  }
+.btn-green:hover {
+    background-color: #01916a;
+  }

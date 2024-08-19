@@ -1,0 +1,50 @@
+<div class="table-wrapper">
+  <table mat-table [dataSource]="mensajeList" matSort matSortActive="id" matSortDirection="asc">
+
+    <ng-container matColumnDef="emisor">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>De</th>
+      <td mat-cell *matCellDef="let row">{{row.emisor.nombre}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="texto">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Contenido</th>
+      <td mat-cell *matCellDef="let row">{{row.texto}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <button type="button" class="btn btn-green" (click)="showModal(row, MsjModal)">Responder</button>
+        <i class="fa fa-trash fa-xl icon-blue icon-trash" (click)="showDelete(row, deleteModal)"></i>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+  <mat-paginator [pageSize]="8" [pageSizeOptions]="[5, 8, 10, 15, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+<app-modal #deleteModal>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="delete-wrapper">
+      <h1>
+        <span class="text-danger"><strong>¿ Quieres borrar el mensaje de {{mensaje.emisor?.nombre}} ?</strong></span>
+      </h1>
+      <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-danger" (click)="deleteMensaje(mensaje)"><i class="fa-solid fa-trash fa-l"></i>&nbsp;&nbsp;Borrar</button>
+      </div>
+      <div *ngIf="successStatus" class="d-flex justify-content-center align-items-center">
+        <p class="delete-success">{{successMessage}}</p>
+      </div>
+    </div>
+  </div>
+</app-modal>
+
+<app-modal #MsjModal size="lg">
+  <app-form-mensajes
+    [name]="mensaje.emisor?.nombre"
+    [emisor]="mensaje.receptor?.id"
+    [receptor]="mensaje.emisor?.id">
+  </app-form-mensajes>
+</app-modal>

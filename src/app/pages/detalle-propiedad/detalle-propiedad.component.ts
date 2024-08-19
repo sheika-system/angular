@@ -1,7 +1,7 @@
 import { Component, effect, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropiedadService } from '../../services/propiedad.service';
-import { IPropiedad, IImagen, IFeedBackMessage, IFeedbackStatus, IUser, IRenta  } from '../../interfaces';
+import { IPropiedad, IImagen, IFeedBackMessage, IFeedbackStatus, IUser, IRenta, IMensaje  } from '../../interfaces';
 import { ImagenComponent } from '../../components/imagen/imagen.component';
 import { ImagenModalComponent } from '../../components/imagen/imagen-modal/imagen-modal.component';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { RentaService } from '../../services/renta.service';
 import { FormPropiedadComponent } from "../../components/propiedad/form-propiedad/form-propiedad.component";
 import { ImagenService } from '../../services/imagen.service';
 import { UserService } from '../../services/user.service';
+import { FormMensajesComponent } from "../../components/mensajes/form-mensajes/form-mensajes.component";
 
 @Component({
   selector: 'app-propiedad',
@@ -25,7 +26,9 @@ import { UserService } from '../../services/user.service';
     ModalComponent,
     FormPropiedadComponent,
     ReactiveFormsModule,
-    FormsModule],
+    FormsModule,
+    FormMensajesComponent
+],
   templateUrl: './detalle-propiedad.component.html',
   styleUrl: './detalle-propiedad.component.scss'
 })
@@ -60,32 +63,18 @@ export class PropiedadDetalleComponent implements OnInit{
 
     if(user) {
       this.currentUserId = parseInt(String(JSON.parse(user)?.id));
-    }
-    console.log("CurrentUser: " + this.currentUserId, " id: " + this.id)
-
-    const userId = this.id;
-    if (userId) {
-      this.userService.getByIdSignal(userId);
-      effect(() => {
-        this.user = this.userService.user$();
-      })
-    } else {
-      console.error('El ID no es un número o el usuario no existe');
-    }
-
-    this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
-    
-
-    if(user) {
       this.userId = parseInt(JSON.parse(user).id);
     }
-
-        try {
-            this.service.getByIdSignal(this.propiedadId);
-            effect(() => {
-                this.propiedad = this.service.propiedad$();
-                console.log(this.propiedad);
-                this.id = this.propiedad.user?.id
+    
+    this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
+    
+    try {
+      this.service.getByIdSignal(this.propiedadId);
+      effect(() => {
+        this.propiedad = this.service.propiedad$();
+        console.log(this.propiedad);
+        this.id = this.propiedad.user?.id
+        console.log("CurrentUser: " + this.currentUserId, " id: " + this.id)
             });
         } catch (error) {
             console.error("El id no está en un formato correcto o no existe: " + error);
@@ -170,7 +159,6 @@ showModal(modal: any) {
         error: (error: any) => {
           this.feedbackMessage.type = IFeedbackStatus.error;
           this.feedbackMessage.message = error.message;
-          console.log(this.propiedad);
         }
       });       
     }
@@ -178,6 +166,10 @@ showModal(modal: any) {
 
   showDetail(propiedad: IPropiedad, modal: any) {
     propiedad = this.propiedad;
+    modal.show();
+  }
+
+  showMsj(modal: any) {
     modal.show();
   }
 

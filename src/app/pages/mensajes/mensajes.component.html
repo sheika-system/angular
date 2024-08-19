@@ -1,0 +1,15 @@
+<div class="users-container">
+    <div class="d-flex">
+      <h1 class="texto-blue">
+        <strong>Listado de Mensajes</strong>
+      </h1>
+    </div>
+    <hr>
+    <div class="table-container">
+      @defer {
+        <app-list-mensajes></app-list-mensajes>
+      } @loading (after 100ms; minimum 1s){
+        <app-loader></app-loader>
+      }
+    </div>
+  </div>

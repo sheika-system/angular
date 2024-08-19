@@ -23,6 +23,7 @@ import { TokenExpiredComponent } from './pages/token-expired/token-expired.compo
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RentasComponent } from './pages/rentas/rentas.component';
 import { ListaComponent } from './components/renta/lista/lista.component';
+import { MensajesComponent } from './pages/mensajes/mensajes.component';
 
 
 
@@ -203,6 +204,18 @@ export const routes: Routes = [
             IRole.admin,
             IRole.superAdmin,
           ]
+        }
+      },
+      {
+        path: 'mensajes',
+        component: MensajesComponent,
+        data: { 
+          authorities: [
+            IRole.admin,
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'mensajes'
         }
       }
     ],
