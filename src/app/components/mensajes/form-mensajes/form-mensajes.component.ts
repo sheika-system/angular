@@ -17,6 +17,7 @@ export class FormMensajesComponent {
   @Input() name: string | undefined;
   public sendSuccess!: boolean;
   public sendFailed!: boolean;
+  public maxLength!: boolean;
 
   mensajeForm!: FormGroup;
   private mensajeService = inject(MensajesService);
@@ -31,29 +32,34 @@ export class FormMensajesComponent {
   onSubmit(): void {
     if (this.mensajeForm) {
       if(String(this.mensajeForm.value.contenido) !== "") {
-        const mensaje: IMensaje = {
-          emisor: {
-            id: this.emisor
-          },
-          receptor: {
-            id: this.receptor
-          },
-          texto: String(this.mensajeForm.value.contenido),
-        };
-        this.sendSuccess = true;
-        this.sendFailed = false
-        console.log(mensaje)
-  
-        this.mensajeService.add(mensaje).subscribe({
-          next: () => {
-            this.enviado = true;
-            this.mensajeForm.reset();
-            setTimeout(() => {
-              location.reload();
-            }, 3000);
-          },
-          error: (err: any) => console.error('Error enviando mensaje:', err)
-        });
+        if(String(this.mensajeForm.value.contenido).length < 255) {
+          const mensaje: IMensaje = {
+            emisor: {
+              id: this.emisor
+            },
+            receptor: {
+              id: this.receptor
+            },
+            texto: String(this.mensajeForm.value.contenido),
+          };
+          this.sendSuccess = true;
+          this.sendFailed = false;
+          this.maxLength = false;
+          console.log(mensaje)
+    
+          this.mensajeService.add(mensaje).subscribe({
+            next: () => {
+              this.enviado = true;
+              this.mensajeForm.reset();
+              setTimeout(() => {
+                location.reload();
+              }, 3000);
+            },
+            error: (err: any) => console.error('Error enviando mensaje:', err)
+          });
+        } else {
+          this.maxLength = true
+        }
       } else {
         this.sendFailed = true;
       } 
