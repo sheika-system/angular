@@ -1,5 +1,6 @@
 .table-wrapper {
     box-shadow: 1px 1px 10px 1px #cbcdcf;
+    overflow-x: auto;
 }
 
 .fa:hover {
@@ -34,4 +35,19 @@
   }
 .btn-green:hover {
     background-color: #01916a;
+  }
+
+  th, td {
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    padding: 8px 16px;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .table-wrapper table {
+      width: 100%; /* Asegura que la tabla ocupe todo el ancho en pantallas pequeñas */
+    }
+  
+    .table-wrapper th, .table-wrapper td {
+      padding: 8px 12px; /* Reduce el padding para pantallas pequeñas */
+    }
   }

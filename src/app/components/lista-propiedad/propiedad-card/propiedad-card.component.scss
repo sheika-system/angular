@@ -127,8 +127,8 @@
   }
 
   .btn-style {
-    margin-left: 140px;}
-    
+    margin-left: 140px;
+  }
   .text-wrapper {
     padding: 0px 35px;
     text-align: center;
@@ -146,6 +146,7 @@
 
   .trash-icon {
     color: grey;
+    font-size: 1.1rem; 
   }
 
   .delete-wrapper {
@@ -158,4 +159,32 @@
 }
 .margin {
   margin: 5%;
+}
+
+
+
+@media screen and (max-width: 800px) {
+  .btn-style {
+    margin-left: 0; /* Elimina el margen para centrar el botón en pantallas pequeñas */
+    margin-top: 10px; /* Añade un margen superior si es necesario */
+  }
+
+  .trash-icon {
+    font-size: 1.2rem; /* Reduce el tamaño del icono */
+  }
+
+  .btn {
+    padding: 8px 12px; /* Reduce el padding del botón */
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .btn-style {
+    width: 100%; /* Hace que el botón ocupe toda la fila */
+    margin: 5px 0; /* Añade un margen superior e inferior */
+  }
+
+  .trash-icon {
+    font-size: 1rem; /* Ajuste adicional para pantallas pequeñas */
+  }
 }
