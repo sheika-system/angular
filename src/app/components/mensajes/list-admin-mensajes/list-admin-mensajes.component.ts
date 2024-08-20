@@ -59,7 +59,7 @@ export class ListAdminMensajesComponent {
 
   mensaje: IMensaje = {};
 
-  columnsToDisplay = ['emisor', 'texto', 'acciones'];
+  columnsToDisplay = ['id','receptor','emisor', 'texto', 'acciones'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

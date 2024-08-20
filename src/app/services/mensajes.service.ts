@@ -41,7 +41,9 @@ getAllSignal() {
   this.findAll().subscribe({
       next: (response: any) => {
           response.reverse();
-          this.mensajesListSignal.set(response);
+          if (JSON.stringify(this.mensajesListSignal()) !== JSON.stringify(response)) {
+            this.mensajesListSignal.set(response);
+          }
       },
       error: (error: any) => {
           console.error('Error fetching mensajes', error);
