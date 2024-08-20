@@ -135,6 +135,8 @@
 .propiedad-edit {
     margin-left: 25px;
     color: #132d46;
+    
+
 }
 
 .propiedad-edit:hover {
@@ -155,10 +157,17 @@
     height: 100%;
     overflow-y: auto;
   }
+
+  .edit-btns{
+    width: 40px;
+    margin-bottom: 10px;
+  }
   
   .img-edit {
-    margin-left: 900px;
-    width: 40px;
+    width: 32px;
+    margin-top: 10px;
+    
+    
   }
 
   .button-container {

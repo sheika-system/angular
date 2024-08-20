@@ -70,9 +70,14 @@
                 <button class="btn btn-rentar" (click)="showModal(solicitudRenta)">Rentar</button>
                 <button class="btn btn-propietario" (click)="showMsj(MsjModal)">Contactar Propietario</button>
             }
-            <button class="btn btn-propietario">Ver Tour 3D</button>
-            <div *ngIf="id === currentUserId">
+            
+        
+            
+            
+            
+            <div *ngIf="id === currentUserId" class="edit-btns">
                 <i class="fa-solid fa-pen-to-square fa-2xl propiedad-edit" (click)="showDetail(propiedad, formModal)"></i>
+                <img class="fa-solid fa-2xl propiedad-edit img-edit" src="../../../assets/icons/editar-imagen.png" (click)="showImg(listaImagenes, imgModal)" alt="edit" />
             </div>
         </div>
         <div class="d-flex align-items-center">
@@ -90,6 +95,13 @@
                 (click)="toggleVisorRecorrido3D()"
                 [disabled]="verRecorrido3dInvalid">
             Ver Recorrido 3D
+            </button>
+
+            <button 
+                class="btn btn-secondary me-2" 
+                (click)="toggleVisorComents()"
+                [disabled]="verComentsInvalid">
+            Ver Comentarios
             </button>
         </div>
     </div>
@@ -113,7 +125,7 @@
   </div>
   
 
-<div class="coments">
+<div class="coments" [@slideInOut]="verComents" #coments>
 <h3>
     <strong>Comentarios y calificaciones: </strong>
     <button class="btn btn-calificar" (click)="calificarPropiedad(CalificacionPropiedad)">
@@ -163,14 +175,6 @@
     </div>
 </app-modal>
            
-<div class="padding-left">
-    <div class="button-container">
-        <div *ngIf="id === currentUserId">
-            <img class="fa-solid fa-2xl propiedad-edit img-edit" src="../../../assets/icons/editar-imagen.png" (click)="showImg(listaImagenes, imgModal)" alt="edit" />
-            <!-- <i class="fa-solid fa-star fa-2xl propiedad-edit img-edit" (click)="showImg(listaImagenes, imgModal)"></i> -->
-        </div>
-    </div>
-</div>
 <div class="bottom-margin">
     <app-modal size="lg" #formModal class="large-modal">
         <app-form-propiedad

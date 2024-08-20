@@ -64,6 +64,7 @@ import { FormMensajesComponent } from "../../components/mensajes/form-mensajes/f
 export class PropiedadDetalleComponent implements OnInit{
   @ViewChild('recorrido3DForm') recorrido3DFormElement!: ElementRef;
   @ViewChild('recorrido3DVisor') recorrido3DVisorElement!: ElementRef;
+  @ViewChild('coments') comentsElement!: ElementRef;
   rentaForm!: FormGroup;
   userId!: number;
   protected propiedadId: number;
@@ -86,8 +87,10 @@ export class PropiedadDetalleComponent implements OnInit{
   private service = inject(PropiedadService);
   verRecorrido3DForm = false;
   verVisorRecorrido3D = false;
+  verComents=false;
   verRecorrido3dFormInvalid = true;
   verRecorrido3dInvalid = true;
+  verComentsInvalid =false;
   panoramaReady = false;
   recorrido3dExiste: boolean = false;
   esPropietario: boolean = false;
@@ -102,20 +105,7 @@ export class PropiedadDetalleComponent implements OnInit{
     this.loadCurrentUser();
     let user = localStorage.getItem('auth_user');
    
-    // if(user) {
-    //   this.currentUserId = JSON.parse(user)?.id;
-    // }
-    
-    // try {
-    //   this.service.getByIdSignal(this.propiedadId);
-    //   effect(() => {
-    //     this.propiedad = this.service.propiedad$();
-    //     this.id = this.propiedad.user?.id;
-        
-    //   })
-    // } catch(error) {
-    //   console.error("El id no está en un formato correcto o no existe: " + error);
-    // }
+  
     
     effect(() => {
       const propiedadSignal = this.service.propiedad$;
@@ -138,14 +128,6 @@ export class PropiedadDetalleComponent implements OnInit{
     const userId = this.id;
     
 
-    //  if (userId) {
-    //   this.userService.getByIdSignal(userId);
-    //   effect(() => {
-    //     this.user = this.userService.user$();
-    //   })
-    // } else {
-    //   console.error('El ID no es un número o el usuario no existe');
-    // }
 
     this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
     
@@ -338,6 +320,15 @@ showModal(modal: any) {
       this.verVisorRecorrido3D = !this.verVisorRecorrido3D;
       if (this.verVisorRecorrido3D) {
         setTimeout(() => this.scrollToElement(this.recorrido3DVisorElement), 300);
+      }
+    }
+  }
+
+  toggleVisorComents(): void {
+    if (!this.verComentsInvalid) {
+      this.verComents = !this.verComents;
+      if (this.verComents) {
+        setTimeout(() => this.scrollToElement(this.comentsElement), 300);
       }
     }
   }
