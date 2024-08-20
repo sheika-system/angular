@@ -15,6 +15,7 @@ export class PuntoInteresService extends BaseService<IPuntoInteres> {
     return this.puntoInteresListSignal;
   }
 
+  // Obtiene la lista de puntos de interes  por recorrido3d
   getPuntoInteresByRecorrido3d(recorrido3dId: number) {
     this.http.get<IResponse<IPuntoInteres[]>>(this.source + "/recorrido3D/" + recorrido3dId).subscribe({
       next: (response: any) => {
