@@ -28,22 +28,14 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/pannellum/build/",
-                "output": "./assets/pannellum/"
-              }
+              "src/assets"
             ],
             "styles": [
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/pannellum/build/pannellum.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": [
-              "node_modules/pannellum/build/pannellum.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

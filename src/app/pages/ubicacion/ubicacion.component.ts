@@ -19,7 +19,6 @@ import { ImagenService } from '../../services/imagen.service';
 import { ImagenComponent } from "../../components/imagen/imagen.component";
 import { MapComponent } from "../../components/map/map.component";
 import { DelitoComponent } from "../../components/delito/delito.component";
-import { Recorrido3dComponent } from "../../components/recorrido3d/recorrido3d.component";
 
 
 @Component({
@@ -40,8 +39,8 @@ import { Recorrido3dComponent } from "../../components/recorrido3d/recorrido3d.c
     ImagenComponent,
     MapComponent,
     DelitoComponent,
-    DelitoComponent,
-    Recorrido3dComponent
+    DelitoComponent
+
 ],
   templateUrl: './ubicacion.component.html',
   styleUrls: ['./ubicacion.component.scss']

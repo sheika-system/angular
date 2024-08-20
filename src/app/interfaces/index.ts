@@ -112,9 +112,9 @@ export interface ITipoPropiedad {
 export interface IImagen{
   imagenId?: number,
   descripcion?: string,
-  imagen?: string,
-  propiedad?: IPropiedad,
-  recorrido3d?: IRecorrido3D
+  imagen?: string;
+  propiedad?: IPropiedad
+
 }
 
 export interface IPropiedad {
@@ -178,40 +178,9 @@ export interface PagedResponse<T> {
   empty: boolean;
 }
 
-export interface IRecorrido3D {
-  recorrido3dId?: number;
-  nombre: string;
-  descripcion: string;
-  archivoRecorrido?: string;
-  imagenes?: IImagen[];
-  fechaCreacion?: Date;
-  propiedad?: IPropiedad;
-}
-
-export interface TourConfig {
-  firstScene: string;
-  scenes: {
-    [key: string]: Scene;
-  };
-}
-
-export interface Scene {
-  imageId: number;
-  title: string;
-}
 export interface ICurrency {
   value: string,
   viewValue: string
-
-}
-
-export interface IPuntoInteres {
-  puntoInteresId?: number,
-  nombre?: string,
-  posicionX?: number,
-  posicionY?: number,
-  recorrido3dId?: number,
-  escenaId: string;
 }
 export interface IRenta {
   rentaId?: number;
