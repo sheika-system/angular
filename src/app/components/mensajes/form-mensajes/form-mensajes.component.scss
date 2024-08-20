@@ -1,0 +1,190 @@
+.login-container {
+    width: 100%;
+    // background-image: url("../../../../assets/img/login/login-bg.jpg");
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 40px;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad según necesites */
+      z-index: 1;
+    }
+    .login-card {
+      position: relative;
+      z-index: 2;
+      width: 80%;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 37px rgba(8, 21, 66, 0.05);
+      margin: 0 auto;
+      background-color: #fff;
+    }
+    .invalid-feedback {
+      position: absolute;
+      margin-top: 0px;
+    }
+    @media screen and (min-width: 801px) and (max-width: 1500px) {
+      padding: 20px 5%;
+      .login-card {
+        width: 60%;
+        .login-main {
+          padding: 0px;
+        }
+      }
+    }
+    @media screen and (max-width: 800px) {
+      padding: 20px 5%;
+      .login-card {
+        width: 100%;
+        .login-main {
+          padding: 0px;
+        }
+      }
+    }
+  }
+  
+  .logo-rentheaven {
+    width: 5%;
+    padding-bottom: 50px;
+  }
+  
+  .login-container::before {
+    background: none;
+  }
+  
+  .login-card {
+    border: 1px solid #dbdbdb;
+  }
+  
+  .footer {
+    background-color: #132d46;
+    margin: 0;
+  }
+  
+  .no-underline {
+    text-decoration: none;
+  }
+  
+  .green-text-rh {
+    color: #01c38e;
+  }
+  
+  .green-button {
+    background-color: #01c38e;
+    border: #01c38e;
+  }
+  
+  .login-button {
+    padding-left: 99px;
+  }
+  
+  .padding-right {
+    padding-right: 125px;
+  }
+
+  select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+  }
+  
+  select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .returnHome {
+    text-align: right;
+  }
+
+  .ancle {
+    color: black;
+  }
+
+  .page-wrapper {
+    padding-bottom: 40px;
+  }
+
+  .btn-container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  // .container-register {
+  //   display: flex;
+  //   box-sizing: border-box;
+  //   margin-bottom: 55px;
+  // }
+
+  .container-form{
+    flex: 4.5;
+  }
+
+  .map-container {
+    flex: 5.5;
+  }
+
+  .map-section {
+    margin-bottom: 55px;
+  }
+
+  .moneda {
+    margin-bottom: 10px;
+  }
+
+  .ubicacion-selected {
+    margin-top: 25px;
+  }
+
+  .img-selection {
+    margin-top: 25px;}
+  .btn-green {
+    margin-top: 25px;
+    color: white;
+    background-color: #01c38e;
+  }
+
+  .btn-green:hover {
+    background-color: #01916a;
+  }
+
+  .hidden {
+    display: none;
+}
+
+.uploaded-photo {
+  max-width: 100px !important;
+  width: 100px;
+  max-height: 100px !important;
+  height: 100px !important;
+  display: block;
+  object-fit:cover;
+}
+
+.uploaded-photo-container {
+  border: #01c38e solid 2px;
+  max-height: 100px;
+  max-width: 100px;
+  height: 100px;
+  width: 100px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.photo-btn {
+  display: none;
+}
+
+.own-msj {
+  text-align: center;
+  font-size: 22px;
+}

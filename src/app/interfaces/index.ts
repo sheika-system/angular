@@ -225,3 +225,10 @@ export interface IRenta {
   propiedad?: IPropiedad;
   user?: IUser;
 }
+
+export interface IMensaje {
+  mensajeId?: number,
+  emisor?: IUser,
+  receptor?: IUser,
+  texto?: string
+}

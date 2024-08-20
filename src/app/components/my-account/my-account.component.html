@@ -7,6 +7,7 @@
   </div>
   <ul class="profile-dropdown onhover-show-div text-align-left">
     <li class="opcionesNavegacion" (click)="redirect('/app/perfil/' + userId)"><i class="fa-solid fa-user icon-blue"></i><span>Perfil</span></li>
+    <li class="opcionesNavegacion" (click)="redirect('/app/mensajes/')"><i class="fa-solid fa-message icon-blue"></i><span>Mensajes</span></li>
     <li class="opcionesNavegacion" (click)="redirect('/app/dashboard')" *ngIf="userRole === 'SUPER_ADMIN'"><i class="fa-solid fa-gear icon-blue"></i><span>Admin</span></li>
     <li class="opcionesNavegacion" (click)="logout()"><i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180 icon-blue"></i><span>Cerrar sesión</span></li>
   </ul>

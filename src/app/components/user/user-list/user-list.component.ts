@@ -102,7 +102,7 @@ export class UserListComponent implements AfterViewInit {
 
   showDelete(user: IUser, modal: any) {
     this.userToModify = { ...user };
-    modal.show();
+    modal.show()
   }
 
   deleteUser(userId: number | undefined) {

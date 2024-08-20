@@ -68,7 +68,7 @@
             }
             @if(propiedad.disponibilidad) {
                 <button class="btn btn-rentar" (click)="showModal(solicitudRenta)">Rentar</button>
-                <button class="btn btn-propietario">Contactar Propietario</button>
+                <button class="btn btn-propietario" (click)="showMsj(MsjModal)">Contactar Propietario</button>
             }
             <button class="btn btn-propietario">Ver Tour 3D</button>
             <div *ngIf="id === currentUserId">
@@ -206,3 +206,12 @@
         </app-modal>
     </div>
   </div>
+
+  <app-modal #MsjModal size="lg">
+    <app-form-mensajes
+      [name]="propiedad.user?.nombre"
+      [emisor]="currentUserId"
+      [receptor]="id">
+    </app-form-mensajes>
+  </app-modal>
+  

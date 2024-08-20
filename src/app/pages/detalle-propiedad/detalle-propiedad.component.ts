@@ -1,7 +1,7 @@
 import { Component, effect, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropiedadService } from '../../services/propiedad.service';
-import { IPropiedad, IImagen, IFeedBackMessage, IFeedbackStatus, IUser, IRenta, IRecorrido3D } from '../../interfaces';
+import { IPropiedad, IImagen, IFeedBackMessage, IFeedbackStatus, IUser, IRenta, IRecorrido3D, IMensaje } from '../../interfaces';
 import { ImagenComponent } from '../../components/imagen/imagen.component';
 import { ImagenModalComponent } from '../../components/imagen/imagen-modal/imagen-modal.component';
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { Recorrido3dVisorComponent } from "../../components/recorrido3d/recorrido3d-visor/recorrido3d-visor.component";
 import { Recorrido3dService } from '../../services/recorrido3d.service';
 
+import { FormMensajesComponent } from "../../components/mensajes/form-mensajes/form-mensajes.component";
 
 @Component({
   selector: 'app-propiedad',
@@ -39,7 +40,8 @@ import { Recorrido3dService } from '../../services/recorrido3d.service';
     CalificacionPropiedadCardComponent,
     ComentarioPropiedadComponent,
     Recorrido3dFormComponent, 
-    Recorrido3dVisorComponent],
+    Recorrido3dVisorComponent,
+    FormMensajesComponent],
 
   templateUrl: './detalle-propiedad.component.html',
   styleUrl: './detalle-propiedad.component.scss',
@@ -267,6 +269,10 @@ showModal(modal: any) {
 
   showDetail(propiedad: IPropiedad, modal: any) {
     propiedad = this.propiedad;
+    modal.show();
+  }
+
+  showMsj(modal: any) {
     modal.show();
   }
 

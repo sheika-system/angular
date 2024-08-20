@@ -28,6 +28,9 @@ import { ListCalificacionUsuarioComponent } from './components/calificacion-usua
 import { CalificacionPropiedadComponent } from './components/calificacion-propiedad/form-calificacion-propiedad/calificacion-propiedad.component';
 import { ListCalificacionPropiedadComponent } from './components/calificacion-propiedad/list-calificacion-propiedad/list-calificacion-propiedad.component';
 import { CalificacionPropiedadCardComponent } from './components/calificacion-propiedad-card/calificacion-propiedad-card.component';
+import { MensajesComponent } from './pages/mensajes/mensajes.component';
+import { MensajesAdminComponent } from './pages/mensajes-admin/mensajes-admin.component';
+
 
 
 export const routes: Routes = [
@@ -261,6 +264,29 @@ export const routes: Routes = [
             IRole.admin,
             IRole.superAdmin,
           ]
+        }
+      },
+      {
+        path: 'mensajes',
+        component: MensajesComponent,
+        data: { 
+          authorities: [
+            IRole.admin,
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'mensajes'
+        }
+      },
+      {
+        path: 'mensajesAdmin',
+        component: MensajesAdminComponent,
+        data: { 
+          authorities: [
+            IRole.admin,
+            IRole.superAdmin,
+          ],
+          name: 'mensajesAdmin'
         }
       }
     ],
