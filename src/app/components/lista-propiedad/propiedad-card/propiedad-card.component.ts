@@ -76,11 +76,7 @@ export class PropiedadCardComponent implements OnInit {
 
   isOwnerOrSpecificPage(): boolean {
     const ownerUserId = this.propiedad.user?.id;
-    const specificPage = `/app/propiedadesUsuario/${ownerUserId !== null ? ownerUserId : ''}`;  // Manejar null
-
-    console.log('ownerUserId:', ownerUserId); // Verificar valor del propietario
-    console.log('specificPage:', specificPage); // Verificar página específica
-    console.log('currentPage:', this.currentPage); // Verificar página actual
+    const specificPage = `/app/propiedadesUsuario/${ownerUserId !== null ? ownerUserId : ''}`;
 
     return (this.userId === ownerUserId || this.currentPage === specificPage);
   }
