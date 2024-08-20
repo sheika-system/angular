@@ -411,12 +411,6 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     });
   }
 
-  // showDeleteConfirmDialog() {
-  //   if (confirm('¿Estás seguro de que quieres eliminar este punto de interés?')) {
-  //     this.deletePuntoInteres();
-  //   }
-  // }
-
   deletePuntoInteres() {
     if (this.currentPuntoInteres && this.currentPuntoInteres.puntoInteresId) {
       this.puntoInteresService.deletePuntoInteres(this.currentPuntoInteres).subscribe({

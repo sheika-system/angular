@@ -5,7 +5,9 @@
                 <div class="text-center container-img" (click)="verDetalle(propiedad.propiedadId, accountRequired)">
                     <img
                     class="logo-rentheaven"
-                    [src]="propiedad.listaImagenes![0].imagen ? 'data:image/jpeg;base64,' + propiedad.listaImagenes![0].imagen : 'assets/img/login/noImageFound.jpg'"
+                    [src]="(propiedad.listaImagenes && propiedad.listaImagenes.length > 0 && propiedad.listaImagenes[0].imagen) 
+                    ? 'data:image/jpeg;base64,' + propiedad.listaImagenes[0].imagen 
+                    : 'assets/img/login/noImageFound.jpg'"
                     alt="Primera imágen de propiedad"
                     />
                 </div>
