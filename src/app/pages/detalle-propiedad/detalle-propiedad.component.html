@@ -20,7 +20,7 @@
         <app-modal #CalificacionPropiedad>
             <app-calificacion-propiedad
             [propiedadCalificadaId]="propiedadId.toString()"
-              [usuarioCalificadorId]="currentUserId"
+              [usuarioCalificadorId]="currentUserId.toString()"
             >
             </app-calificacion-propiedad>
           </app-modal>
@@ -74,6 +74,22 @@
             <div *ngIf="id === currentUserId">
                 <i class="fa-solid fa-pen-to-square fa-2xl propiedad-edit" (click)="showDetail(propiedad, formModal)"></i>
             </div>
+            <div class="d-flex align-items-center">
+                @if(esPropietario) {
+                    <button 
+                      class="btn btn-secondary me-2" 
+                      (click)="toggleRecorrido3DForm()"
+                      [disabled]="verRecorrido3dFormInvalid">
+                      Registrar Recorrido 3D
+                    </button>
+                }
+    
+                <button 
+                    class="btn btn-secondary me-2" 
+                    (click)="toggleVisorRecorrido3D()"
+                    [disabled]="verRecorrido3dInvalid">
+                Ver Recorrido 3D
+                </button>
         </div>
     </div>
     
@@ -145,7 +161,26 @@
 
 </div>
 
-  <div class="modal-dialog modal-xl">
+
+<br/>
+<br/>
+<div class="container recorrido3d-form-container" [@slideInOut]="verRecorrido3DForm" #recorrido3DForm>
+  <app-recorrido3d-form *ngIf="verRecorrido3DForm"
+    [propiedadId]="propiedadId"
+    (generateRecorrido3d)="mostrarRecorrido3dCreado($event)">
+  </app-recorrido3d-form>
+</div>
+
+<div class="container recorrido3d-visor-container" [@slideInOut]="verVisorRecorrido3D" #recorrido3DVisor>
+  <app-recorrido3d-visor *ngIf="verVisorRecorrido3D"
+    [recorrido3d]="this.recorrido3d"
+    [esPropietario]="this.esPropietario"
+    (panoramaCargado)="mostrarPanorama($event)"
+    (recorrido3dEliminado)="manejarEliminacionRecorrido3D()">
+  </app-recorrido3d-visor>
+</div>
+
+<div class="modal-dialog modal-xl">
     <div class="modal-content">
         <!-- Contenido del modal -->
         <app-modal size="lg" #imgModal class="large-modal">
@@ -172,3 +207,5 @@
         </app-modal>
     </div>
   </div>
+
+

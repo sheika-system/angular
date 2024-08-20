@@ -18,6 +18,12 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "baseUrl": "./src",
+    "paths": {
+      "@app/*": ["app/*"],
+      "@assets/*": ["assets/*"],
+      "@environments/*": ["environments/*"]
+    },
     "typeRoots": [
       "./node_modules/@types"
     ],
@@ -34,6 +40,7 @@
     "strictTemplates": true
   },
   "include": [
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "./src/**/*.d.ts"
   ]
 }
