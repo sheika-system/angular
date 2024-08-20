@@ -45,7 +45,7 @@ export class PropiedadDetalleComponent implements OnInit{
   public editSuccess!: boolean;
   feedbackMessage: IFeedBackMessage = {type: IFeedbackStatus.default, message: ''};
   protected id: number | undefined;
-  protected currentUserId: number | undefined;
+  protected currentUserId: number = 0;
   user: IUser = {};
 
   listaImagenes: IImagen[] = [];
