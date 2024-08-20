@@ -101,3 +101,18 @@
     </div>
   </div>
 </app-modal>
+<app-modal #deletePuntoInteresModal>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="delete-wrapper justify-content-center align-items-center">
+      <h1>
+        <span class="text-danger"><strong>¿Quieres eliminar el Punto de Interés?</strong></span>
+      </h1>
+      <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-danger" (click)="deletePuntoInteres()"><i class="fa-solid fa-trash fa-l"></i>&nbsp;&nbsp;Eliminar</button>
+      </div>
+      <div *ngIf="successStatus" class="d-flex justify-content-center align-items-center">
+        <p class="delete-success">{{successMessage}}</p>
+      </div>
+    </div>
+  </div>
+</app-modal>

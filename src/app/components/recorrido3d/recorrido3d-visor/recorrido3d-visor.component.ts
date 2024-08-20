@@ -20,6 +20,8 @@ declare const pannellum: any;
 })
 export class Recorrido3dVisorComponent implements OnInit, OnChanges {
   @ViewChild('panorama', { static: false }) panoramaElement!: ElementRef;
+  @ViewChild('deletePuntoInteresModal') deletePuntoInteresModal!: ModalComponent;
+
   @Input() recorrido3d: IRecorrido3D | null = null;
   @Input() esPropietario: boolean = false;
   @Output() panoramaCargado: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -405,15 +407,15 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     event.stopPropagation();
     this.ngZone.run(() => {
       this.currentPuntoInteres = punto;
-      this.showDeleteConfirmDialog();
+      this.deletePuntoInteresModal.show();
     });
   }
 
-  showDeleteConfirmDialog() {
-    if (confirm('¿Estás seguro de que quieres eliminar este punto de interés?')) {
-      this.deletePuntoInteres();
-    }
-  }
+  // showDeleteConfirmDialog() {
+  //   if (confirm('¿Estás seguro de que quieres eliminar este punto de interés?')) {
+  //     this.deletePuntoInteres();
+  //   }
+  // }
 
   deletePuntoInteres() {
     if (this.currentPuntoInteres && this.currentPuntoInteres.puntoInteresId) {
@@ -422,6 +424,10 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
           this.removeHotspotFromViewer(this.currentPuntoInteres!.puntoInteresId!);
           this.puntosInteresList = this.puntosInteresList.filter(p => p.puntoInteresId !== this.currentPuntoInteres!.puntoInteresId);
           this.currentPuntoInteres = null;
+          this.successStatus = true;
+          this.successMessage = 'Punto de Interés eliminado';
+          this.deletePuntoInteresModal.hide();
+          this.successStatus = false;
           this.cdr.detectChanges();
         },
         error: (error) => {
