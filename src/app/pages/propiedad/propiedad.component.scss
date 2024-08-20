@@ -32,7 +32,7 @@
     @media screen and (min-width: 801px) and (max-width: 1500px) {
       padding: 20px 5%;
       .login-card {
-        width: 60%;
+        width: 100%;
         .login-main {
           padding: 0px;
         }
@@ -150,4 +150,10 @@
 
   .btn-green:hover {
     background-color: #01916a;
+  }
+
+  @media screen and (min-width: 767px) and (max-width: 1500px) {
+    .container-register {
+      display: inline;
+    }
   }
