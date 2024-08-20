@@ -24,7 +24,7 @@ export class CalificacionPropiedadCardComponent implements OnInit {
   obtenerCalificaciones() {
     this.calificacionPropiedadService.getByPropiedadCalificadaId(this.propiedadId).subscribe({
       next: (calificaciones: ICalificacionPropiedad[]) => {
-        console.log(calificaciones.length)
+        
         if (calificaciones.length > 0) {
           const suma = calificaciones.reduce((total, calificacion) => total + (calificacion.valor || 0), 0);
           this.calificacionPromedio = suma / calificaciones.length;
