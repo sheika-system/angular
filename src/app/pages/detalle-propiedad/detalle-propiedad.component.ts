@@ -68,6 +68,7 @@ private rentaService = inject(RentaService);
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {
     this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
     let user = localStorage.getItem('auth_user');
+    
     if(user) {
       this.currentUserId = JSON.parse(user)?.id;
     }
@@ -76,22 +77,28 @@ private rentaService = inject(RentaService);
       this.service.getByIdSignal(this.propiedadId);
       effect(() => {
         this.propiedad = this.service.propiedad$();
+        this.id = this.propiedad.user?.id;
         console.log(this.propiedad);
+        console.log("due;o de propiedad:"+this.id);
       })
     } catch(error) {
       console.error("El id no está en un formato correcto o no existe: " + error);
     }
+    
+
     console.log("CurrentUser: " + this.currentUserId, " id: " + this.id)
 
     const userId = this.id;
-    if (userId) {
-      this.userService.getByIdSignal(userId);
-      effect(() => {
-        this.user = this.userService.user$();
-      })
-    } else {
-      console.error('El ID no es un número o el usuario no existe');
-    }
+    
+
+    //  if (userId) {
+    //   this.userService.getByIdSignal(userId);
+    //   effect(() => {
+    //     this.user = this.userService.user$();
+    //   })
+    // } else {
+    //   console.error('El ID no es un número o el usuario no existe');
+    // }
 
     this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
     

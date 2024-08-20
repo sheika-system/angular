@@ -120,7 +120,7 @@
                 <span class="text-success">Solicitud enviada, redireccionando...</span>
             </div>
         </form>
-        <div *ngIf="userId === propiedad.user?.id" class="d-flex justify-content-center align-items-center danger-text-wrapper">
+        <div *ngIf="currentUserId === propiedad.user?.id" class="d-flex justify-content-center align-items-center danger-text-wrapper">
             <span class="text-danger own-property">
                 * No puedes rentar una propiedad que te pertenezca
             </span>
