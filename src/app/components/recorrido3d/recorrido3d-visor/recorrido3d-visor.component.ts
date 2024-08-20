@@ -7,18 +7,21 @@ import { ImagenService } from '../../../services/imagen.service';
 import { PuntoInteresService } from '../../../services/punto-interes.service';
 import { Recorrido3dService } from '../../../services/recorrido3d.service';
 import { PuntointeresFormComponent } from "../../punto-interes/puntointeres-form/puntointeres-form.component";
+import { ModalComponent } from '../../modal/modal.component';
 
 declare const pannellum: any;
 
 @Component({
   selector: 'app-recorrido3d-visor',
   standalone: true,
-  imports: [CommonModule, FormsModule, PuntointeresFormComponent],
+  imports: [CommonModule, FormsModule, ModalComponent, PuntointeresFormComponent],
   templateUrl: './recorrido3d-visor.component.html',
   styleUrl: './recorrido3d-visor.component.scss'
 })
 export class Recorrido3dVisorComponent implements OnInit, OnChanges {
   @ViewChild('panorama', { static: false }) panoramaElement!: ElementRef;
+  @ViewChild('deletePuntoInteresModal') deletePuntoInteresModal!: ModalComponent;
+
   @Input() recorrido3d: IRecorrido3D | null = null;
   @Input() esPropietario: boolean = false;
   @Output() panoramaCargado: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -45,6 +48,8 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
   private mouseDownTime: number = 0;
   isFullscreen = false;
   isAddingHotspot: boolean = false;
+  successStatus: boolean = false;
+  successMessage!: string;
   private currentHotspotIds: string[] = [];
 
   private imagenesReadySubject = new BehaviorSubject<boolean>(false);
@@ -325,7 +330,7 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     }
   }
 
-  eliminarRecorrido3D() {
+  eliminarRecorrido3D(modal: any) {
     if (this.recorrido3d && this.recorrido3d.recorrido3dId) {
       this.recorrido3dService.deleteRecorrido3dSignal(this.recorrido3d).subscribe({
         next: () => {
@@ -333,6 +338,9 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
           this.resetViewer();
           this.recorrido3d = null;
           this.recorridoExiste = false;
+          this.successStatus = true;
+          this.successMessage = 'Recorrido3D eliminado';
+          modal.hide();
           this.setPanoramaReady(false);
         },
         error: (error: any) => {
@@ -399,14 +407,8 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     event.stopPropagation();
     this.ngZone.run(() => {
       this.currentPuntoInteres = punto;
-      this.showDeleteConfirmDialog();
+      this.deletePuntoInteresModal.show();
     });
-  }
-
-  showDeleteConfirmDialog() {
-    if (confirm('¿Estás seguro de que quieres eliminar este punto de interés?')) {
-      this.deletePuntoInteres();
-    }
   }
 
   deletePuntoInteres() {
@@ -416,6 +418,10 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
           this.removeHotspotFromViewer(this.currentPuntoInteres!.puntoInteresId!);
           this.puntosInteresList = this.puntosInteresList.filter(p => p.puntoInteresId !== this.currentPuntoInteres!.puntoInteresId);
           this.currentPuntoInteres = null;
+          this.successStatus = true;
+          this.successMessage = 'Punto de Interés eliminado';
+          this.deletePuntoInteresModal.hide();
+          this.successStatus = false;
           this.cdr.detectChanges();
         },
         error: (error) => {
@@ -478,4 +484,9 @@ export class Recorrido3dVisorComponent implements OnInit, OnChanges {
     this.panoramaReadySubject.next(isReady);
     this.panoramaCargado.emit(isReady);
   }
+
+  showDelete(modal: any) {
+    modal.show();
+  }
+
 }
