@@ -1,0 +1,88 @@
+<div class="recorrido-header">
+  <h1 class="recorrido-result__title">Recorrido 3D Creado</h1>
+  <button class="btn-eliminar-recorrido3d" *ngIf="this.esPropietario" (click)="eliminarRecorrido3D()">
+    <i class="fas fa-trash-alt"></i>
+    Eliminar Recorrido 3D
+  </button>
+</div>
+
+<div class="recorrido-details" *ngIf="verDetalleRecorrido && recorrido3d">
+  <h2 class="recorrido-details__title">Detalles del Recorrido</h2>
+  <dl>
+    <dt>Nombre:</dt>
+    <dd>{{ recorrido3d.nombre }}</dd>
+    <dt>Descripción:</dt>
+    <dd>{{ recorrido3d.descripcion || 'Sin descripción.' }}</dd>
+  </dl>
+</div>
+<!-- Panorama-->
+<div class="panorama-container">
+  <h2 class="panorama-container__title">Vista Panorámica</h2>
+  
+  <!-- Sección informativa sobre puntos de interés -->
+  <div *ngIf="esPropietario" class="info-text add-hotspot">
+    Haz clic izquierdo dentro del visor para agregar un nuevo punto de interés
+  </div>
+  
+  <div #panorama id="panorama" class="panorama-view"
+       [style.visibility]="(panoramaReady$ | async) ? 'visible' : 'hidden'"
+       aria-label="Vista panorámica del recorrido 3D">
+  </div>
+  
+  <div *ngIf="esPropietario" class="info-text delete-hotspot">
+    Haz clic en un punto de interés existente para eliminarlo
+  </div>
+  
+  <!-- Diálogo de confirmación en caso de agregar un punto de interés -->
+  <div *ngIf="showConfirmDialog && !isFullscreen" class="dialog-container">
+    <div class="confirm-dialog" [style.left.px]="clickPosition?.pitch" [style.top.px]="clickPosition?.yaw">
+      <p>¿Registrar Punto de Interés?</p>
+      <button (click)="onConfirmAddPuntoInteres()">Okay</button>
+      <button (click)="onCancelAddPuntoInteres()">Cancelar</button>
+    </div>
+  </div>
+  
+  <!-- Formulario para ingresar puntos de interés -->
+  <div *ngIf="showPuntoInteresForm && formData && recorrido3d && !isFullscreen" class="dialog-container" [style.left.px]="formPosition.x" [style.top.px]="formPosition.y">
+    <app-puntointeres-form 
+      [posicionX]="formData.posicionX"
+      [posicionY]="formData.posicionY"
+      [recorrido3D]="recorrido3d"
+      [escenaId]="formData.escenaId"
+      (puntoInteresAdded)="onPuntoInteresAdded($event)"
+      (cancel)="onCancelAddPuntoInteres()">
+    </app-puntointeres-form>
+  </div>
+
+  <div class="loading-placeholder" *ngIf="!(panoramaReady$ | async)">
+    Cargando Recorrido 3D...
+  </div>
+</div>
+
+<div class="scene-selector" *ngIf="tourConfig && tourConfig.scenes && recorrido3d">
+  <h2 class="scene-selector__title">Escenas</h2>
+  <p class="scene-selector__description">
+    Selecciona una escena para explorar diferentes partes del tour.
+  </p>
+  <ul>
+    <li *ngFor="let scene of tourConfig.scenes | keyvalue">
+      <button (click)="changeScene(scene.key)" [class.active]="currentSceneId === scene.key">
+        <span class="scene-selector__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+            <line x1="7" y1="2" x2="7" y2="22"></line>
+            <line x1="17" y1="2" x2="17" y2="22"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="7" x2="7" y2="7"></line>
+            <line x1="2" y1="17" x2="7" y2="17"></line>
+            <line x1="17" y1="17" x2="22" y2="17"></line>
+            <line x1="17" y1="7" x2="22" y2="7"></line>
+          </svg>
+        </span>
+        <span class="scene-selector__button-text">
+          {{ scene.value && scene.value.title ? scene.value.title : 'Escena sin título' }}
+        </span>
+      </button>
+    </li>
+  </ul>
+</div>

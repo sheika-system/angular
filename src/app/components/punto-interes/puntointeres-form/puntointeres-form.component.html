@@ -1,0 +1,13 @@
+<div class="punto-interes-form">
+  <h3>Agregar Punto de Interés</h3>
+  
+  <div class="form-group">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" [(ngModel)]="nombrePuntoInteres" required>
+  </div>
+  
+  <div class="button-group">
+    <button class="cancel-button" (click)="onCancel()">Cancelar</button>
+    <button class="save-button" (click)="onAdd()" [disabled]="!nombrePuntoInteres">Agregar</button>
+  </div>
+</div>

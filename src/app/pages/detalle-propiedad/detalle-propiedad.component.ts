@@ -1,7 +1,7 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, effect, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropiedadService } from '../../services/propiedad.service';
-import { IPropiedad, IImagen, IFeedBackMessage, IFeedbackStatus, IUser, IRenta  } from '../../interfaces';
+import { IPropiedad, IImagen, IFeedBackMessage, IFeedbackStatus, IUser, IRenta, IRecorrido3D } from '../../interfaces';
 import { ImagenComponent } from '../../components/imagen/imagen.component';
 import { ImagenModalComponent } from '../../components/imagen/imagen-modal/imagen-modal.component';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,10 @@ import { UserService } from '../../services/user.service';
 import { CalificacionPropiedadComponent } from "../../components/calificacion-propiedad/form-calificacion-propiedad/calificacion-propiedad.component";
 import { CalificacionPropiedadCardComponent } from '../../components/calificacion-propiedad-card/calificacion-propiedad-card.component';
 import { ComentarioPropiedadComponent} from '../../components/calificacion-propiedad/comentarios-propiedad/comentarios-propiedad';
+import { Recorrido3dFormComponent } from "../../components/recorrido3d/recorrido3d-form/recorrido3d-form.component";
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Recorrido3dVisorComponent } from "../../components/recorrido3d/recorrido3d-visor/recorrido3d-visor.component";
+import { Recorrido3dService } from '../../services/recorrido3d.service';
 
 
 @Component({
@@ -33,21 +37,40 @@ import { ComentarioPropiedadComponent} from '../../components/calificacion-propi
     FormsModule,
     CalificacionPropiedadComponent,
     CalificacionPropiedadCardComponent,
-    ComentarioPropiedadComponent],
+    ComentarioPropiedadComponent,
+    Recorrido3dFormComponent, 
+    Recorrido3dVisorComponent],
 
   templateUrl: './detalle-propiedad.component.html',
-  styleUrl: './detalle-propiedad.component.scss'
+  styleUrl: './detalle-propiedad.component.scss',
+  animations: [
+    trigger('slideInOut', [
+      state('true', style({
+        height: '*',
+        opacity: 1,
+        overflow: 'hidden'
+      })),
+      state('false', style({
+        height: '0px',
+        opacity: 0,
+        overflow: 'hidden',
+      })),
+      transition('false <=> true', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class PropiedadDetalleComponent implements OnInit{
+  @ViewChild('recorrido3DForm') recorrido3DFormElement!: ElementRef;
+  @ViewChild('recorrido3DVisor') recorrido3DVisorElement!: ElementRef;
   rentaForm!: FormGroup;
   userId!: number;
   protected propiedadId: number;
+  recorrido3d: IRecorrido3D | null = null;
   public editSuccess!: boolean;
   feedbackMessage: IFeedBackMessage = {type: IFeedbackStatus.default, message: ''};
   protected id: number | undefined;
   protected currentUserId: number = 0;
   user: IUser = {};
-
   listaImagenes: IImagen[] = [];
   propiedad: IPropiedad = {
     listaImagenes: this.listaImagenes
@@ -59,33 +82,56 @@ export class PropiedadDetalleComponent implements OnInit{
   formFailure: boolean = false;
   errorMessage!: string
   private service = inject(PropiedadService);
-  
-imagenService = inject(ImagenService);
-propiedadService = inject(PropiedadService);
-userService = inject(UserService);
-private rentaService = inject(RentaService);
+  verRecorrido3DForm = false;
+  verVisorRecorrido3D = false;
+  verRecorrido3dFormInvalid = true;
+  verRecorrido3dInvalid = true;
+  panoramaReady = false;
+  recorrido3dExiste: boolean = false;
+  esPropietario: boolean = false;
+  recorrido3dService = inject(Recorrido3dService)
+  imagenService = inject(ImagenService);
+  propiedadService = inject(PropiedadService);
+  userService = inject(UserService);
+  private rentaService = inject(RentaService);
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {
     this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
+    this.loadCurrentUser();
     let user = localStorage.getItem('auth_user');
-    
-    if(user) {
-      this.currentUserId = JSON.parse(user)?.id;
-    }
-    
-    try {
-      this.service.getByIdSignal(this.propiedadId);
-      effect(() => {
-        this.propiedad = this.service.propiedad$();
-        this.id = this.propiedad.user?.id;
-        
-      })
-    } catch(error) {
-      console.error("El id no está en un formato correcto o no existe: " + error);
-    }
-    
-
    
+    // if(user) {
+    //   this.currentUserId = JSON.parse(user)?.id;
+    // }
+    
+    // try {
+    //   this.service.getByIdSignal(this.propiedadId);
+    //   effect(() => {
+    //     this.propiedad = this.service.propiedad$();
+    //     this.id = this.propiedad.user?.id;
+        
+    //   })
+    // } catch(error) {
+    //   console.error("El id no está en un formato correcto o no existe: " + error);
+    // }
+    
+    effect(() => {
+      const propiedadSignal = this.service.propiedad$;
+      if (propiedadSignal) {
+        this.propiedad = propiedadSignal();
+        this.checkEsPropietario();
+        this.id = this.propiedad.user?.id;
+        if (this.propiedadId) {
+          this.loadRecorrido3d();
+        }
+      }
+    });
+    effect(() => {
+      const recorrido = this.recorrido3dService.recorrido3dRegistrado$();
+      this.recorrido3d = recorrido;
+      this.recorrido3dExiste = !!recorrido && !!recorrido.recorrido3dId;
+      this.updateButtonStates();
+    });
 
     const userId = this.id;
     
@@ -130,7 +176,20 @@ private rentaService = inject(RentaService);
         propiedadId: this.propiedadId
       }]
     }, { validators: this.dateRangeValidator });
+    if (this.propiedadId !== null) {
+      this.service.getByIdSignal(this.propiedadId);
+    }
+
 }
+
+private loadCurrentUser(): void {
+  const user = localStorage.getItem('auth_user');
+  if (user) {
+    this.currentUserId = JSON.parse(user)?.id;
+    this.checkEsPropietario();
+  }
+}
+
 
 dateRangeValidator(control: AbstractControl): ValidationErrors | null{
   const fechaInicio = new Date(control.get('fechaInicio')?.value).setHours(0, 0, 0, 0);
@@ -235,5 +294,90 @@ showModal(modal: any) {
     
     this.propiedad.listaImagenes = params;
   }
+
+  /// logica recorrido 3d///////////////////////////////////////////////////////
+
+  private checkEsPropietario(): void{
+    if (this.currentUserId !== null && this.propiedad) {
+      const nuevoEsPropietario = this.currentUserId === this.propiedad.user?.id;
+      if (this.esPropietario !== nuevoEsPropietario) {
+        this.esPropietario = nuevoEsPropietario;
+      }
+    }
+  }
+
+  private updateButtonStates(): void {
+    this.verRecorrido3dFormInvalid = this.esPropietario && this.recorrido3dExiste;
+    this.verRecorrido3dInvalid = !this.recorrido3dExiste;
+    
+    if (this.esPropietario && !this.recorrido3dExiste) {
+      this.verRecorrido3DForm = true;
+    } else {
+      this.verRecorrido3DForm = false;
+    }
+  }
+  
+  toggleRecorrido3DForm(): void {
+    if (!this.verRecorrido3dFormInvalid) {
+      this.verVisorRecorrido3D = false;
+      this.verRecorrido3DForm = !this.verRecorrido3DForm;
+      if (this.verRecorrido3DForm) {
+        setTimeout(() => this.scrollToElement(this.recorrido3DFormElement), 300);
+      }
+    }
+  }
+  toggleVisorRecorrido3D(): void {
+    if (!this.verRecorrido3dInvalid) {
+      this.verRecorrido3DForm = false;
+      this.verVisorRecorrido3D = !this.verVisorRecorrido3D;
+      if (this.verVisorRecorrido3D) {
+        setTimeout(() => this.scrollToElement(this.recorrido3DVisorElement), 300);
+      }
+    }
+  }
+
+  private scrollToElement(elementRef: ElementRef): void {
+    if (elementRef && elementRef.nativeElement) {
+      elementRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  loadRecorrido3d(): void {
+    if (this.propiedadId) {
+      this.recorrido3dService.getByIdSignal(this.propiedadId);
+    }
+  }
+
+  mostrarPanorama(panoramaReady: boolean){
+    this.panoramaReady = panoramaReady
+  }
+
+  mostrarRecorrido3dCreado(recorrido3d: IRecorrido3D) {
+    if (recorrido3d && recorrido3d.recorrido3dId) {
+      this.recorrido3d = recorrido3d;
+      this.recorrido3dService.setRecorrido3d(recorrido3d); // Asegúrate de que este método exista en tu servicio
+      this.verVisorRecorrido3D = true;
+      if (this.verVisorRecorrido3D) {
+        setTimeout(() => this.scrollToElement(this.recorrido3DVisorElement), 300);
+      }
+      // Asegúrate de que el estado se actualice completamente antes de mostrar el visor
+      setTimeout(() => {
+        this.updateButtonStates();
+      }, 0);
+    } else {
+      console.error('Recorrido3D creado no válido:', recorrido3d);
+    }
+  }
+
+  manejarEliminacionRecorrido3D() {
+    this.recorrido3d = null;
+    this.verVisorRecorrido3D = false;
+    this.recorrido3dService.clearRecorrido3d(); // Asegúrate de que este método exista en tu servicio
+    this.updateButtonStates();
+  }
+
+
+
+
 
 }
