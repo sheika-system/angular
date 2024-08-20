@@ -16,25 +16,27 @@ import { ForgotPasswordService } from '../../services/forgot-password.service';
   styleUrl: './forgot-password.component.scss'
 })
 export class ForgotPasswordComponent {
-  public requestError!: String;
+  public requestError!: boolean;
   public validRequest!: boolean;
   public sendEmail = { email: '' };
 
   constructor(private forgotPasswordService: ForgotPasswordService) {}
 
   onSubmit(form: NgForm) {
-    if (form.valid) {
-      this.forgotPasswordService.sendForgotPasswordEmail(this.sendEmail.email).subscribe({
-        next: () => {
-          this.validRequest = true;
-          this.requestError = '';
-        },
-        error: (err: any) => {
-          console.error('Error in forgot password component:', err);
-          this.requestError = err.error?.description || err.message || 'Error desconocido';
-          this.validRequest = false;
-        }
-      });
+    if (form) {
+      if(this.sendEmail.email != "") {
+        this.forgotPasswordService.sendForgotPasswordEmail(this.sendEmail.email).subscribe({
+          next: () => {
+            this.requestError = false;
+            this.validRequest = true;
+          },
+          error: (err: any) => {
+            console.error('Error in forgot password component:', err);
+          }
+        });
+      } else {
+        this.requestError = true
+      }
     }
   }
 }

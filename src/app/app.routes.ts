@@ -24,6 +24,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RentasComponent } from './pages/rentas/rentas.component';
 import { ListaComponent } from './components/renta/lista/lista.component';
 import { MensajesComponent } from './pages/mensajes/mensajes.component';
+import { MensajesAdminComponent } from './pages/mensajes-admin/mensajes-admin.component';
 
 
 
@@ -216,6 +217,17 @@ export const routes: Routes = [
             IRole.user
           ],
           name: 'mensajes'
+        }
+      },
+      {
+        path: 'mensajesAdmin',
+        component: MensajesAdminComponent,
+        data: { 
+          authorities: [
+            IRole.admin,
+            IRole.superAdmin,
+          ],
+          name: 'mensajesAdmin'
         }
       }
     ],
