@@ -78,15 +78,14 @@ private rentaService = inject(RentaService);
       effect(() => {
         this.propiedad = this.service.propiedad$();
         this.id = this.propiedad.user?.id;
-        console.log(this.propiedad);
-        console.log("due;o de propiedad:"+this.id);
+        
       })
     } catch(error) {
       console.error("El id no está en un formato correcto o no existe: " + error);
     }
     
 
-    console.log("CurrentUser: " + this.currentUserId, " id: " + this.id)
+   
 
     const userId = this.id;
     
@@ -111,7 +110,6 @@ private rentaService = inject(RentaService);
             this.service.getByIdSignal(this.propiedadId);
             effect(() => {
                 this.propiedad = this.service.propiedad$();
-                console.log(this.propiedad);
                 this.id = this.propiedad.user?.id
             });
         } catch (error) {
@@ -202,7 +200,7 @@ showModal(modal: any) {
         error: (error: any) => {
           this.feedbackMessage.type = IFeedbackStatus.error;
           this.feedbackMessage.message = error.message;
-          console.log(this.propiedad);
+          
         }
       });       
     }
@@ -233,7 +231,7 @@ showModal(modal: any) {
   }
 
   onImagenesRegistrar(params: IImagen[]) {
-    console.log("onImagenesRegistrar", params)
+    
     
     this.propiedad.listaImagenes = params;
   }
