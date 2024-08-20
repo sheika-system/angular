@@ -12,10 +12,13 @@ export class ForgotPasswordService extends BaseService<IResetPasswordToken> {
   sendForgotPasswordEmail(email: string): Observable<any> {
     const user: IUser = { email };
     return this.addByEmail(user).pipe(
+      tap(response => {
+      }),
       catchError(error => {
         console.error('Error sending forgot password email:', error);
         return throwError(error);
       })
     );
   }
+  
 }

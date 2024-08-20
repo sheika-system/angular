@@ -24,18 +24,20 @@ export class ForgotPasswordComponent {
 
   onSubmit(form: NgForm) {
     if (form) {
-      if(this.sendEmail.email != "") {
+      const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+      if(this.sendEmail.email !== "" && gmailPattern.test(this.sendEmail.email)) {
         this.forgotPasswordService.sendForgotPasswordEmail(this.sendEmail.email).subscribe({
           next: () => {
-            this.requestError = false;
-            this.validRequest = true;
           },
           error: (err: any) => {
             console.error('Error in forgot password component:', err);
+            this.requestError = true;
           }
         });
+        this.requestError = false;
+        this.validRequest = true;
       } else {
-        this.requestError = true
+        this.requestError = true; // Mostrar un mensaje de error si no es un Gmail válido
       }
     }
   }
