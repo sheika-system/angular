@@ -1,6 +1,6 @@
 <div class="recorrido-header">
   <h1 class="recorrido-result__title">Recorrido 3D Creado</h1>
-  <button class="btn-eliminar-recorrido3d" *ngIf="this.esPropietario" (click)="eliminarRecorrido3D()">
+  <button class="btn-eliminar-recorrido3d" *ngIf="this.esPropietario" (click)="showDelete(deleteRecorridoModal)">
     <i class="fas fa-trash-alt"></i>
     Eliminar Recorrido 3D
   </button>
@@ -86,3 +86,18 @@
     </li>
   </ul>
 </div>
+<app-modal #deleteRecorridoModal>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="delete-wrapper">
+      <h1>
+        <span class="text-danger"><strong>¿Quieres eliminar el Recorrido 3D?</strong></span>
+      </h1>
+      <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-danger" (click)="eliminarRecorrido3D(deleteRecorridoModal)"><i class="fa-solid fa-trash fa-l"></i>&nbsp;&nbsp;Eliminar</button>
+      </div>
+      <div *ngIf="successStatus" class="d-flex justify-content-center align-items-center">
+        <p class="delete-success">{{successMessage}}</p>
+      </div>
+    </div>
+  </div>
+</app-modal>
