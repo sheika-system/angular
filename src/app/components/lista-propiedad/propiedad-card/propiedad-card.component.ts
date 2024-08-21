@@ -6,11 +6,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from "../../modal/modal.component";
 import { UserService } from '../../../services/user.service';
-
+import { CalificacionPropiedadCardComponent } from '../../../components/calificacion-propiedad-card/calificacion-propiedad-card.component';
 @Component({
   selector: 'app-propiedad-card',
   standalone: true,
-  imports: [RouterLink, CommonModule, ModalComponent],
+  imports: [RouterLink, CommonModule, ModalComponent, CalificacionPropiedadCardComponent],
   templateUrl: './propiedad-card.component.html',
   styleUrl: './propiedad-card.component.scss'
 })
@@ -20,18 +20,22 @@ export class PropiedadCardComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
   private userService = inject(UserService);
   private router = inject(Router);
-
+ 
   user: IUser = {};
   userId: number | null = null;  // Asegúrate de que userId sea null y no undefined
   currentPage: string = '';
   successStatus: boolean = false;
   successMessage!: string;
 
+  
   constructor() {}
 
   async ngOnInit() {
     await this.cargarDatosUsuario();
     this.currentPage = this.router.url;
+    
+   
+    
   }
 
   async cargarDatosUsuario(): Promise<void> {
