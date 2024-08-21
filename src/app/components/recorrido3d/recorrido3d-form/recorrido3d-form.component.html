@@ -37,20 +37,13 @@
       <p>Cada imagen que seleccione representará una escena individual en su recorrido 3D. 
          Las escenas se conectarán entre sí para crear una experiencia inmersiva completa.</p>
     </div>
-
+    
     <div class="file-upload">
+      <input type="file" id="file-input" multiple (change)="onFileSelected($event)" accept="image/jpeg,image/png,image/gif" hidden>
       <label for="file-input" class="file-input-label">
         <i class="fas fa-cloud-upload-alt"></i> Seleccionar Imágenes
       </label>
-      <input 
-        id="file-input" 
-        type="file" 
-        (change)="onFileSelected($event)" 
-        multiple 
-        accept="image/*" 
-        class="file-input"
-      >
-      <p class="file-info">Seleccione las imágenes para su recorrido 3D (formatos aceptados: JPG, JPEG, PNG, GIF).</p>
+      <p class="file-info">Formatos aceptados: JPG, JPEG, PNG, GIF</p>
     </div>
   
     <div class="image-list" aria-live="polite">

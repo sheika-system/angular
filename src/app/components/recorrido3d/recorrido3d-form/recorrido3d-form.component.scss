@@ -24,7 +24,7 @@ $gray-dark: #343a40;
   .file-upload {
     margin-bottom: 30px;
     text-align: center;
-
+  
     .file-input-label {
       display: inline-block;
       padding: 12px 24px;
@@ -33,16 +33,16 @@ $gray-dark: #343a40;
       cursor: pointer;
       border-radius: 5px;
       transition: background-color 0.3s ease;
-
+  
       &:hover {
         background-color: #01916a;
       }
-
+  
       i {
         margin-right: 10px;
       }
     }
-
+  
     .file-info {
       margin-top: 10px;
       font-size: 0.9em;
