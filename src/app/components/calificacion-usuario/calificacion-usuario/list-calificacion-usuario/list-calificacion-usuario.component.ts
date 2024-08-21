@@ -13,6 +13,7 @@ import { ModalComponent } from '../../../modal/modal.component';
 import { MatIcon } from '@angular/material/icon';
 import { PerfilFormComponent } from '../../../perfil/perfil-form/perfil-form.component';
 import { CalificacionUsuarioCardComponent } from "../../../calificacion-usuario-card/calificacion-usuario-card.component";
+import { LoaderComponent } from "../../../loader/loader.component";
 
 
 
@@ -31,7 +32,8 @@ import { CalificacionUsuarioCardComponent } from "../../../calificacion-usuario-
     MatInputModule,
     MatIcon,
     PerfilFormComponent,
-    CalificacionUsuarioCardComponent
+    CalificacionUsuarioCardComponent,
+    LoaderComponent
 ],
   
   templateUrl: './list-calificacion-usuario.component.html',
@@ -101,6 +103,7 @@ export class ListCalificacionUsuarioComponent implements AfterViewInit {
           this.successStatus = true;
           this.successMessage = 'Calificación borrada';
           setTimeout(() => {
+            this.successStatus = false;
             this.service.getAllSignal(); 
           }, 1000);
         },

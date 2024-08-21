@@ -83,7 +83,6 @@
 }
 
 button {
-    background-color: #132d46;
     color: #fff;
     border: none;
     padding: 0.5rem 1rem;
@@ -94,4 +93,21 @@ button {
 
 button:hover {
     background-color: #0e1b2a;
+}
+
+.users-container {
+    padding: 50px 150px;
+    padding-bottom: 35px;
+}
+
+.btn-container {
+    padding-left: 15px;
+}
+
+.table-container {
+    margin-top: 20px;
+}
+
+.texto-blue {
+    margin: 0;
 }

@@ -30,6 +30,7 @@ import { ListCalificacionPropiedadComponent } from './components/calificacion-pr
 import { CalificacionPropiedadCardComponent } from './components/calificacion-propiedad-card/calificacion-propiedad-card.component';
 import { MensajesComponent } from './pages/mensajes/mensajes.component';
 import { MensajesAdminComponent } from './pages/mensajes-admin/mensajes-admin.component';
+import { ListadoPropiedadesComponent } from './components/propiedad/listado-propiedades/listado-propiedades.component';
 
 
 
@@ -288,7 +289,18 @@ export const routes: Routes = [
           ],
           name: 'mensajesAdmin'
         }
-      }
+      },
+      {
+        path: 'propiedades',
+        component: ListadoPropiedadesComponent,
+        canActivate: [AdminRoleGuard],
+        data: {
+          authorites: [
+            IRole.admin,
+            IRole.superAdmin,
+          ]
+        }
+      },
     ],
   },
   {

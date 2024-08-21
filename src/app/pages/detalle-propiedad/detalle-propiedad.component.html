@@ -84,7 +84,7 @@
         <div class="d-flex align-items-center">
             @if(esPropietario) {
                 <button 
-                  class="btn btn-secondary me-2" 
+                  class="btn btn-secondary me-2 btn-green" 
                   (click)="toggleRecorrido3DForm()"
                   [disabled]="verRecorrido3dFormInvalid">
                   Registrar Recorrido 3D
@@ -92,14 +92,14 @@
             }
 
             <button 
-                class="btn btn-secondary me-2" 
+                class="btn me-2 background-blue" 
                 (click)="toggleVisorRecorrido3D()"
                 [disabled]="verRecorrido3dInvalid">
             Ver Recorrido 3D
             </button>
 
             <button 
-                class="btn btn-secondary me-2" 
+                class="btn background-blue me-2" 
                 (click)="toggleVisorComents()"
                 [disabled]="verComentsInvalid">
             Ver Comentarios
@@ -215,7 +215,13 @@
     </div>
   </div>
 
-  <app-modal #MsjModal size="lg">
+  <app-modal #plsLogin size="lg">
+    <div class="d-flex justify-content-center align-items-center">
+
+    </div>
+  </app-modal>
+
+  <app-modal #MsjModal>
     <app-form-mensajes
       [name]="propiedad.user?.nombre"
       [emisor]="currentUserId"

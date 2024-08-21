@@ -101,6 +101,7 @@ export class ListCalificacionPropiedadComponent implements AfterViewInit {
           this.successStatus = true;
           this.successMessage = 'Calificación borrada';
           setTimeout(() => {
+            this.successStatus = false;
             this.service.getAllSignal(); 
           }, 1000);
         },

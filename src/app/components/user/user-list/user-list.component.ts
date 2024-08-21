@@ -76,7 +76,6 @@ export class UserListComponent implements AfterViewInit {
       let user = localStorage.getItem('auth_user');
       if(user) {
         this.currentUserId = JSON.parse(user)?.id;
-        console.log(this.currentUserId);
       }
     });
   }

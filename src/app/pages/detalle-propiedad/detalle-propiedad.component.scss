@@ -134,7 +134,6 @@
 }
 .propiedad-edit {
     margin-left: 25px;
-    color: #132d46;
     
 
 }
@@ -183,9 +182,19 @@
 .btn-green {
     background-color: #01c38e;
     color: white;
+    border: solid 1px #01c38e;
   }
   
   .btn-green:hover {
     background-color: #01916a;
   }
-   
+
+  .background-blue {
+    background-color: #132d46;
+    color: white;
+}
+
+.background-blue:disabled {
+    background-color: #132d46;
+    color: white;
+}

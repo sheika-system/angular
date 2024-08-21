@@ -56,14 +56,14 @@
 
 <app-modal #deleteModal>
   <div class="d-flex justify-content-center align-items-center">
-    <div class="delete-wrapper">
-      <h1 *ngIf="currentUserId === userToModify.id">
+    <div *ngIf="currentUserId === userToModify.id" class="delete-wrapper">
+      <h1>
         <span class="text-danger"><strong>No puedes borrarte a ti mismo</strong></span>
       </h1>
     </div>
     <div *ngIf="currentUserId !== userToModify.id" class="delete-wrapper">
       <h1>
-        <span class="text-danger"><strong>¿ Quieres borrar el usuario con ID: {{userToModify.id}} ?</strong></span>
+        <span class="text-danger"><strong>¿Quieres borrar el usuario con ID: {{userToModify.id}}?</strong></span>
       </h1>
       <div class="d-flex justify-content-center align-items-center">
         <button class="btn btn-danger" (click)="deleteUser(userToModify.id)"><i class="fa-solid fa-trash fa-l"></i>&nbsp;&nbsp;Borrar</button>

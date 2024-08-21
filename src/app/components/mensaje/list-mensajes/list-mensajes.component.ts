@@ -87,7 +87,8 @@ id: any;
         next: () => {
           this.successStatus = true;
           this.successMessage = 'mensaje borrado';
-          setTimeout(function(){
+          setTimeout(() => {
+            this.successStatus = false;
             location.reload();
           }, 1000);
         },
