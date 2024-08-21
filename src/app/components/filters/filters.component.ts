@@ -96,7 +96,6 @@ export class FiltersComponent implements OnInit {
         this.filters.priceRange[1] = numericValue;
         this.priceEnd= numericValue;
       }
-      
       this.applyFilters();
     }
   }

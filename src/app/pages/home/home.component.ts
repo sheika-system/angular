@@ -37,14 +37,13 @@ export class PropiedadesListComponent {
   }
   
   splitPropiedadesIntoRows(propiedadList: IPropiedad[] = this.propiedadList) {
-    
+   
     this.rows = []; // Reinicia el arreglo de filas
-    this.cdr.detectChanges();
+    
     for (let i = 0; i < propiedadList.length; i += 3) {
       this.rows.push(propiedadList.slice(i, i + 3));
       
     }
-    console.log(this.rows);
     this.cdr.detectChanges();
   }
 
@@ -58,8 +57,8 @@ export class PropiedadesListComponent {
       this.filteredList = this.propiedadList;
     } else {
       this.filteredList = this.propiedadList.filter(propiedad => {
-        const matchesdisponivilidad = propiedad.disponibilidad === true;
-        const matchesPriceRange = propiedad.precio !== undefined && propiedad.precio >= filters.priceRange[0] && propiedad.precio <= filters.priceRange[1];
+        const matchesdisponivilidad = propiedad.disponibilidad === true; 
+        const matchesPriceRange =propiedad.precio !== undefined && propiedad.precio >= filters.priceRange[0] && propiedad.precio <= filters.priceRange[1];
         const matchesPropertyType = !filters.propertyType || (propiedad.tipoPropiedad && propiedad.tipoPropiedad.nombre === filters.propertyType);
         const matchesProvincia = !filters.provincia || (propiedad.ubicacion?.provincia?.nombre === filters.provincia);
         const matchesCanton = !filters.canton || (propiedad.ubicacion?.canton?.nombre === filters.canton);
@@ -68,11 +67,13 @@ export class PropiedadesListComponent {
         const matchesAmenities = !filters.amenities.length || (
           propiedad.amenidades && filters.amenities.every((amenity: string) => propiedad.amenidades!.some(propAmenidad => propAmenidad.nombre === amenity))
         );
+        
         const matchesAreaRange = propiedad.metrosCuadrados !== undefined && propiedad.metrosCuadrados >= filters.areaRange[0] && propiedad.metrosCuadrados <= filters.areaRange[1];
         
         return matchesPriceRange && matchesPropertyType   && matchesProvincia && matchesCanton && matchesDistrito && matchesAmenities && matchesAreaRange && matchesdisponivilidad;
       });
     }
+    
     this.splitPropiedadesIntoRows(this.filteredList);
   }
 }
