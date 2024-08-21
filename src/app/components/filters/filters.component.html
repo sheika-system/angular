@@ -29,8 +29,8 @@
     <div class="filter-group">
       <label for="priceRange">Rango de Precio</label>
       <mat-slider min="0" max="10000" step="100">
-        <input value="0" matSliderStartThumb [(ngModel)]="priceStart" (change)="onPriceChange($event, 'start')" >
-        <input value="10000" matSliderEndThumb [(ngModel)]="priceEnd" (change)="onPriceChange($event, 'end')" > 
+        <input value="0" matSliderStartThumb [(ngModel)]="priceStart" name="priceStart" (change)="onPriceChange($event, 'start')" >
+        <input value="10000" matSliderEndThumb [(ngModel)]="priceEnd" name="priceEnd" (change)="onPriceChange($event, 'end')" > 
       </mat-slider>
       <div class="price-range-values">
         <span>{{ priceStart}}</span>
@@ -41,8 +41,8 @@
     <div class="filter-group">
       <label for="areaRange">Rango de Área (m²)</label>
       <mat-slider [min]="0" [max]="1000" step="100">
-        <input matSliderStartThumb [(ngModel)]="areaStart" (change)="onAreaChange($event, 'start')">
-        <input matSliderEndThumb [(ngModel)]="areaEnd" (change)="onAreaChange($event, 'end')">
+        <input matSliderStartThumb [(ngModel)]="areaStart" name="areaStart" (change)="onAreaChange($event, 'start')">
+        <input matSliderEndThumb [(ngModel)]="areaEnd" name="areaEnd" (change)="onAreaChange($event, 'end')">
       </mat-slider>
       <div class="area-range-values">
         <span>{{ areaStart }} m²</span>
