@@ -2,13 +2,14 @@
     <div class="login-container">
       <div class="d-flex align-items-center justify-content-center h-100">
           <div class="w-100">
+            <div class="login-card">
             <div class="text-center">
             </div>
             <div class="login-main">
               <form [formGroup]="mensajeForm" *ngIf="emisor !== receptor">
                 
                     <div class="mb-3">
-                      <h1><strong>Envia un mensaje a {{name}}!</strong></h1>
+                      <h1><strong>Envía un mensaje a {{name}}!</strong></h1>
                     </div>
                       <div class="form-group">
                         <label for="contenido" class="form-label mb-2">Mensaje:</label>
@@ -47,4 +48,4 @@
         </div>
       </div>
     </div>
-  
+</div>

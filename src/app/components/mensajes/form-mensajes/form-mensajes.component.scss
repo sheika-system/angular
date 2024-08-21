@@ -4,7 +4,6 @@
     background-position: left;
     background-size: cover;
     background-repeat: no-repeat;
-    padding-top: 40px;
     &::before {
       content: '';
       position: absolute;
@@ -21,7 +20,6 @@
       width: 80%;
       padding: 40px;
       border-radius: 10px;
-      box-shadow: 0 0 37px rgba(8, 21, 66, 0.05);
       margin: 0 auto;
       background-color: #fff;
     }
@@ -56,10 +54,6 @@
   
   .login-container::before {
     background: none;
-  }
-  
-  .login-card {
-    border: 1px solid #dbdbdb;
   }
   
   .footer {
