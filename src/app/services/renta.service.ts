@@ -8,11 +8,16 @@ import { catchError, Observable, tap, throwError } from "rxjs";
 })
 export class RentaService extends BaseService<IRenta> {
     override source: string = 'rentas';
+    rentaByIdSignal = signal<IRenta>({});
     rentaListSignal = signal<IRenta[]>([]);
     rentaRecibidaListSignal = signal<IRenta[]>([]);
     rentaEnviadaListSignal = signal<IRenta[]>([]);
     rentaActivaListSignal = signal<IRenta[]>([]);
     rentaCompletaListSignal = signal<IRenta[]>([]);
+
+    get renta$() {
+        return this.rentaByIdSignal;
+    }
 
     get rentas$() {
         return this.rentaListSignal;
@@ -32,6 +37,15 @@ export class RentaService extends BaseService<IRenta> {
 
     get rentasCompletas$() {
         return this.rentaCompletaListSignal;
+    }
+
+    getByIdSingal(rentaId: number) {
+        this.find(rentaId).subscribe({
+            next: (response: any) => {
+                response.reverse();
+                this.rentaByIdSignal.set(response);
+            }
+        })
     }
 
     getAllSignal() {

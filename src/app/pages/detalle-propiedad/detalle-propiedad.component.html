@@ -178,7 +178,8 @@
 <div class="bottom-margin">
     <app-modal size="lg" #formModal class="large-modal">
         <app-form-propiedad
-        [propiedad]="propiedad"></app-form-propiedad>
+        (propiedadUpdated)="onPropiedadUpdated($event, formModal)"
+        [_propiedad]="getPropiedadCopy()"></app-form-propiedad>
     </app-modal>
 
 </div>

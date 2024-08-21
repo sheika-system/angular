@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserService extends BaseService<IUser> {
   protected override source: string = 'users';
   protected baseUrl: string = 'http://localhost:4200';
-  private userListSignal = signal<IUser[]>([]);
+  userListSignal = signal<IUser[]>([]);
   private userSignal = signal<IUser>({});
   
   get users$() {

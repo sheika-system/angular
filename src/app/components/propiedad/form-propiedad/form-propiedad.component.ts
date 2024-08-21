@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UbicacionService } from '../../../services/ubicacion.service';
 import { AmenidadService } from '../../../services/amenidad.service';
@@ -96,23 +96,34 @@ export class FormPropiedadComponent {
     { value: 'CRC', viewValue: 'Colón Costarricense (CRC)' }
   ];
 
-  @Input() propiedad: IPropiedad = {
-    nombre: '',
-    descripcion: '',
-    tipoPropiedad: this.tipoPropiedad,
-    moneda: this.currency.value,
-    precio: 0,
-    ubicacion: this.ubicacion,
-    amenidades: this.listaAmenidades,
-    annioConstruccion: 0,
-    cuartosCant: 0,
-    banniosCant: 0,
-    metrosCuadrados: 0,
-    disponibilidad: true,
-    listaImagenes: [],
-    user: undefined
-  };
+  // @Input() propiedad: IPropiedad = {
+  //   nombre: '',
+  //   descripcion: '',
+  //   tipoPropiedad: this.tipoPropiedad,
+  //   moneda: this.currency.value,
+  //   precio: 0,
+  //   ubicacion: this.ubicacion,
+  //   amenidades: this.listaAmenidades,
+  //   annioConstruccion: 0,
+  //   cuartosCant: 0,
+  //   banniosCant: 0,
+  //   metrosCuadrados: 0,
+  //   disponibilidad: true,
+  //   listaImagenes: [],
+  //   user: undefined
+  // };
+  // @Input() set propiedad(value: IPropiedad) {
+  //   this._propiedad = JSON.parse(JSON.stringify(value));
+  // }
+
+  @Input() _propiedad: IPropiedad = {};
+  @Output() propiedadUpdated = new EventEmitter<IPropiedad>();
   
+  // get propiedad(): IPropiedad {
+  //   return this._propiedad;
+  // }
+  // _propiedad: IPropiedad = {};
+
   constructor(private propiedadService: PropiedadService, private route: ActivatedRoute, public router: Router) {
     const user = localStorage.getItem('auth_user');
     if (user) {
@@ -139,10 +150,12 @@ export class FormPropiedadComponent {
       return;
     } else {
       const sanitizedUser = this.sanitizeUser(this.user);
-      this.propiedad.user = sanitizedUser;
-      this.propiedadService.updatePropiedadSignal(this.propiedad).subscribe({
-        next: () => {
+      this._propiedad = { ...this._propiedad, ...form.value };
+      this._propiedad.user = sanitizedUser;
+      this.propiedadService.updatePropiedadSignal(this._propiedad).subscribe({
+        next: (response: any) => {
           this.editSuccess = true;
+          this.propiedadUpdated.emit(this._propiedad);
           setTimeout(function(){
             location.reload();
           }, 1000);
@@ -150,7 +163,6 @@ export class FormPropiedadComponent {
         error: (error: any) => {
           this.feedbackMessage.type = IFeedbackStatus.error;
           this.feedbackMessage.message = error.message;
-          console.log(this.propiedad);
         }
       });       
     }
@@ -165,7 +177,7 @@ export class FormPropiedadComponent {
     
         if (user) {  
           this.user = user;
-          this.propiedad.user = user;
+          this._propiedad.user = user;
         } else {
           throw new Error('Usuario no encontrado');
         }
@@ -197,7 +209,7 @@ export class FormPropiedadComponent {
   
         reader.onload = (e: any) => {
           const base64String = e.target.result.split(',')[1];
-          this.propiedad.listaImagenes = base64String;
+          this._propiedad.listaImagenes = base64String;
         }
   
         reader.readAsDataURL(file);
@@ -205,24 +217,24 @@ export class FormPropiedadComponent {
     }
     
     onUbicacionChange(params: IUbicacion) {
-      this.propiedad.ubicacion = params;
-      console.log("Ubicacion en propiedad:", this.propiedad.ubicacion);
+      this._propiedad.ubicacion = params;
+      console.log("Ubicacion en propiedad:", this._propiedad.ubicacion);
     }
   onAmenidadChange(params: IAmenidad[]){
     console.log("onAmenidadChange", params)
 
-    this.propiedad.amenidades = params;
+    this._propiedad.amenidades = params;
   }
 
   onTipoPropiedadChange(params: ITipoPropiedad){
     console.log("onTipoPropiedadChange", params)
 
-    this.propiedad.tipoPropiedad = params;
+    this._propiedad.tipoPropiedad = params;
   }
   onImagenesRegistrar(params: IImagen[]) {
     console.log("onImagenesRegistrar", params)
     
-    this.propiedad.listaImagenes = params;
+    this._propiedad.listaImagenes = params;
   }
 
   onMonedaChange(event: Event) {
@@ -231,7 +243,7 @@ export class FormPropiedadComponent {
       viewValue: "",
       value: ""
     };
-    this.propiedad.moneda = this.currency.value;
+    this._propiedad.moneda = this.currency.value;
     this.monedaTouched = true;
     this.monedaInvalid = !this.currency.value;
   }

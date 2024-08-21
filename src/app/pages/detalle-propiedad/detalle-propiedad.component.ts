@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropiedadService } from '../../services/propiedad.service';
 import { IPropiedad, IImagen, IFeedBackMessage, IFeedbackStatus, IUser, IRenta, IRecorrido3D, IMensaje } from '../../interfaces';
@@ -100,7 +100,7 @@ export class PropiedadDetalleComponent implements OnInit{
   userService = inject(UserService);
   private rentaService = inject(RentaService);
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router, private changeDetectorRef: ChangeDetectorRef) {
     this.propiedadId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10);
     this.loadCurrentUser();
     let user = localStorage.getItem('auth_user');
@@ -373,8 +373,33 @@ showModal(modal: any) {
     this.updateButtonStates();
   }
 
+  getPropiedadCopy(): IPropiedad {
+    return JSON.parse(JSON.stringify(this.propiedad));
+  }
 
+  onPropiedadUpdated(updatedPropiedad: IPropiedad, modal: any) {
+    // Crear una nueva referencia del objeto propiedad
+    this.propiedad = { ...updatedPropiedad };
+    this.changeDetectorRef.detectChanges();
+    console.log(updatedPropiedad);
+    modal.hide();
 
-
-
+    // // Actualizar en el backend
+    // this.propiedadService.updatePropiedad(this.propiedad).subscribe(
+    //   (response: IPropiedad) => {
+    //     // Actualizar con la respuesta del servidor para asegurar consistencia
+    //     this.propiedad = { ...response };
+        
+    //     // Forzar la detección de cambios
+    //     this.changeDetectorRef.detectChanges();
+        
+    //     console.log('Propiedad actualizada con éxito');
+    //     // Aquí puedes agregar lógica adicional, como mostrar un mensaje de éxito
+    //   },
+    //   (error) => {
+    //     console.error('Error al actualizar la propiedad', error);
+    //     // Aquí puedes manejar el error, como mostrar un mensaje de error al usuario
+    //   }
+    // );
+  }
 }
