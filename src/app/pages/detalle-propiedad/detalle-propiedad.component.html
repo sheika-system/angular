@@ -130,9 +130,10 @@
 <div class="coments" [@slideInOut]="verComents" #coments>
 <h3>
     <strong>Comentarios y calificaciones: </strong>
+    <div *ngIf="id != currentUserId">
     <button class="btn btn-calificar" (click)="calificarPropiedad(CalificacionPropiedad)">
         <span class="texto-white">Dejar un comentario</span>
-      </button>
+      </button></div>
 </h3>
 <app-comentario-propiedad [propiedadId]="propiedadId"></app-comentario-propiedad>
 </div>

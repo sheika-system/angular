@@ -55,9 +55,10 @@
               <div class="coments">
                 <h3>
                     <strong>Comentarios y calificaciones: </strong>
+                    <div *ngIf="id != currentUserId">
                     <button class="btn btn-calificar" (click)="calificarUsuario(CalificacionUsuario)">
                       <span class="texto-white">Calificar Usuario</span>
-                    </button>
+                    </button></div>
                 </h3>
                 <app-comentario-usuario [propiedadId]="usuarioId"></app-comentario-usuario>
                 </div>
