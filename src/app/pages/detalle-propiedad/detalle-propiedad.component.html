@@ -80,6 +80,7 @@
                 <img class="fa-solid fa-2xl propiedad-edit img-edit" src="../../../assets/icons/editar-imagen.png" (click)="showImg(listaImagenes, imgModal)" alt="edit" />
             </div>
         </div>
+        <br>
         <div class="d-flex align-items-center">
             @if(esPropietario) {
                 <button 
@@ -109,9 +110,10 @@
 </div>
 
 <div class="container recorrido3d-form-container" [@slideInOut]="verRecorrido3DForm" #recorrido3DForm>
-    <app-recorrido3d-form *ngIf="verRecorrido3DForm"
-      [propiedadId]="propiedadId"
-      (generateRecorrido3d)="mostrarRecorrido3dCreado($event)">
+    <app-recorrido3d-form 
+        *ngIf="verRecorrido3DForm && esPropietario && !recorrido3dExiste"
+        [propiedadId]="propiedadId"
+        (generateRecorrido3d)="mostrarRecorrido3dCreado($event)">
     </app-recorrido3d-form>
   </div>
   

@@ -54,7 +54,6 @@ export class PuntointeresFormComponent implements OnChanges, OnInit  {
         escenaId: this.escenaId
       });
     }
-    console.log("id recorrido3d "+this.recorrido3D.recorrido3dId)
   }
 
   onCancel() {

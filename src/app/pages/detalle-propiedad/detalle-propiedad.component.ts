@@ -297,12 +297,6 @@ showModal(modal: any) {
   private updateButtonStates(): void {
     this.verRecorrido3dFormInvalid = this.esPropietario && this.recorrido3dExiste;
     this.verRecorrido3dInvalid = !this.recorrido3dExiste;
-    
-    if (this.esPropietario && !this.recorrido3dExiste) {
-      this.verRecorrido3DForm = true;
-    } else {
-      this.verRecorrido3DForm = false;
-    }
   }
   
   toggleRecorrido3DForm(): void {
@@ -383,23 +377,5 @@ showModal(modal: any) {
     this.changeDetectorRef.detectChanges();
     console.log(updatedPropiedad);
     modal.hide();
-
-    // // Actualizar en el backend
-    // this.propiedadService.updatePropiedad(this.propiedad).subscribe(
-    //   (response: IPropiedad) => {
-    //     // Actualizar con la respuesta del servidor para asegurar consistencia
-    //     this.propiedad = { ...response };
-        
-    //     // Forzar la detección de cambios
-    //     this.changeDetectorRef.detectChanges();
-        
-    //     console.log('Propiedad actualizada con éxito');
-    //     // Aquí puedes agregar lógica adicional, como mostrar un mensaje de éxito
-    //   },
-    //   (error) => {
-    //     console.error('Error al actualizar la propiedad', error);
-    //     // Aquí puedes manejar el error, como mostrar un mensaje de error al usuario
-    //   }
-    // );
   }
 }
